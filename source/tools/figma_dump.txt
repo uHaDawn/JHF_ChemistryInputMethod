@@ -1,0 +1,4487 @@
+NAME: "JHFkeyBoard"
+
+GLOBAL_VARS:
+layout_d01ebf9d:
+  mode: none
+  sizing: {}
+  dimensions:
+    width: 402
+    height: 874
+fill_2bed7563:
+  - '#EAEAEA'
+layout_fb0d848b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 11
+  dimensions:
+    width: 381
+    height: 146
+fill_658ab2fa:
+  - '#FFFFFF'
+layout_60d474ca:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 258
+  dimensions:
+    width: 381
+    height: 51
+layout_2b7dc6fe:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 34
+    y: 35
+  dimensions:
+    width: 56
+    height: 50
+fill_97d170e1: []
+fill_34dc0314:
+  - '#000000'
+fill_7ed6cbc7:
+  - '#05BEC1'
+layout_f2cb2a50:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 34
+    y: 93
+  dimensions:
+    width: 287
+    height: 64
+ts1:
+  fontStyle: Heavy
+  fills:
+    - '#000000'
+ts2:
+  fontStyle: Heavy
+style_11d6135c:
+  fontFamily: PingFang SC
+  fontStyle: Light
+  fontWeight: 400
+  fontSize: 32
+  textAlignHorizontal: LEFT
+  textAlignVertical: TOP
+layout_32629f06:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 34
+    y: 269
+  dimensions:
+    width: 161
+    height: 33
+style_e29b786c:
+  fontFamily: PingFang SC
+  fontStyle: Bold
+  fontWeight: 400
+  fontSize: 20
+  textAlignHorizontal: LEFT
+  textAlignVertical: TOP
+layout_8dec6a8d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 199
+  dimensions:
+    width: 381
+    height: 51
+layout_bbd1b1b8:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 0
+  dimensions:
+    width: 381
+    height: 51
+style_d653fb7d:
+  fontFamily: PingFang SC
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 20
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+layout_149d1e5d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 42
+    y: 0
+  dimensions:
+    width: 78
+    height: 33
+layout_47800bdc:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 2
+  dimensions:
+    width: 102
+    height: 33
+layout_40ae90cc:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 12
+    y: 0
+  dimensions:
+    width: 78
+    height: 33
+layout_38c53121:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 0
+  dimensions:
+    width: 102
+    height: 33
+style_ae9f1680:
+  fontFamily: PingFang SC
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 20
+  textAlignHorizontal: CENTER
+  textAlignVertical: CENTER
+layout_b43aa8a5:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 31
+    y: 165
+  dimensions:
+    width: 133
+    height: 29
+style_11461149:
+  fontFamily: PingFang SC
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 20
+  textAlignHorizontal: LEFT
+  textAlignVertical: CENTER
+layout_2890c110:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 171
+  dimensions:
+    width: 17.5
+    height: 18
+layout_09ba6469:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 31
+    y: 504
+  dimensions:
+    width: 133
+    height: 29
+layout_6b3483a1:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 510
+  dimensions:
+    width: 17.5
+    height: 18
+layout_b82ceb79:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 543
+  dimensions:
+    width: 402
+    height: 331
+layout_fd864604:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 0
+  dimensions:
+    width: 402
+    height: 331
+layout_b22a937e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 0
+  dimensions:
+    width: 402
+    height: 52
+layout_373dca62:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 91
+    y: 9
+  dimensions:
+    width: 261
+    height: 35
+layout_32ad45bb:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 360
+    y: 9
+  dimensions:
+    width: 35
+    height: 35
+layout_79bee2b2:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 45
+    y: 17
+  dimensions:
+    width: 0
+    height: 19
+layout_0fd2449e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 8
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+effect_ecbc28ee:
+  boxShadow: 0px 2px 0px 0px rgba(5, 190, 193, 1)
+layout_46d5b964:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 48
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+layout_d590f56d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 126
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+layout_eddc4e32:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 87
+    y: 60
+  dimensions:
+    width: 31
+    height: 46
+layout_3e0e396d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 205
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+layout_cc327538:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 166
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+layout_80a492e8:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 285
+    y: 60
+  dimensions:
+    width: 31
+    height: 46
+layout_a3bc091a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 245
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+layout_17702df1:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 363
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+layout_b2094c03:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 323
+    y: 60
+  dimensions:
+    width: 32
+    height: 46
+layout_ca437e19:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 11
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_7efaf8b3:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 29
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+style_f5e80fd9:
+  fontFamily: PingFang SC
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 10
+  textAlignHorizontal: CENTER
+  textAlignVertical: CENTER
+layout_543b97dc:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 51
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_360586db:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 69
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_95523b03:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 89
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_3a60f56b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 107
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_27179a9f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 129
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_553d05d1:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 147
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_d2ddd871:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 169
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_0942ea2f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 187
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_ef18e8da:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 208
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_bb7a66b7:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 226
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_1d88b85d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 248
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_92f8b13e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 266
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_569858e0:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 287
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_f47c837e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 305
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_b3229b11:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 326
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_1c7027d1:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 344
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_f1dc7f7c:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 366
+    y: 72
+  dimensions:
+    width: 25
+    height: 21
+layout_5fe10858:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 384
+    y: 62
+  dimensions:
+    width: 11
+    height: 11
+layout_3da49b42:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 8
+    y: 117
+  dimensions:
+    width: 36
+    height: 46
+layout_4f0113e1:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 53
+    y: 117
+  dimensions:
+    width: 35
+    height: 46
+layout_12972551:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 140
+    y: 117
+  dimensions:
+    width: 35
+    height: 46
+layout_1d0eb9db:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 96
+    y: 117
+  dimensions:
+    width: 35
+    height: 46
+layout_157f5cdf:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 228
+    y: 117
+  dimensions:
+    width: 35
+    height: 46
+layout_9f51ba56:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 184
+    y: 117
+  dimensions:
+    width: 36
+    height: 46
+layout_e99ea447:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 317
+    y: 117
+  dimensions:
+    width: 35
+    height: 46
+layout_2e85317b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 272
+    y: 117
+  dimensions:
+    width: 36
+    height: 46
+layout_84f6ebb9:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 359
+    y: 117
+  dimensions:
+    width: 36
+    height: 46
+layout_3fd3a14c:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 11
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+layout_a1f4bff5:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 28
+    y: 119
+  dimensions:
+    width: 13
+    height: 11
+layout_bba255a8:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 56
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+layout_d19ad50f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 76
+    y: 119
+  dimensions:
+    width: 12
+    height: 11
+layout_06bb915e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 98
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+layout_d60856c7:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 143
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+layout_b614ba91:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 188
+    y: 129
+  dimensions:
+    width: 27
+    height: 21
+layout_16e65331:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 231
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+layout_201e70a2:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 208
+    y: 119
+  dimensions:
+    width: 12
+    height: 11
+layout_394dcaff:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 276
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+layout_cf7a0a45:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 253
+    y: 119
+  dimensions:
+    width: 12
+    height: 11
+layout_483947b4:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 119
+    y: 119
+  dimensions:
+    width: 12
+    height: 11
+layout_5f29c0f6:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 164
+    y: 119
+  dimensions:
+    width: 12
+    height: 11
+layout_b7c85383:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 319
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+layout_fda2d38a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 382
+    y: 122
+  dimensions:
+    width: 13
+    height: 11
+layout_55697558:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 53
+    y: 175
+  dimensions:
+    width: 35
+    height: 46
+layout_7c8e6dbe:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 9
+    y: 175
+  dimensions:
+    width: 35
+    height: 46
+effect_776f2f10:
+  boxShadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.15)
+layout_3331e4b7:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 96
+    y: 233
+  dimensions:
+    width: 35
+    height: 46
+layout_536b549a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 359
+    y: 175
+  dimensions:
+    width: 35
+    height: 46
+layout_fe4a9071:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 140
+    y: 175
+  dimensions:
+    width: 35
+    height: 46
+layout_6f6f9dcb:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 96
+    y: 175
+  dimensions:
+    width: 35
+    height: 46
+layout_8267115b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 228
+    y: 175
+  dimensions:
+    width: 35
+    height: 46
+layout_aaca5fdc:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 184
+    y: 175
+  dimensions:
+    width: 36
+    height: 46
+layout_1fee80c5:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 9
+    y: 233
+  dimensions:
+    width: 78
+    height: 46
+layout_49480eaf:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 140
+    y: 233
+  dimensions:
+    width: 168
+    height: 46
+layout_3c820d95:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 317
+    y: 175
+  dimensions:
+    width: 35
+    height: 46
+layout_8ffa23ea:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 272
+    y: 175
+  dimensions:
+    width: 36
+    height: 46
+layout_af4dfd4b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 56
+    y: 187
+  dimensions:
+    width: 28
+    height: 21
+layout_abfe4701:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 251
+    y: 177
+  dimensions:
+    width: 12
+    height: 11
+layout_750dd184:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 98
+    y: 187
+  dimensions:
+    width: 28
+    height: 21
+layout_62ada0af:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 337
+    y: 177
+  dimensions:
+    width: 13
+    height: 11
+layout_2b98aa5e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 162
+    y: 177
+  dimensions:
+    width: 13
+    height: 11
+layout_bdca7aa3:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 143
+    y: 187
+  dimensions:
+    width: 28
+    height: 21
+layout_89ac224e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 294
+    y: 177
+  dimensions:
+    width: 12
+    height: 11
+layout_f2b67487:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 188
+    y: 187
+  dimensions:
+    width: 27
+    height: 21
+layout_6241aefd:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 231
+    y: 187
+  dimensions:
+    width: 28
+    height: 21
+layout_1110ab96:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 276
+    y: 187
+  dimensions:
+    width: 28
+    height: 21
+style_a9edd6a2:
+  fontFamily: Philosopher
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 8
+  textAlignHorizontal: CENTER
+  textAlignVertical: CENTER
+layout_b54339f4:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 319
+    y: 187
+  dimensions:
+    width: 28
+    height: 21
+layout_6c1e9261:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 363
+    y: 129
+  dimensions:
+    width: 28
+    height: 21
+style_838430fe:
+  fontFamily: PingFang SC
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 6
+  textAlignHorizontal: CENTER
+  textAlignVertical: CENTER
+style_7648931c:
+  fontFamily: PingFang SC
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 8
+  textAlignHorizontal: CENTER
+  textAlignVertical: CENTER
+layout_6f098c5d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 208
+    y: 183
+  dimensions:
+    width: 11
+    height: 0
+layout_9bb0dc46:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 296
+    y: 125
+  dimensions:
+    width: 8
+    height: 0
+layout_b2841af0:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 341
+    y: 126
+  dimensions:
+    width: 8
+    height: 0
+layout_ef47a1a4:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 122
+    y: 185
+  dimensions:
+    width: 4
+    height: 0
+layout_66150f6f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 73
+    y: 177
+  dimensions:
+    width: 13
+    height: 11
+layout_bf435080:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 20
+    y: 190
+  dimensions:
+    width: 13
+    height: 14
+layout_a43ad0b3:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 373.86
+    y: 194.7
+  dimensions:
+    width: 7.24
+    height: 7.24
+layout_f841683f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 366.25
+    y: 193
+  dimensions:
+    width: 18
+    height: 11
+layout_7e2930e4:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 9
+    y: 238
+  dimensions:
+    width: 78
+    height: 36
+ts3:
+  fills:
+    - rgba(0, 0, 0, 0.14)
+layout_1fcc476c:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 48
+    y: 246
+  dimensions:
+    width: 0
+    height: 19
+layout_0f43df3e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 110
+    y: 230
+  dimensions:
+    width: 19
+    height: 24
+layout_585c86b0:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 346
+    y: 250
+  dimensions:
+    width: 20
+    height: 7
+layout_99839f6e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 181
+    y: 244
+  dimensions:
+    width: 85
+    height: 22
+layout_277df73e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 185
+    y: 290
+  dimensions:
+    width: 33
+    height: 27
+style_e378bd31:
+  fontFamily: Platypi
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 20
+  textAlignHorizontal: CENTER
+  textAlignVertical: CENTER
+layout_5cfd526a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 291
+  dimensions:
+    width: 381
+    height: 114
+layout_283ea92d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 198
+  dimensions:
+    width: 381
+    height: 56
+style_218687d2:
+  fontFamily: PingFang SC
+  fontStyle: Bold
+  fontWeight: 400
+  fontSize: 32
+  textAlignHorizontal: LEFT
+  textAlignVertical: TOP
+layout_d03ed46b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 34
+    y: 302
+  dimensions:
+    width: 161
+    height: 33
+style_7619af37:
+  fontFamily: PingFang SC
+  fontStyle: Bold
+  fontWeight: 400
+  fontSize: 20
+  textAlignHorizontal: LEFT
+  textAlignVertical: CENTER
+layout_e7998234:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 34
+    y: 209
+  dimensions:
+    width: 161
+    height: 33
+layout_f08e630a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 268
+    y: 209
+  dimensions:
+    width: 102
+    height: 33
+style_363b1da0:
+  fontFamily: PingFang SC
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 20
+  textAlignHorizontal: RIGHT
+  textAlignVertical: CENTER
+layout_773c5232:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 268
+    y: 302
+  dimensions:
+    width: 102
+    height: 33
+layout_98019052:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 34
+    y: 359
+  dimensions:
+    width: 102
+    height: 33
+layout_98c6575b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 31
+    y: 258
+  dimensions:
+    width: 133
+    height: 29
+layout_0c21c2ad:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 264
+  dimensions:
+    width: 17.5
+    height: 18
+layout_64b5a0ea:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 348
+  dimensions:
+    width: 381
+    height: 0
+layout_25d93378:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 10
+    y: 415
+  dimensions:
+    width: 80
+    height: 80
+fill_13cbf414:
+  - '#B92D2D'
+fill_96f59904:
+  - '#313131'
+ts4:
+  fontStyle: Heavy
+  fills:
+    - '#FFFFFF'
+effect_fadc47c6:
+  boxShadow: 0px 2px 0px 0px rgba(255, 255, 255, 0.15)
+ts5:
+  fills:
+    - rgba(255, 255, 255, 0.43)
+layout_85720185:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 543
+  dimensions:
+    width: 402
+    height: 52
+layout_89d244c3:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 91
+    y: 552
+  dimensions:
+    width: 261
+    height: 35
+layout_85968bee:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 360
+    y: 552
+  dimensions:
+    width: 35
+    height: 35
+layout_894b5283:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 45
+    y: 560
+  dimensions:
+    width: 0
+    height: 19
+layout_5afe8147:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 8
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+effect_309be11c:
+  boxShadow: 0px 2px 0px 0px rgba(185, 45, 45, 1)
+layout_5ddfe163:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 48
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+layout_0a71cc05:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 126
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+layout_eb6521d7:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 87
+    y: 603
+  dimensions:
+    width: 31
+    height: 46
+layout_df08b8ce:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 205
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+layout_c7142fb8:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 166
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+layout_9c1c6737:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 285
+    y: 603
+  dimensions:
+    width: 31
+    height: 46
+layout_3dcdcdfb:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 245
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+layout_0180877d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 363
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+layout_d2be798a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 323
+    y: 603
+  dimensions:
+    width: 32
+    height: 46
+layout_a8c376cd:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 11
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_7abd5d28:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 29
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_58577e43:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 51
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_3bd85ef3:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 69
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_0671831a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 89
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_dcf1d279:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 107
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_be4f4109:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 129
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_589f2f57:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 147
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_206033ad:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 169
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_b6ac5a4e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 187
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_2fac6afc:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 208
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_a6dbccd5:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 226
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_fcc14114:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 248
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_653357c9:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 266
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_a9be1824:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 287
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_89a4b54a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 305
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_5585d660:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 326
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_79a8be6a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 344
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_3792c272:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 366
+    y: 615
+  dimensions:
+    width: 25
+    height: 21
+layout_e1fe93dc:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 384
+    y: 605
+  dimensions:
+    width: 11
+    height: 11
+layout_06080be8:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 8
+    y: 660
+  dimensions:
+    width: 36
+    height: 46
+layout_96459e80:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 53
+    y: 660
+  dimensions:
+    width: 35
+    height: 46
+layout_185e2cfb:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 140
+    y: 660
+  dimensions:
+    width: 35
+    height: 46
+layout_a3f34c04:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 96
+    y: 660
+  dimensions:
+    width: 35
+    height: 46
+layout_5dfd558d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 228
+    y: 660
+  dimensions:
+    width: 35
+    height: 46
+layout_50dbbae1:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 184
+    y: 660
+  dimensions:
+    width: 36
+    height: 46
+layout_bca888e3:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 317
+    y: 660
+  dimensions:
+    width: 35
+    height: 46
+layout_324a325a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 272
+    y: 660
+  dimensions:
+    width: 36
+    height: 46
+layout_413303a2:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 359
+    y: 660
+  dimensions:
+    width: 36
+    height: 46
+layout_ad5ca04a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 11
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_0358ff20:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 28
+    y: 662
+  dimensions:
+    width: 13
+    height: 11
+layout_17613661:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 56
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_139730bb:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 76
+    y: 662
+  dimensions:
+    width: 12
+    height: 11
+layout_2be39433:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 98
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_e70bdb4a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 143
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_b22bee75:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 188
+    y: 672
+  dimensions:
+    width: 27
+    height: 21
+layout_10c04bca:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 231
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_2ff5cc5c:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 208
+    y: 662
+  dimensions:
+    width: 12
+    height: 11
+layout_3ddfb96a:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 276
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_16a8f59c:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 253
+    y: 662
+  dimensions:
+    width: 12
+    height: 11
+layout_58e432fe:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 119
+    y: 662
+  dimensions:
+    width: 12
+    height: 11
+layout_23a48e15:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 164
+    y: 662
+  dimensions:
+    width: 12
+    height: 11
+layout_371dac05:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 319
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_8eeb6f8d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 382
+    y: 665
+  dimensions:
+    width: 13
+    height: 11
+layout_a4633c26:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 53
+    y: 718
+  dimensions:
+    width: 35
+    height: 46
+layout_7fd70720:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 9
+    y: 718
+  dimensions:
+    width: 35
+    height: 46
+layout_91ff0044:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 96
+    y: 776
+  dimensions:
+    width: 35
+    height: 46
+layout_2e6fae34:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 359
+    y: 718
+  dimensions:
+    width: 35
+    height: 46
+layout_c714f524:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 140
+    y: 718
+  dimensions:
+    width: 35
+    height: 46
+layout_0e66864b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 96
+    y: 718
+  dimensions:
+    width: 35
+    height: 46
+layout_5ab3b979:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 228
+    y: 718
+  dimensions:
+    width: 35
+    height: 46
+layout_176c3b95:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 184
+    y: 718
+  dimensions:
+    width: 36
+    height: 46
+layout_2876f924:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 9
+    y: 776
+  dimensions:
+    width: 78
+    height: 46
+layout_423ca874:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 140
+    y: 776
+  dimensions:
+    width: 168
+    height: 46
+layout_610e246f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 317
+    y: 718
+  dimensions:
+    width: 35
+    height: 46
+layout_d762545c:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 272
+    y: 718
+  dimensions:
+    width: 36
+    height: 46
+layout_10eb151b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 56
+    y: 730
+  dimensions:
+    width: 28
+    height: 21
+layout_bf70af25:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 251
+    y: 720
+  dimensions:
+    width: 12
+    height: 11
+layout_aba669cc:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 98
+    y: 730
+  dimensions:
+    width: 28
+    height: 21
+layout_a4bd92d7:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 337
+    y: 720
+  dimensions:
+    width: 13
+    height: 11
+layout_2b2d30b7:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 162
+    y: 720
+  dimensions:
+    width: 13
+    height: 11
+layout_303a140f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 143
+    y: 730
+  dimensions:
+    width: 28
+    height: 21
+layout_10266ee4:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 294
+    y: 720
+  dimensions:
+    width: 12
+    height: 11
+layout_4e5f5e98:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 188
+    y: 730
+  dimensions:
+    width: 27
+    height: 21
+layout_2f5abbb2:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 231
+    y: 730
+  dimensions:
+    width: 28
+    height: 21
+layout_6a2cc7d3:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 276
+    y: 730
+  dimensions:
+    width: 28
+    height: 21
+layout_8b78b45c:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 319
+    y: 730
+  dimensions:
+    width: 28
+    height: 21
+layout_7ab1746b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 363
+    y: 672
+  dimensions:
+    width: 28
+    height: 21
+layout_8eb2858f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 208
+    y: 726
+  dimensions:
+    width: 11
+    height: 0
+layout_3db5345d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 296
+    y: 668
+  dimensions:
+    width: 8
+    height: 0
+layout_8f983542:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 341
+    y: 669
+  dimensions:
+    width: 8
+    height: 0
+layout_7681a92f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 122
+    y: 728
+  dimensions:
+    width: 4
+    height: 0
+layout_c43b7018:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 73
+    y: 720
+  dimensions:
+    width: 13
+    height: 11
+layout_f4408d7d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 20
+    y: 733
+  dimensions:
+    width: 13
+    height: 14
+layout_f10bcab1:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 373.86
+    y: 737.7
+  dimensions:
+    width: 7.24
+    height: 7.24
+layout_6f369b55:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 366.25
+    y: 736
+  dimensions:
+    width: 18
+    height: 11
+layout_37007a5f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 9
+    y: 781
+  dimensions:
+    width: 78
+    height: 36
+layout_2fb36c1e:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 48
+    y: 789
+  dimensions:
+    width: 0
+    height: 19
+layout_0bad2b5f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 110
+    y: 773
+  dimensions:
+    width: 19
+    height: 24
+layout_f89afb49:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 346
+    y: 793
+  dimensions:
+    width: 20
+    height: 7
+layout_c907a150:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 181
+    y: 787
+  dimensions:
+    width: 85
+    height: 22
+layout_c256b82d:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 185
+    y: 833
+  dimensions:
+    width: 33
+    height: 27
+ts6:
+  fills:
+    - rgba(255, 255, 255, 0.42)
+layout_db0cff65:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 0
+  dimensions:
+    width: 402
+    height: 874
+layout_576e175f:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 29
+    y: 259
+  dimensions:
+    width: 362
+    height: 53
+layout_7e7601ee:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 303
+    y: 269
+  dimensions:
+    width: 78
+    height: 33
+layout_9d9264a8:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 0
+  dimensions:
+    width: 78
+    height: 33
+layout_d6fa9923:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 127
+    y: 269
+  dimensions:
+    width: 78
+    height: 33
+fill_ca72038d:
+  - '#8F2DB9'
+layout_e525dd3b:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 39
+    y: 269
+  dimensions:
+    width: 78
+    height: 33
+fill_93f8c453:
+  - '#E7C400'
+layout_016fdfb4:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 215
+    y: 269
+  dimensions:
+    width: 80
+    height: 33
+
+ELEMENTS:
+EL-29e2b580:
+  type: FRAME
+  layout: layout_d01ebf9d
+  fills: fill_2bed7563
+EL-913e333a:
+  type: RECTANGLE
+  layout: layout_fb0d848b
+  fills: fill_658ab2fa
+EL-af1d67cd:
+  type: RECTANGLE
+  layout: layout_60d474ca
+  fills: fill_658ab2fa
+EL-28035422:
+  type: TEXT
+  layout: layout_f2cb2a50
+  text: '{ts1}接化发{/ts1}{ts2} {/ts2}| 化学输入法'
+  textStyle: style_11d6135c
+  fills: fill_34dc0314
+EL-18a54c3b:
+  type: TEXT
+  layout: layout_32629f06
+  text: 浅色模式
+  textStyle: style_e29b786c
+  fills: fill_34dc0314
+EL-5bb330b1:
+  type: COMPONENT
+  layout: layout_8dec6a8d
+  fills: fill_97d170e1
+EL-1f59bf6b:
+  type: RECTANGLE
+  layout: layout_bbd1b1b8
+  fills: fill_7ed6cbc7
+EL-9b95310b:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 24
+      y: 11
+    dimensions:
+      width: 161
+      height: 33
+  text: '当前主题 '
+  textStyle: style_e29b786c
+  fills: fill_658ab2fa
+EL-dd3e91d1:
+  type: RECTANGLE
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 293
+      y: 9
+    dimensions:
+      width: 78
+      height: 33
+  fills: fill_97d170e1
+  strokes: fill_658ab2fa
+  strokeWeight: 1px
+EL-24a8b51a:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 258
+      y: 11
+    dimensions:
+      width: 102
+      height: 33
+  text: CuCl₂
+  textStyle: style_d653fb7d
+  fills: fill_658ab2fa
+EL-89b27106:
+  type: COMPONENT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 261
+      y: 267
+    dimensions:
+      width: 120
+      height: 35
+  fills: fill_97d170e1
+EL-caf66448:
+  type: TEXT
+  layout: layout_47800bdc
+  text: 切换
+  textStyle: style_d653fb7d
+  fills: fill_34dc0314
+EL-a7c2fec2:
+  type: COMPONENT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 291
+      y: 22
+    dimensions:
+      width: 102
+      height: 33
+  fills: fill_97d170e1
+EL-cd395c26:
+  type: RECTANGLE
+  layout: layout_40ae90cc
+  fills: fill_658ab2fa
+  strokes: fill_7ed6cbc7
+  strokeWeight: 1px
+EL-5b6be809:
+  type: TEXT
+  layout: layout_38c53121
+  text: 关于
+  textStyle: style_ae9f1680
+  fills: fill_7ed6cbc7
+EL-2b5a91e1:
+  type: TEXT
+  layout: layout_b43aa8a5
+  text: 外观和显示
+  textStyle: style_11461149
+  fills: fill_34dc0314
+EL-c62efbd6:
+  type: IMAGE-SVG
+  layout: layout_2890c110
+  fills: fill_34dc0314
+EL-b763173a:
+  type: TEXT
+  layout: layout_09ba6469
+  text: 键盘预览
+  textStyle: style_11461149
+  fills: fill_34dc0314
+EL-89d9c2d4:
+  type: IMAGE-SVG
+  layout: layout_6b3483a1
+  fills: fill_34dc0314
+EL-1fece8f6:
+  type: RECTANGLE
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 8
+      y: 9
+    dimensions:
+      width: 75
+      height: 35
+  fills: fill_7ed6cbc7
+EL-82a489c0:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 369
+      y: 22
+    dimensions:
+      width: 17
+      height: 9
+  strokes: fill_7ed6cbc7
+  strokeWeight: 1px
+  strokeAlign: CENTER
+EL-dd6744df:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 16
+      y: 17
+    dimensions:
+      width: 62
+      height: 19
+  fills: fill_97d170e1
+EL-8a32c5b9:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 29
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '1'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-23161d9f:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 69
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '2'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-47a14c7b:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 107
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '3'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-f2fcef28:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 147
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '4'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-6c57c083:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 187
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '5'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-b73f6db1:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 226
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '6'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-92344a3a:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 266
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '7'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-75292621:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 305
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '8'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-b49e294a:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 344
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '9'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-f041ed13:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 384
+      y: 94
+    dimensions:
+      width: 11
+      height: 11
+  text: '0'
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-31c50832:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 207
+      y: 154
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁽
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-3c644db4:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 252
+      y: 154
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁾
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-dac3dbe9:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 119
+      y: 149
+    dimensions:
+      width: 12
+      height: 11
+  text: \{
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-54dad092:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 164
+      y: 149
+    dimensions:
+      width: 12
+      height: 11
+  text: \}
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-42978af7:
+  type: RECTANGLE
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 317
+      y: 233
+    dimensions:
+      width: 77
+      height: 46
+  fills: fill_7ed6cbc7
+  effects:
+    boxShadow: 0px 2px 0px 0px rgba(5, 105, 107, 1)
+EL-d2673ad1:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 251
+      y: 214
+    dimensions:
+      width: 12
+      height: 6
+  text: ⁼
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-2e2450f9:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 294
+      y: 212
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁺
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-7505fdc6:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 337
+      y: 212
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁻
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-042e7d4e:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 295
+      y: 150
+    dimensions:
+      width: 12
+      height: 11
+  text: ⊕
+  textStyle: style_a9edd6a2
+  fills: fill_7ed6cbc7
+EL-aa23f3fb:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 338
+      y: 150
+    dimensions:
+      width: 13
+      height: 11
+  text: ⊖
+  textStyle: style_a9edd6a2
+  fills: fill_7ed6cbc7
+EL-93d42a20:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 383
+      y: 150
+    dimensions:
+      width: 12
+      height: 11
+  text: l
+  textStyle: style_f5e80fd9
+  fills: fill_7ed6cbc7
+EL-29866d96:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 165
+      y: 210
+    dimensions:
+      width: 8
+      height: 11
+  text: ℃
+  textStyle: style_838430fe
+  fills: fill_7ed6cbc7
+EL-dcd1ad9c:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 32
+      y: 151
+    dimensions:
+      width: 11
+      height: 11
+  text: λ
+  textStyle: style_7648931c
+  fills: fill_7ed6cbc7
+EL-1b11eb59:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 81
+      y: 158
+    dimensions:
+      width: 3
+      height: 0
+  text: °
+  textStyle: style_7648931c
+  fills: fill_7ed6cbc7
+EL-8d20d2b3:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 212
+      y: 214
+    dimensions:
+      width: 5
+      height: 0
+  text: σ
+  textStyle: style_7648931c
+  fills: fill_7ed6cbc7
+EL-70632790:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 121
+      y: 214
+    dimensions:
+      width: 5
+      height: 0
+  text: ×
+  textStyle: style_7648931c
+  fills: fill_7ed6cbc7
+EL-f883c7b0:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 76
+      y: 208
+    dimensions:
+      width: 12
+      height: 11
+  text: ⇌
+  textStyle: style_838430fe
+  fills: fill_7ed6cbc7
+EL-394743f8:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 109
+      y: 246
+    dimensions:
+      width: 19
+      height: 24
+  text: 。
+  textStyle: style_ae9f1680
+  fills: fill_7ed6cbc7
+EL-9e2a9411:
+  type: RECTANGLE
+  layout: layout_5cfd526a
+  fills: fill_658ab2fa
+EL-a352a668:
+  type: RECTANGLE
+  layout: layout_283ea92d
+  fills: fill_658ab2fa
+EL-2e3f4e9b:
+  type: TEXT
+  layout: layout_f2cb2a50
+  text: 关于软件
+  textStyle: style_218687d2
+  fills: fill_34dc0314
+EL-1a0d14d2:
+  type: TEXT
+  layout: layout_d03ed46b
+  text: 设计制作
+  textStyle: style_7619af37
+  fills: fill_34dc0314
+EL-aebff311:
+  type: TEXT
+  layout: layout_e7998234
+  text: 当前版本
+  textStyle: style_7619af37
+  fills: fill_34dc0314
+EL-53a46a32:
+  type: TEXT
+  layout: layout_f08e630a
+  text: 0.0.1
+  textStyle: style_363b1da0
+  fills: fill_34dc0314
+EL-505371d1:
+  type: TEXT
+  layout: layout_773c5232
+  text: 哈潚
+  textStyle: style_363b1da0
+  fills: fill_34dc0314
+EL-6d4715a9:
+  type: TEXT
+  layout: layout_98019052
+  text: 出品工作室
+  textStyle: style_7619af37
+  fills: fill_34dc0314
+EL-cf9f0052:
+  type: COMPONENT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 10
+      y: 22
+    dimensions:
+      width: 102
+      height: 33
+  fills: fill_97d170e1
+EL-b0e21043:
+  type: TEXT
+  layout: layout_38c53121
+  text: 返回
+  textStyle: style_ae9f1680
+  fills: fill_7ed6cbc7
+EL-ddd2af02:
+  type: TEXT
+  layout: layout_b43aa8a5
+  text: 软件信息
+  textStyle: style_11461149
+  fills: fill_34dc0314
+EL-79e8471f:
+  type: TEXT
+  layout: layout_98c6575b
+  text: 作者信息
+  textStyle: style_11461149
+  fills: fill_34dc0314
+EL-00c8ab6d:
+  type: IMAGE-SVG
+  layout: layout_0c21c2ad
+  fills: fill_34dc0314
+EL-4cff4492:
+  type: LINE
+  layout: layout_64b5a0ea
+  strokes:
+    - rgba(0, 0, 0, 0.1)
+  strokeWeight: 1px
+  strokeAlign: CENTER
+EL-70039339:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 284
+      y: 368
+    dimensions:
+      width: 86
+      height: 15
+  fills: fill_97d170e1
+EL-f353d878:
+  type: IMAGE-SVG
+  layout: layout_25d93378
+  fills: fill_658ab2fa
+EL-682ee6c8:
+  type: RECTANGLE
+  layout: layout_40ae90cc
+  fills: fill_658ab2fa
+  strokes: fill_13cbf414
+  strokeWeight: 1px
+EL-068c55a7:
+  type: TEXT
+  layout: layout_38c53121
+  text: 返回
+  textStyle: style_ae9f1680
+  fills: fill_13cbf414
+EL-d602f4a5:
+  type: FRAME
+  layout: layout_d01ebf9d
+  fills: fill_96f59904
+EL-67a6364e:
+  type: RECTANGLE
+  layout: layout_fb0d848b
+  fills: fill_34dc0314
+EL-9cd9f5b3:
+  type: RECTANGLE
+  layout: layout_5cfd526a
+  fills: fill_34dc0314
+EL-b1e27c8b:
+  type: RECTANGLE
+  layout: layout_283ea92d
+  fills: fill_34dc0314
+EL-a7ebd5c7:
+  type: TEXT
+  layout: layout_f2cb2a50
+  text: 关于软件
+  textStyle: style_218687d2
+  fills: fill_658ab2fa
+EL-c4504202:
+  type: TEXT
+  layout: layout_d03ed46b
+  text: 设计制作
+  textStyle: style_7619af37
+  fills: fill_658ab2fa
+EL-b162015d:
+  type: TEXT
+  layout: layout_e7998234
+  text: 当前版本
+  textStyle: style_7619af37
+  fills: fill_658ab2fa
+EL-e5627b2e:
+  type: TEXT
+  layout: layout_f08e630a
+  text: 0.0.1
+  textStyle: style_363b1da0
+  fills: fill_658ab2fa
+EL-dcb8babf:
+  type: TEXT
+  layout: layout_773c5232
+  text: 哈潚
+  textStyle: style_363b1da0
+  fills: fill_658ab2fa
+EL-f14f884b:
+  type: TEXT
+  layout: layout_98019052
+  text: 出品工作室
+  textStyle: style_7619af37
+  fills: fill_658ab2fa
+EL-11b15282:
+  type: RECTANGLE
+  layout: layout_40ae90cc
+  fills: fill_34dc0314
+  strokes: fill_7ed6cbc7
+  strokeWeight: 1px
+EL-202ee602:
+  type: TEXT
+  layout: layout_b43aa8a5
+  text: 软件信息
+  textStyle: style_11461149
+  fills: fill_658ab2fa
+EL-3293ddf6:
+  type: IMAGE-SVG
+  layout: layout_2890c110
+  fills: fill_658ab2fa
+EL-449dcb0b:
+  type: TEXT
+  layout: layout_98c6575b
+  text: 作者信息
+  textStyle: style_11461149
+  fills: fill_658ab2fa
+EL-9649c1c3:
+  type: IMAGE-SVG
+  layout: layout_0c21c2ad
+  fills: fill_658ab2fa
+EL-6d1ebd6b:
+  type: LINE
+  layout: layout_64b5a0ea
+  strokes:
+    - rgba(255, 255, 255, 0.1)
+  strokeWeight: 1px
+  strokeAlign: CENTER
+EL-71b76c7d:
+  type: IMAGE-SVG
+  layout: layout_25d93378
+  fills: fill_34dc0314
+EL-73f3e380:
+  type: RECTANGLE
+  layout: layout_40ae90cc
+  fills: fill_34dc0314
+  strokes: fill_13cbf414
+  strokeWeight: 1px
+EL-2c9f0a4a:
+  type: RECTANGLE
+  layout: layout_60d474ca
+  fills: fill_34dc0314
+EL-f5bbd1fb:
+  type: IMAGE-SVG
+  layout: layout_2b7dc6fe
+  fills: fill_97d170e1
+  componentId: 1:84
+EL-0e684d07:
+  type: TEXT
+  layout: layout_f2cb2a50
+  text: '{ts4}接化发{/ts4}{ts2} {/ts2}| 化学输入法'
+  textStyle: style_11d6135c
+  fills: fill_658ab2fa
+EL-4c6cf26d:
+  type: TEXT
+  layout: layout_32629f06
+  text: 深色模式
+  textStyle: style_e29b786c
+  fills: fill_658ab2fa
+EL-fd7a3da2:
+  type: TEXT
+  layout: layout_47800bdc
+  text: 切换
+  textStyle: style_d653fb7d
+  fills: fill_658ab2fa
+EL-68bf8b7a:
+  type: TEXT
+  layout: layout_b43aa8a5
+  text: 外观和显示
+  textStyle: style_11461149
+  fills: fill_658ab2fa
+EL-d311406e:
+  type: TEXT
+  layout: layout_09ba6469
+  text: 键盘预览
+  textStyle: style_11461149
+  fills: fill_658ab2fa
+EL-916fbe67:
+  type: IMAGE-SVG
+  layout: layout_6b3483a1
+  fills: fill_658ab2fa
+EL-cbcbe070:
+  type: RECTANGLE
+  layout: layout_bbd1b1b8
+  fills: fill_13cbf414
+EL-64ca3957:
+  type: RECTANGLE
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 8
+      y: 552
+    dimensions:
+      width: 75
+      height: 35
+  fills: fill_13cbf414
+EL-69254fb8:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 369
+      y: 565
+    dimensions:
+      width: 17
+      height: 9
+  strokes: fill_13cbf414
+  strokeWeight: 1px
+  strokeAlign: CENTER
+EL-a2f49e28:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 16
+      y: 560
+    dimensions:
+      width: 62
+      height: 19
+  fills: fill_97d170e1
+EL-fb787fef:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 29
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '1'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-8ecd0ec7:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 69
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '2'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-d70d02b4:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 107
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '3'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-482e26d0:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 147
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '4'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-9b61a5c2:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 187
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '5'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-5be17ce7:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 226
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '6'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-20f5bce5:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 266
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '7'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-d086dae5:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 305
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '8'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-032b63b5:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 344
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '9'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-00213932:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 384
+      y: 637
+    dimensions:
+      width: 11
+      height: 11
+  text: '0'
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-529d12fd:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 207
+      y: 697
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁽
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-acfd64cd:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 252
+      y: 697
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁾
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-10619d72:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 119
+      y: 692
+    dimensions:
+      width: 12
+      height: 11
+  text: \{
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-af548ec6:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 164
+      y: 692
+    dimensions:
+      width: 12
+      height: 11
+  text: \}
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-17178ed0:
+  type: RECTANGLE
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 317
+      y: 776
+    dimensions:
+      width: 77
+      height: 46
+  fills: fill_13cbf414
+  effects:
+    boxShadow: 0px 2px 0px 0px rgba(121, 2, 2, 1)
+EL-6936d563:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 251
+      y: 757
+    dimensions:
+      width: 12
+      height: 6
+  text: ⁼
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-53cdfe0a:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 294
+      y: 755
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁺
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-b4d2d353:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 337
+      y: 755
+    dimensions:
+      width: 12
+      height: 11
+  text: ⁻
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-63ded61e:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 295
+      y: 693
+    dimensions:
+      width: 12
+      height: 11
+  text: ⊕
+  textStyle: style_a9edd6a2
+  fills: fill_13cbf414
+EL-08bd39a9:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 338
+      y: 693
+    dimensions:
+      width: 13
+      height: 11
+  text: ⊖
+  textStyle: style_a9edd6a2
+  fills: fill_13cbf414
+EL-406f4948:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 383
+      y: 693
+    dimensions:
+      width: 12
+      height: 11
+  text: l
+  textStyle: style_f5e80fd9
+  fills: fill_13cbf414
+EL-04250a53:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 165
+      y: 753
+    dimensions:
+      width: 8
+      height: 11
+  text: ℃
+  textStyle: style_838430fe
+  fills: fill_13cbf414
+EL-422a0c37:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 32
+      y: 694
+    dimensions:
+      width: 11
+      height: 11
+  text: λ
+  textStyle: style_7648931c
+  fills: fill_13cbf414
+EL-3b1f3c69:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 81
+      y: 701
+    dimensions:
+      width: 3
+      height: 0
+  text: °
+  textStyle: style_7648931c
+  fills: fill_13cbf414
+EL-4b3292be:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 212
+      y: 757
+    dimensions:
+      width: 5
+      height: 0
+  text: σ
+  textStyle: style_7648931c
+  fills: fill_13cbf414
+EL-b40c421d:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 121
+      y: 757
+    dimensions:
+      width: 5
+      height: 0
+  text: ×
+  textStyle: style_7648931c
+  fills: fill_13cbf414
+EL-ec0d0a73:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 76
+      y: 751
+    dimensions:
+      width: 12
+      height: 11
+  text: ⇌
+  textStyle: style_838430fe
+  fills: fill_13cbf414
+EL-0c388d3c:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 109
+      y: 789
+    dimensions:
+      width: 19
+      height: 24
+  text: 。
+  textStyle: style_ae9f1680
+  fills: fill_13cbf414
+EL-4979b9e0:
+  type: COMPONENT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 290
+      y: 22
+    dimensions:
+      width: 102
+      height: 33
+  fills: fill_97d170e1
+EL-74ba8cdb:
+  type: TEXT
+  layout: layout_38c53121
+  text: 关于
+  textStyle: style_ae9f1680
+  fills: fill_13cbf414
+EL-770bddf4:
+  type: FRAME
+  layout: layout_d01ebf9d
+EL-74b1d226:
+  type: RECTANGLE
+  layout: layout_576e175f
+  fills: fill_658ab2fa
+EL-b3d9bf37:
+  type: RECTANGLE
+  layout: layout_8dec6a8d
+  fills: fill_7ed6cbc7
+EL-f7954dd2:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 34
+      y: 210
+    dimensions:
+      width: 161
+      height: 33
+  text: '当前主题 '
+  textStyle: style_e29b786c
+  fills: fill_658ab2fa
+EL-63ea2987:
+  type: RECTANGLE
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 303
+      y: 208
+    dimensions:
+      width: 78
+      height: 33
+  fills: fill_97d170e1
+  strokes: fill_658ab2fa
+  strokeWeight: 1px
+EL-89825613:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 268
+      y: 210
+    dimensions:
+      width: 102
+      height: 33
+  text: CuCl₂
+  textStyle: style_d653fb7d
+  fills: fill_658ab2fa
+EL-ef419f42:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 2
+      y: 0
+    dimensions:
+      width: 76
+      height: 31
+  text: Fe₂O₃
+  textStyle: style_ae9f1680
+  fills: fill_13cbf414
+EL-f0f50c34:
+  type: RECTANGLE
+  layout: layout_d6fa9923
+  fills: fill_658ab2fa
+  strokes: fill_ca72038d
+  strokeWeight: 1px
+EL-faad3971:
+  type: RECTANGLE
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 215
+      y: 269
+    dimensions:
+      width: 78
+      height: 33
+  fills: fill_7ed6cbc7
+  strokes: fill_7ed6cbc7
+  strokeWeight: 1px
+EL-81467dec:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 219
+      y: 269
+    dimensions:
+      width: 76
+      height: 31
+  text: CuCl₂
+  textStyle: style_ae9f1680
+  fills: fill_658ab2fa
+EL-48af4263:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 129
+      y: 269
+    dimensions:
+      width: 76
+      height: 31
+  text: KMnO₄
+  textStyle: style_ae9f1680
+  fills: fill_ca72038d
+EL-5ac2f8ff:
+  type: RECTANGLE
+  layout: layout_e525dd3b
+  fills: fill_658ab2fa
+  strokes: fill_93f8c453
+  strokeWeight: 1px
+EL-3ec40cdd:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 41
+      y: 269
+    dimensions:
+      width: 76
+      height: 31
+  text: AgBr
+  textStyle: style_ae9f1680
+  fills: fill_93f8c453
+EL-3c9aac57:
+  type: RECTANGLE
+  layout: layout_576e175f
+  fills: fill_96f59904
+EL-d0aca829:
+  type: RECTANGLE
+  layout: layout_d6fa9923
+  fills: fill_96f59904
+  strokes: fill_ca72038d
+  strokeWeight: 1px
+EL-228cf612:
+  type: RECTANGLE
+  layout: layout_e525dd3b
+  fills: fill_96f59904
+  strokes: fill_93f8c453
+  strokeWeight: 1px
+EL-fdc307b0:
+  type: RECTANGLE
+  layout: layout_8dec6a8d
+  fills: fill_13cbf414
+EL-d6ed7dc2:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 270
+      y: 223
+    dimensions:
+      width: 102
+      height: 33
+  text: Fe₂O₃
+  textStyle: style_d653fb7d
+  fills: fill_658ab2fa
+EL-afc9507f:
+  type: RECTANGLE
+  layout: layout_7e7601ee
+  fills: fill_13cbf414
+  strokes: fill_13cbf414
+  strokeWeight: 1px
+EL-a5e59129:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 305
+      y: 269
+    dimensions:
+      width: 76
+      height: 31
+  text: Fe₂O₃
+  textStyle: style_ae9f1680
+  fills: fill_658ab2fa
+EL-89e8a652:
+  type: TEXT
+  layout:
+    mode: none
+    sizing: {}
+    locationRelativeToParent:
+      x: 4
+      y: 0
+    dimensions:
+      width: 76
+      height: 31
+  text: CuCl₂
+  textStyle: style_ae9f1680
+  fills: fill_7ed6cbc7
+
+COMPONENTS:
+1:84:
+  id: 1:84
+  key: 5236d487b77da98cc7ae0486f35caa834f1e6254
+  name: Component 1
+4:356:
+  id: 4:356
+  key: 4c0728cf93e229689a8bbff27f655998dda9ff9e
+  name: Component 3
+4:1000:
+  id: 4:1000
+  key: 5acd02415bd410b28d65c38f6e7f266f428e8751
+  name: Component 15
+4:984:
+  id: 4:984
+  key: c71c935a8cf20cfc939bf79b03f7d254dc632320
+  name: Component 8
+2:4:
+  id: 2:4
+  key: 1e6addb302649497e3c8bcbf42e12277f976eeda
+  name: Component 2
+4:987:
+  id: 4:987
+  key: 1ac5c487452d28c0cdb40b69359116b9ca518e30
+  name: Component 11
+4:990:
+  id: 4:990
+  key: ce30d1040d458e296965192b52d1cf025abc3a18
+  name: Component 14
+4:988:
+  id: 4:988
+  key: 9eee481642b50e7d9d5c36aed9b4ba27b70f6bac
+  name: Component 12
+4:989:
+  id: 4:989
+  key: 388b1f5c57178234f71277c709b4a0184b18ebd5
+  name: Component 13
+4:1001:
+  id: 4:1001
+  key: 8041e90e0f234fafbf4ebfb16b8bdef64411ca62
+  name: Component 16
+4:985:
+  id: 4:985
+  key: 2cab80ae5d9dbac546879e0c95728ca415c07f3b
+  name: Component 9
+4:364:
+  id: 4:364
+  key: 2547ae19882019d56126e379673a40ca6b0eb0fd
+  name: Component 6
+4:1006:
+  id: 4:1006
+  key: d723567f0ba8cfa6fec42879c31ce64492a5ffb6
+  name: Component 18
+4:983:
+  id: 4:983
+  key: 2e934ab77844c1189f4bf7930ae428d48bb1adb3
+  name: Component 7
+4:1004:
+  id: 4:1004
+  key: 70b6219ba938cf02e93717b442dc9c0187dbbe26
+  name: Component 17
+4:986:
+  id: 4:986
+  key: 49981135f70100fdba98f263c9b7ab191ddfa271
+  name: Component 10
+4:358:
+  id: 4:358
+  key: 5de486d0d1ce17bd1ab038058799d9ead7e25399
+  name: Component 4
+4:360:
+  id: 4:360
+  key: 2fc4a3694262ad6fa3dc6ed76b6b82ec77e9807f
+  name: Component 5
+
+NODES:
+[CANVAS] "Page 1" #0:1
+  [FRAME] "iPhone 17 - 1" #1:8 template=EL-29e2b580
+    [RECTANGLE] #1:88 template=EL-913e333a
+    [RECTANGLE] #1:95 template=EL-af1d67cd
+    [COMPONENT] #1:84 layout=layout_2b7dc6fe fills=fill_97d170e1
+      [IMAGE-SVG] #1:77 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0,"y":6},"dimensions":{"width":16,"height":18}} strokes=fill_34dc0314 strokeWeight=6px
+      [IMAGE-SVG] #1:78 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":12,"y":11},"dimensions":{"width":0,"height":39}} strokes=fill_34dc0314 strokeWeight=6px
+      [IMAGE-SVG] #1:79 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":29,"y":19},"dimensions":{"width":18,"height":28}} strokes=fill_34dc0314 strokeWeight=6px
+      [IMAGE-SVG] #1:80 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":19.65,"y":9.5},"dimensions":{"width":34,"height":24.5}} strokes=fill_7ed6cbc7 strokeWeight=6px
+      [ELLIPSE] #1:81 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":21,"y":0},"dimensions":{"width":16,"height":16}} fills=fill_97d170e1 strokes=fill_34dc0314 strokeWeight=5px
+      [IMAGE-SVG] #1:82 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":38,"y":29},"dimensions":{"width":18,"height":9}} fills=fill_34dc0314
+    [TEXT] #1:87 template=EL-28035422
+    [TEXT] #1:97 template=EL-18a54c3b
+    [COMPONENT] #4:356 template=EL-5bb330b1
+      [RECTANGLE] #1:89 template=EL-1f59bf6b
+      [TEXT] #1:91 template=EL-9b95310b
+      [RECTANGLE] #2:5 template=EL-dd3e91d1
+      [TEXT] #1:92 template=EL-24a8b51a
+    [COMPONENT] #4:1000 template=EL-89b27106
+      [RECTANGLE] #1:99 layout=layout_149d1e5d fills=fill_658ab2fa strokes=fill_7ed6cbc7 strokeWeight=1px
+      [TEXT] #1:100 template=EL-caf66448
+    [COMPONENT] #4:984 template=EL-a7c2fec2
+      [RECTANGLE] #4:366 template=EL-cd395c26
+      [TEXT] #4:367 template=EL-5b6be809
+    [TEXT] #1:102 template=EL-2b5a91e1
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #1:104 template=EL-c62efbd6
+    [TEXT] #2:7 template=EL-b763173a
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #2:8 template=EL-89d9c2d4
+    [COMPONENT] #2:4 layout=layout_b82ceb79 fills=fill_97d170e1
+      [RECTANGLE] #1:106 layout=layout_fd864604 fills=fill_2bed7563
+      [RECTANGLE] #1:137 layout=layout_b22a937e fills=fill_658ab2fa
+      [RECTANGLE] #1:107 layout=layout_373dca62 fills=fill_658ab2fa strokes=fill_7ed6cbc7 strokeWeight=1px
+      [RECTANGLE] #1:114 layout=layout_32ad45bb fills=fill_658ab2fa strokes=fill_7ed6cbc7 strokeWeight=1px
+      [RECTANGLE] #1:108 template=EL-1fece8f6
+      [LINE] #1:113 layout=layout_79bee2b2 strokes=fill_658ab2fa strokeWeight=1px
+      [IMAGE-SVG] #1:116 template=EL-82a489c0
+      [IMAGE-SVG] "Frame" #1:117 template=EL-dd6744df
+      [RECTANGLE] #1:122 layout=layout_0fd2449e fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:123 layout=layout_46d5b964 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:125 layout=layout_d590f56d fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:126 layout=layout_eddc4e32 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:128 layout=layout_3e0e396d fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:129 layout=layout_cc327538 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:131 layout=layout_80a492e8 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:132 layout=layout_a3bc091a fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:134 layout=layout_17702df1 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:135 layout=layout_b2094c03 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [TEXT] #1:138 layout=layout_ca437e19 fills=fill_34dc0314 textStyle=style_ae9f1680 text="Q"
+      [TEXT] #1:141 layout=layout_7efaf8b3 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="1"
+      [TEXT] #1:142 template=EL-8a32c5b9
+      [TEXT] #1:144 layout=layout_543b97dc fills=fill_34dc0314 textStyle=style_ae9f1680 text="W"
+      [TEXT] #1:145 layout=layout_360586db fills=fill_34dc0314 textStyle=style_f5e80fd9 text="2"
+      [TEXT] #1:146 template=EL-23161d9f
+      [TEXT] #1:148 layout=layout_95523b03 fills=fill_34dc0314 textStyle=style_ae9f1680 text="E"
+      [TEXT] #1:149 layout=layout_3a60f56b fills=fill_34dc0314 textStyle=style_f5e80fd9 text="3"
+      [TEXT] #1:150 template=EL-47a14c7b
+      [TEXT] #1:152 layout=layout_27179a9f fills=fill_34dc0314 textStyle=style_ae9f1680 text="R"
+      [TEXT] #1:153 layout=layout_553d05d1 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="4"
+      [TEXT] #1:154 template=EL-f2fcef28
+      [TEXT] #1:156 layout=layout_d2ddd871 fills=fill_34dc0314 textStyle=style_ae9f1680 text="T"
+      [TEXT] #1:157 layout=layout_0942ea2f fills=fill_34dc0314 textStyle=style_f5e80fd9 text="5"
+      [TEXT] #1:158 template=EL-6c57c083
+      [TEXT] #1:160 layout=layout_ef18e8da fills=fill_34dc0314 textStyle=style_ae9f1680 text="Y"
+      [TEXT] #1:161 layout=layout_bb7a66b7 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="6"
+      [TEXT] #1:162 template=EL-b73f6db1
+      [TEXT] #1:164 layout=layout_1d88b85d fills=fill_34dc0314 textStyle=style_ae9f1680 text="U"
+      [TEXT] #1:165 layout=layout_92f8b13e fills=fill_34dc0314 textStyle=style_f5e80fd9 text="7"
+      [TEXT] #1:166 template=EL-92344a3a
+      [TEXT] #1:168 layout=layout_569858e0 fills=fill_34dc0314 textStyle=style_ae9f1680 text="I"
+      [TEXT] #1:169 layout=layout_f47c837e fills=fill_34dc0314 textStyle=style_f5e80fd9 text="8"
+      [TEXT] #1:170 template=EL-75292621
+      [TEXT] #1:172 layout=layout_b3229b11 fills=fill_34dc0314 textStyle=style_ae9f1680 text="O"
+      [TEXT] #1:173 layout=layout_1c7027d1 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="9"
+      [TEXT] #1:174 template=EL-b49e294a
+      [TEXT] #1:176 layout=layout_f1dc7f7c fills=fill_34dc0314 textStyle=style_ae9f1680 text="P"
+      [TEXT] #1:177 layout=layout_5fe10858 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="0"
+      [TEXT] #1:178 template=EL-f041ed13
+      [RECTANGLE] #1:180 layout=layout_3da49b42 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:181 layout=layout_4f0113e1 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:182 layout=layout_12972551 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:183 layout=layout_1d0eb9db fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:184 layout=layout_157f5cdf fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:185 layout=layout_9f51ba56 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:186 layout=layout_e99ea447 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:187 layout=layout_2e85317b fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:189 layout=layout_84f6ebb9 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [TEXT] #1:190 layout=layout_3fd3a14c fills=fill_34dc0314 textStyle=style_ae9f1680 text="A"
+      [TEXT] #1:191 layout=layout_a1f4bff5 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="aq"
+      [TEXT] #1:193 layout=layout_bba255a8 fills=fill_34dc0314 textStyle=style_ae9f1680 text="S"
+      [TEXT] #1:194 layout=layout_d19ad50f fills=fill_34dc0314 textStyle=style_f5e80fd9 text="s"
+      [TEXT] #1:196 layout=layout_06bb915e fills=fill_34dc0314 textStyle=style_ae9f1680 text="D"
+      [TEXT] #1:199 layout=layout_d60856c7 fills=fill_34dc0314 textStyle=style_ae9f1680 text="F"
+      [TEXT] #1:200 template=EL-31c50832
+      [TEXT] #1:202 layout=layout_b614ba91 fills=fill_34dc0314 textStyle=style_ae9f1680 text="G"
+      [TEXT] #1:203 template=EL-3c644db4
+      [TEXT] #1:205 layout=layout_16e65331 fills=fill_34dc0314 textStyle=style_ae9f1680 text="H"
+      [TEXT] #1:206 layout=layout_201e70a2 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\("
+      [TEXT] #1:208 layout=layout_394dcaff fills=fill_34dc0314 textStyle=style_ae9f1680 text="J"
+      [TEXT] #1:209 layout=layout_cf7a0a45 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\)"
+      [TEXT] #1:273 layout=layout_483947b4 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\["
+      [TEXT] #1:274 layout=layout_5f29c0f6 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\]"
+      [TEXT] #1:276 template=EL-dac3dbe9
+      [TEXT] #1:277 template=EL-54dad092
+      [TEXT] #1:211 layout=layout_b7c85383 fills=fill_34dc0314 textStyle=style_ae9f1680 text="K"
+      [TEXT] #1:212 layout=layout_fda2d38a fills=fill_34dc0314 textStyle=style_f5e80fd9 text="Δ"
+      [RECTANGLE] #1:222 layout=layout_55697558 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:279 layout=layout_7c8e6dbe fills=fill_658ab2fa effects=effect_776f2f10
+      [RECTANGLE] #1:312 layout=layout_3331e4b7 fills=fill_658ab2fa effects=effect_776f2f10
+      [RECTANGLE] #1:289 layout=layout_536b549a fills=fill_658ab2fa effects=effect_776f2f10
+      [RECTANGLE] #1:223 layout=layout_fe4a9071 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:224 layout=layout_6f6f9dcb fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:225 layout=layout_8267115b fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:226 layout=layout_aaca5fdc fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:296 layout=layout_1fee80c5 fills=fill_658ab2fa effects=effect_776f2f10
+      [RECTANGLE] #1:298 layout=layout_49480eaf fills=fill_658ab2fa effects=effect_776f2f10
+      [RECTANGLE] #1:300 template=EL-42978af7
+      [RECTANGLE] #1:227 layout=layout_3c820d95 fills=fill_658ab2fa effects=effect_ecbc28ee
+      [RECTANGLE] #1:228 layout=layout_8ffa23ea fills=fill_658ab2fa effects=effect_ecbc28ee
+      [TEXT] #1:229 layout=layout_af4dfd4b fills=fill_34dc0314 textStyle=style_ae9f1680 text="Z"
+      [TEXT] #1:230 layout=layout_abfe4701 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="="
+      [TEXT] #1:251 template=EL-d2673ad1
+      [TEXT] #1:232 layout=layout_750dd184 fills=fill_34dc0314 textStyle=style_ae9f1680 text="X"
+      [TEXT] #1:233 layout=layout_62ada0af fills=fill_34dc0314 textStyle=style_f5e80fd9 text="-"
+      [TEXT] #1:253 layout=layout_2b98aa5e fills=fill_34dc0314 textStyle=style_f5e80fd9 text="c"
+      [TEXT] #1:235 layout=layout_bdca7aa3 fills=fill_34dc0314 textStyle=style_ae9f1680 text="C"
+      [TEXT] #1:236 layout=layout_89ac224e fills=fill_34dc0314 textStyle=style_f5e80fd9 text="+"
+      [TEXT] #1:238 layout=layout_f2b67487 fills=fill_34dc0314 textStyle=style_ae9f1680 text="V"
+      [TEXT] #1:239 template=EL-2e2450f9
+      [TEXT] #1:241 layout=layout_6241aefd fills=fill_34dc0314 textStyle=style_ae9f1680 text="B"
+      [TEXT] #1:242 template=EL-7505fdc6
+      [TEXT] #1:244 layout=layout_1110ab96 fills=fill_34dc0314 textStyle=style_ae9f1680 text="N"
+      [TEXT] #1:245 template=EL-042e7d4e
+      [TEXT] #1:247 layout=layout_b54339f4 fills=fill_34dc0314 textStyle=style_ae9f1680 text="M"
+      [TEXT] #1:248 template=EL-aa23f3fb
+      [TEXT] #1:214 layout=layout_6c1e9261 fills=fill_34dc0314 textStyle=style_ae9f1680 text="L"
+      [TEXT] #1:215 template=EL-93d42a20
+      [TEXT] #1:255 template=EL-29866d96
+      [TEXT] #1:261 template=EL-dcd1ad9c
+      [TEXT] #1:263 layout=layout_6f098c5d fills=fill_34dc0314 textStyle=style_7648931c text="ν"
+      [TEXT] #1:264 layout=layout_9bb0dc46 fills=fill_34dc0314 textStyle=style_7648931c text="↑"
+      [TEXT] #1:265 layout=layout_b2841af0 fills=fill_34dc0314 textStyle=style_7648931c text="↓"
+      [TEXT] #1:266 template=EL-1b11eb59
+      [TEXT] #1:267 template=EL-8d20d2b3
+      [TEXT] #1:268 layout=layout_ef47a1a4 fills=fill_34dc0314 textStyle=style_7648931c text="·"
+      [TEXT] #1:269 template=EL-70632790
+      [TEXT] #1:270 layout=layout_66150f6f fills=fill_34dc0314 textStyle=style_f5e80fd9 text="→"
+      [TEXT] #1:271 template=EL-f883c7b0
+      [IMAGE-SVG] #1:282 layout=layout_bf435080 fills=fill_97d170e1 strokes=fill_34dc0314 strokeWeight=1px
+      [IMAGE-SVG] "Union" #1:291 layout=layout_a43ad0b3 fills=fill_34dc0314 strokes=fill_34dc0314
+      [IMAGE-SVG] #1:294 layout=layout_f841683f strokes=fill_34dc0314 strokeWeight=1px
+      [TEXT] #1:311 layout=layout_7e2930e4 fills=fill_34dc0314 textStyle=style_ae9f1680 text="拼   {ts3}素{/ts3}"
+      [LINE] #1:307 layout=layout_1fcc476c fills=fill_34dc0314 strokes=fill_34dc0314 strokeWeight=1px
+      [TEXT] #1:314 layout=layout_0f43df3e fills=fill_34dc0314 textStyle=style_ae9f1680 text="，"
+      [TEXT] #1:315 template=EL-394743f8
+      [IMAGE-SVG] #1:317 layout=layout_585c86b0 strokes=fill_658ab2fa strokeWeight=1px
+      [TEXT] #1:318 layout=layout_99839f6e fills=fill_34dc0314 textStyle=style_ae9f1680 text="空格"
+      [TEXT] #2:2 layout=layout_277df73e fills=fill_34dc0314 textStyle=style_e378bd31 text="⇌"
+  [FRAME] "iPhone 17 - 5" #4:689 template=EL-29e2b580
+    [RECTANGLE] #4:690 template=EL-913e333a
+    [RECTANGLE] #4:849 template=EL-9e2a9411
+    [RECTANGLE] #4:691 template=EL-a352a668
+    [TEXT] #4:693 template=EL-2e3f4e9b
+    [TEXT] #4:694 template=EL-1a0d14d2
+    [TEXT] #4:850 template=EL-aebff311
+    [TEXT] #4:852 template=EL-53a46a32
+    [TEXT] #4:697 template=EL-505371d1
+    [TEXT] #4:865 template=EL-6d4715a9
+    [COMPONENT] #4:987 template=EL-cf9f0052
+      [RECTANGLE] #4:698 template=EL-cd395c26
+      [TEXT] #4:699 template=EL-b0e21043
+    [TEXT] #4:700 template=EL-ddd2af02
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:701 template=EL-c62efbd6
+    [TEXT] #4:867 template=EL-79e8471f
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:868 template=EL-00c8ab6d
+    [LINE] #4:853 template=EL-4cff4492
+    [IMAGE-SVG] "Frame" #4:854 template=EL-70039339
+    [IMAGE-SVG] "图标" #4:870 template=EL-f353d878
+  [FRAME] "iPhone 17 - 8" #4:948 template=EL-29e2b580
+    [RECTANGLE] #4:949 template=EL-913e333a
+    [RECTANGLE] #4:950 template=EL-9e2a9411
+    [RECTANGLE] #4:951 template=EL-a352a668
+    [TEXT] #4:952 template=EL-2e3f4e9b
+    [TEXT] #4:953 template=EL-1a0d14d2
+    [TEXT] #4:954 template=EL-aebff311
+    [TEXT] #4:955 template=EL-53a46a32
+    [TEXT] #4:956 template=EL-505371d1
+    [TEXT] #4:957 template=EL-6d4715a9
+    [COMPONENT] #4:990 template=EL-cf9f0052
+      [RECTANGLE] #4:958 template=EL-682ee6c8
+      [TEXT] #4:959 template=EL-068c55a7
+    [TEXT] #4:960 template=EL-ddd2af02
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:961 template=EL-c62efbd6
+    [TEXT] #4:962 template=EL-79e8471f
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:963 template=EL-00c8ab6d
+    [LINE] #4:964 template=EL-4cff4492
+    [IMAGE-SVG] "Frame" #4:965 template=EL-70039339
+    [IMAGE-SVG] "图标" #4:975 template=EL-f353d878
+  [FRAME] "iPhone 17 - 6" #4:878 template=EL-d602f4a5
+    [RECTANGLE] #4:879 template=EL-67a6364e
+    [RECTANGLE] #4:880 template=EL-9cd9f5b3
+    [RECTANGLE] #4:881 template=EL-b1e27c8b
+    [TEXT] #4:882 template=EL-a7ebd5c7
+    [TEXT] #4:883 template=EL-c4504202
+    [TEXT] #4:884 template=EL-b162015d
+    [TEXT] #4:885 template=EL-e5627b2e
+    [TEXT] #4:886 template=EL-dcb8babf
+    [TEXT] #4:887 template=EL-f14f884b
+    [COMPONENT] #4:988 template=EL-cf9f0052
+      [RECTANGLE] #4:888 template=EL-11b15282
+      [TEXT] #4:889 template=EL-b0e21043
+    [TEXT] #4:890 template=EL-202ee602
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:891 template=EL-3293ddf6
+    [TEXT] #4:892 template=EL-449dcb0b
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:893 template=EL-9649c1c3
+    [LINE] #4:894 template=EL-6d1ebd6b
+    [IMAGE-SVG] "Frame" #4:895 template=EL-70039339
+    [IMAGE-SVG] "图标" #4:905 template=EL-71b76c7d
+  [FRAME] "iPhone 17 - 7" #4:913 template=EL-d602f4a5
+    [RECTANGLE] #4:914 template=EL-67a6364e
+    [RECTANGLE] #4:915 template=EL-9cd9f5b3
+    [RECTANGLE] #4:916 template=EL-b1e27c8b
+    [TEXT] #4:917 template=EL-a7ebd5c7
+    [TEXT] #4:918 template=EL-c4504202
+    [TEXT] #4:919 template=EL-b162015d
+    [TEXT] #4:920 template=EL-e5627b2e
+    [TEXT] #4:921 template=EL-dcb8babf
+    [TEXT] #4:922 template=EL-f14f884b
+    [COMPONENT] #4:989 template=EL-cf9f0052
+      [RECTANGLE] #4:923 template=EL-73f3e380
+      [TEXT] #4:924 template=EL-068c55a7
+    [TEXT] #4:925 template=EL-202ee602
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:926 template=EL-3293ddf6
+    [TEXT] #4:927 template=EL-449dcb0b
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:928 template=EL-9649c1c3
+    [LINE] #4:929 template=EL-6d1ebd6b
+    [IMAGE-SVG] "Frame" #4:930 template=EL-70039339
+    [IMAGE-SVG] "图标" #4:940 template=EL-71b76c7d
+  [FRAME] "iPhone 17 - 3" #4:372 template=EL-d602f4a5
+    [RECTANGLE] #4:373 template=EL-67a6364e
+    [RECTANGLE] #4:374 template=EL-2c9f0a4a
+    [IMAGE-SVG] #4:375 template=EL-f5bbd1fb
+    [TEXT] #4:376 template=EL-0e684d07
+    [TEXT] #4:377 template=EL-4c6cf26d
+    [INSTANCE] #4:378 layout=layout_8dec6a8d fills=fill_97d170e1 componentId=4:356
+      [RECTANGLE] #I4:378;1:89 template=EL-1f59bf6b
+      [TEXT] #I4:378;1:91 template=EL-9b95310b
+      [RECTANGLE] #I4:378;2:5 template=EL-dd3e91d1
+      [TEXT] #I4:378;1:92 template=EL-24a8b51a
+    [COMPONENT] #4:1001 template=EL-89b27106
+      [RECTANGLE] #4:379 layout=layout_149d1e5d fills=fill_34dc0314 strokes=fill_7ed6cbc7 strokeWeight=1px
+      [TEXT] #4:380 template=EL-fd7a3da2
+    [COMPONENT] #4:985 template=EL-a7c2fec2
+      [RECTANGLE] #4:381 template=EL-11b15282
+      [TEXT] #4:382 template=EL-5b6be809
+    [TEXT] #4:383 template=EL-68bf8b7a
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:384 template=EL-3293ddf6
+    [TEXT] #4:385 template=EL-d311406e
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:386 template=EL-916fbe67
+    [INSTANCE] #4:387 layout=layout_b82ceb79 fills=fill_97d170e1 componentId=2:4
+      [RECTANGLE] #I4:387;1:106 layout=layout_fd864604 fills=fill_96f59904
+      [RECTANGLE] #I4:387;1:137 layout=layout_b22a937e fills=fill_34dc0314
+      [RECTANGLE] #I4:387;1:107 layout=layout_373dca62 fills=fill_34dc0314 strokes=fill_7ed6cbc7 strokeWeight=1px
+      [RECTANGLE] #I4:387;1:114 layout=layout_32ad45bb fills=fill_34dc0314 strokes=fill_7ed6cbc7 strokeWeight=1px
+      [RECTANGLE] #I4:387;1:108 template=EL-1fece8f6
+      [LINE] #I4:387;1:113 layout=layout_79bee2b2 strokes=fill_34dc0314 strokeWeight=1px
+      [IMAGE-SVG] #I4:387;1:116 template=EL-82a489c0
+      [IMAGE-SVG] "Frame" #I4:387;1:117 template=EL-dd6744df
+      [RECTANGLE] #I4:387;1:122 layout=layout_0fd2449e fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:123 layout=layout_46d5b964 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:125 layout=layout_d590f56d fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:126 layout=layout_eddc4e32 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:128 layout=layout_3e0e396d fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:129 layout=layout_cc327538 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:131 layout=layout_80a492e8 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:132 layout=layout_a3bc091a fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:134 layout=layout_17702df1 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:135 layout=layout_b2094c03 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [TEXT] #I4:387;1:138 layout=layout_ca437e19 fills=fill_658ab2fa textStyle=style_ae9f1680 text="Q"
+      [TEXT] #I4:387;1:141 layout=layout_7efaf8b3 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="1"
+      [TEXT] #I4:387;1:142 template=EL-8a32c5b9
+      [TEXT] #I4:387;1:144 layout=layout_543b97dc fills=fill_658ab2fa textStyle=style_ae9f1680 text="W"
+      [TEXT] #I4:387;1:145 layout=layout_360586db fills=fill_658ab2fa textStyle=style_f5e80fd9 text="2"
+      [TEXT] #I4:387;1:146 template=EL-23161d9f
+      [TEXT] #I4:387;1:148 layout=layout_95523b03 fills=fill_658ab2fa textStyle=style_ae9f1680 text="E"
+      [TEXT] #I4:387;1:149 layout=layout_3a60f56b fills=fill_658ab2fa textStyle=style_f5e80fd9 text="3"
+      [TEXT] #I4:387;1:150 template=EL-47a14c7b
+      [TEXT] #I4:387;1:152 layout=layout_27179a9f fills=fill_658ab2fa textStyle=style_ae9f1680 text="R"
+      [TEXT] #I4:387;1:153 layout=layout_553d05d1 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="4"
+      [TEXT] #I4:387;1:154 template=EL-f2fcef28
+      [TEXT] #I4:387;1:156 layout=layout_d2ddd871 fills=fill_658ab2fa textStyle=style_ae9f1680 text="T"
+      [TEXT] #I4:387;1:157 layout=layout_0942ea2f fills=fill_658ab2fa textStyle=style_f5e80fd9 text="5"
+      [TEXT] #I4:387;1:158 template=EL-6c57c083
+      [TEXT] #I4:387;1:160 layout=layout_ef18e8da fills=fill_658ab2fa textStyle=style_ae9f1680 text="Y"
+      [TEXT] #I4:387;1:161 layout=layout_bb7a66b7 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="6"
+      [TEXT] #I4:387;1:162 template=EL-b73f6db1
+      [TEXT] #I4:387;1:164 layout=layout_1d88b85d fills=fill_658ab2fa textStyle=style_ae9f1680 text="U"
+      [TEXT] #I4:387;1:165 layout=layout_92f8b13e fills=fill_658ab2fa textStyle=style_f5e80fd9 text="7"
+      [TEXT] #I4:387;1:166 template=EL-92344a3a
+      [TEXT] #I4:387;1:168 layout=layout_569858e0 fills=fill_658ab2fa textStyle=style_ae9f1680 text="I"
+      [TEXT] #I4:387;1:169 layout=layout_f47c837e fills=fill_658ab2fa textStyle=style_f5e80fd9 text="8"
+      [TEXT] #I4:387;1:170 template=EL-75292621
+      [TEXT] #I4:387;1:172 layout=layout_b3229b11 fills=fill_658ab2fa textStyle=style_ae9f1680 text="O"
+      [TEXT] #I4:387;1:173 layout=layout_1c7027d1 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="9"
+      [TEXT] #I4:387;1:174 template=EL-b49e294a
+      [TEXT] #I4:387;1:176 layout=layout_f1dc7f7c fills=fill_658ab2fa textStyle=style_ae9f1680 text="P"
+      [TEXT] #I4:387;1:177 layout=layout_5fe10858 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="0"
+      [TEXT] #I4:387;1:178 template=EL-f041ed13
+      [RECTANGLE] #I4:387;1:180 layout=layout_3da49b42 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:181 layout=layout_4f0113e1 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:182 layout=layout_12972551 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:183 layout=layout_1d0eb9db fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:184 layout=layout_157f5cdf fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:185 layout=layout_9f51ba56 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:186 layout=layout_e99ea447 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:187 layout=layout_2e85317b fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:189 layout=layout_84f6ebb9 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [TEXT] #I4:387;1:190 layout=layout_3fd3a14c fills=fill_658ab2fa textStyle=style_ae9f1680 text="A"
+      [TEXT] #I4:387;1:191 layout=layout_a1f4bff5 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="aq"
+      [TEXT] #I4:387;1:193 layout=layout_bba255a8 fills=fill_658ab2fa textStyle=style_ae9f1680 text="S"
+      [TEXT] #I4:387;1:194 layout=layout_d19ad50f fills=fill_658ab2fa textStyle=style_f5e80fd9 text="s"
+      [TEXT] #I4:387;1:196 layout=layout_06bb915e fills=fill_658ab2fa textStyle=style_ae9f1680 text="D"
+      [TEXT] #I4:387;1:199 layout=layout_d60856c7 fills=fill_658ab2fa textStyle=style_ae9f1680 text="F"
+      [TEXT] #I4:387;1:200 template=EL-31c50832
+      [TEXT] #I4:387;1:202 layout=layout_b614ba91 fills=fill_658ab2fa textStyle=style_ae9f1680 text="G"
+      [TEXT] #I4:387;1:203 template=EL-3c644db4
+      [TEXT] #I4:387;1:205 layout=layout_16e65331 fills=fill_658ab2fa textStyle=style_ae9f1680 text="H"
+      [TEXT] #I4:387;1:206 layout=layout_201e70a2 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\("
+      [TEXT] #I4:387;1:208 layout=layout_394dcaff fills=fill_658ab2fa textStyle=style_ae9f1680 text="J"
+      [TEXT] #I4:387;1:209 layout=layout_cf7a0a45 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\)"
+      [TEXT] #I4:387;1:273 layout=layout_483947b4 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\["
+      [TEXT] #I4:387;1:274 layout=layout_5f29c0f6 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\]"
+      [TEXT] #I4:387;1:276 template=EL-dac3dbe9
+      [TEXT] #I4:387;1:277 template=EL-54dad092
+      [TEXT] #I4:387;1:211 layout=layout_b7c85383 fills=fill_658ab2fa textStyle=style_ae9f1680 text="K"
+      [TEXT] #I4:387;1:212 layout=layout_fda2d38a fills=fill_658ab2fa textStyle=style_f5e80fd9 text="Δ"
+      [RECTANGLE] #I4:387;1:222 layout=layout_55697558 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:279 layout=layout_7c8e6dbe fills=fill_34dc0314 effects=effect_fadc47c6
+      [RECTANGLE] #I4:387;1:312 layout=layout_3331e4b7 fills=fill_34dc0314 effects=effect_fadc47c6
+      [RECTANGLE] #I4:387;1:289 layout=layout_536b549a fills=fill_34dc0314 effects=effect_fadc47c6
+      [RECTANGLE] #I4:387;1:223 layout=layout_fe4a9071 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:224 layout=layout_6f6f9dcb fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:225 layout=layout_8267115b fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:226 layout=layout_aaca5fdc fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:296 layout=layout_1fee80c5 fills=fill_34dc0314 effects=effect_fadc47c6
+      [RECTANGLE] #I4:387;1:298 layout=layout_49480eaf fills=fill_34dc0314 effects=effect_fadc47c6
+      [RECTANGLE] #I4:387;1:300 template=EL-42978af7
+      [RECTANGLE] #I4:387;1:227 layout=layout_3c820d95 fills=fill_34dc0314 effects=effect_ecbc28ee
+      [RECTANGLE] #I4:387;1:228 layout=layout_8ffa23ea fills=fill_34dc0314 effects=effect_ecbc28ee
+      [TEXT] #I4:387;1:229 layout=layout_af4dfd4b fills=fill_658ab2fa textStyle=style_ae9f1680 text="Z"
+      [TEXT] #I4:387;1:230 layout=layout_abfe4701 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="="
+      [TEXT] #I4:387;1:251 template=EL-d2673ad1
+      [TEXT] #I4:387;1:232 layout=layout_750dd184 fills=fill_658ab2fa textStyle=style_ae9f1680 text="X"
+      [TEXT] #I4:387;1:233 layout=layout_62ada0af fills=fill_658ab2fa textStyle=style_f5e80fd9 text="-"
+      [TEXT] #I4:387;1:253 layout=layout_2b98aa5e fills=fill_658ab2fa textStyle=style_f5e80fd9 text="c"
+      [TEXT] #I4:387;1:235 layout=layout_bdca7aa3 fills=fill_658ab2fa textStyle=style_ae9f1680 text="C"
+      [TEXT] #I4:387;1:236 layout=layout_89ac224e fills=fill_658ab2fa textStyle=style_f5e80fd9 text="+"
+      [TEXT] #I4:387;1:238 layout=layout_f2b67487 fills=fill_658ab2fa textStyle=style_ae9f1680 text="V"
+      [TEXT] #I4:387;1:239 template=EL-2e2450f9
+      [TEXT] #I4:387;1:241 layout=layout_6241aefd fills=fill_658ab2fa textStyle=style_ae9f1680 text="B"
+      [TEXT] #I4:387;1:242 template=EL-7505fdc6
+      [TEXT] #I4:387;1:244 layout=layout_1110ab96 fills=fill_658ab2fa textStyle=style_ae9f1680 text="N"
+      [TEXT] #I4:387;1:245 template=EL-042e7d4e
+      [TEXT] #I4:387;1:247 layout=layout_b54339f4 fills=fill_658ab2fa textStyle=style_ae9f1680 text="M"
+      [TEXT] #I4:387;1:248 template=EL-aa23f3fb
+      [TEXT] #I4:387;1:214 layout=layout_6c1e9261 fills=fill_658ab2fa textStyle=style_ae9f1680 text="L"
+      [TEXT] #I4:387;1:215 template=EL-93d42a20
+      [TEXT] #I4:387;1:255 template=EL-29866d96
+      [TEXT] #I4:387;1:261 template=EL-dcd1ad9c
+      [TEXT] #I4:387;1:263 layout=layout_6f098c5d fills=fill_658ab2fa textStyle=style_7648931c text="ν"
+      [TEXT] #I4:387;1:264 layout=layout_9bb0dc46 fills=fill_658ab2fa textStyle=style_7648931c text="↑"
+      [TEXT] #I4:387;1:265 layout=layout_b2841af0 fills=fill_658ab2fa textStyle=style_7648931c text="↓"
+      [TEXT] #I4:387;1:266 template=EL-1b11eb59
+      [TEXT] #I4:387;1:267 template=EL-8d20d2b3
+      [TEXT] #I4:387;1:268 layout=layout_ef47a1a4 fills=fill_658ab2fa textStyle=style_7648931c text="·"
+      [TEXT] #I4:387;1:269 template=EL-70632790
+      [TEXT] #I4:387;1:270 layout=layout_66150f6f fills=fill_658ab2fa textStyle=style_f5e80fd9 text="→"
+      [TEXT] #I4:387;1:271 template=EL-f883c7b0
+      [IMAGE-SVG] #I4:387;1:282 layout=layout_bf435080 fills=fill_97d170e1 strokes=fill_658ab2fa strokeWeight=1px
+      [IMAGE-SVG] "Union" #I4:387;1:291 layout=layout_a43ad0b3 fills=fill_658ab2fa strokes=fill_658ab2fa
+      [IMAGE-SVG] #I4:387;1:294 layout=layout_f841683f strokes=fill_658ab2fa strokeWeight=1px
+      [TEXT] #I4:387;1:311 layout=layout_7e2930e4 fills=fill_658ab2fa textStyle=style_ae9f1680 text="拼   {ts5}素{/ts5}"
+      [LINE] #I4:387;1:307 layout=layout_1fcc476c fills=fill_658ab2fa strokes=fill_658ab2fa strokeWeight=1px
+      [TEXT] #I4:387;1:314 layout=layout_0f43df3e fills=fill_658ab2fa textStyle=style_ae9f1680 text="，"
+      [TEXT] #I4:387;1:315 template=EL-394743f8
+      [IMAGE-SVG] #I4:387;1:317 layout=layout_585c86b0 strokes=fill_34dc0314 strokeWeight=1px
+      [TEXT] #I4:387;1:318 layout=layout_99839f6e fills=fill_658ab2fa textStyle=style_ae9f1680 text="空格"
+      [TEXT] #I4:387;2:2 layout=layout_277df73e fills=fill_658ab2fa textStyle=style_e378bd31 text="⇌"
+  [FRAME] "iPhone 17 - 2" #2:10 template=EL-29e2b580
+    [RECTANGLE] #2:11 template=EL-913e333a
+    [RECTANGLE] #2:13 template=EL-af1d67cd
+    [IMAGE-SVG] #2:14 template=EL-f5bbd1fb
+    [TEXT] #2:15 template=EL-28035422
+    [TEXT] #2:17 template=EL-18a54c3b
+    [COMPONENT] #4:364 template=EL-5bb330b1
+      [RECTANGLE] #2:12 template=EL-cbcbe070
+      [TEXT] #2:16 template=EL-9b95310b
+      [RECTANGLE] #2:18 template=EL-dd3e91d1
+      [TEXT] #2:19 template=EL-24a8b51a
+    [COMPONENT] #4:1006 template=EL-89b27106
+      [RECTANGLE] #2:20 layout=layout_149d1e5d fills=fill_658ab2fa strokes=fill_13cbf414 strokeWeight=1px
+      [TEXT] #2:21 template=EL-caf66448
+    [TEXT] #2:22 template=EL-2b5a91e1
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #2:23 template=EL-c62efbd6
+    [TEXT] #2:24 template=EL-b763173a
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #2:25 template=EL-89d9c2d4
+    [RECTANGLE] #2:221 layout=layout_b82ceb79 fills=fill_2bed7563
+    [RECTANGLE] #2:222 layout=layout_85720185 fills=fill_658ab2fa
+    [RECTANGLE] #2:223 layout=layout_89d244c3 fills=fill_658ab2fa strokes=fill_13cbf414 strokeWeight=1px
+    [RECTANGLE] #2:224 layout=layout_85968bee fills=fill_658ab2fa strokes=fill_13cbf414 strokeWeight=1px
+    [RECTANGLE] #2:225 template=EL-64ca3957
+    [LINE] #2:226 layout=layout_894b5283 strokes=fill_658ab2fa strokeWeight=1px
+    [IMAGE-SVG] #2:227 template=EL-69254fb8
+    [IMAGE-SVG] "Frame" #2:228 template=EL-a2f49e28
+    [RECTANGLE] #2:231 layout=layout_5afe8147 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:232 layout=layout_5ddfe163 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:233 layout=layout_0a71cc05 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:234 layout=layout_eb6521d7 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:235 layout=layout_df08b8ce fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:236 layout=layout_c7142fb8 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:237 layout=layout_9c1c6737 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:238 layout=layout_3dcdcdfb fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:239 layout=layout_0180877d fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:240 layout=layout_d2be798a fills=fill_658ab2fa effects=effect_309be11c
+    [TEXT] #2:241 layout=layout_a8c376cd fills=fill_34dc0314 textStyle=style_ae9f1680 text="Q"
+    [TEXT] #2:242 layout=layout_7abd5d28 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="1"
+    [TEXT] #2:243 template=EL-fb787fef
+    [TEXT] #2:244 layout=layout_58577e43 fills=fill_34dc0314 textStyle=style_ae9f1680 text="W"
+    [TEXT] #2:245 layout=layout_3bd85ef3 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="2"
+    [TEXT] #2:246 template=EL-8ecd0ec7
+    [TEXT] #2:247 layout=layout_0671831a fills=fill_34dc0314 textStyle=style_ae9f1680 text="E"
+    [TEXT] #2:248 layout=layout_dcf1d279 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="3"
+    [TEXT] #2:249 template=EL-d70d02b4
+    [TEXT] #2:250 layout=layout_be4f4109 fills=fill_34dc0314 textStyle=style_ae9f1680 text="R"
+    [TEXT] #2:251 layout=layout_589f2f57 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="4"
+    [TEXT] #2:252 template=EL-482e26d0
+    [TEXT] #2:253 layout=layout_206033ad fills=fill_34dc0314 textStyle=style_ae9f1680 text="T"
+    [TEXT] #2:254 layout=layout_b6ac5a4e fills=fill_34dc0314 textStyle=style_f5e80fd9 text="5"
+    [TEXT] #2:255 template=EL-9b61a5c2
+    [TEXT] #2:256 layout=layout_2fac6afc fills=fill_34dc0314 textStyle=style_ae9f1680 text="Y"
+    [TEXT] #2:257 layout=layout_a6dbccd5 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="6"
+    [TEXT] #2:258 template=EL-5be17ce7
+    [TEXT] #2:259 layout=layout_fcc14114 fills=fill_34dc0314 textStyle=style_ae9f1680 text="U"
+    [TEXT] #2:260 layout=layout_653357c9 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="7"
+    [TEXT] #2:261 template=EL-20f5bce5
+    [TEXT] #2:262 layout=layout_a9be1824 fills=fill_34dc0314 textStyle=style_ae9f1680 text="I"
+    [TEXT] #2:263 layout=layout_89a4b54a fills=fill_34dc0314 textStyle=style_f5e80fd9 text="8"
+    [TEXT] #2:264 template=EL-d086dae5
+    [TEXT] #2:265 layout=layout_5585d660 fills=fill_34dc0314 textStyle=style_ae9f1680 text="O"
+    [TEXT] #2:266 layout=layout_79a8be6a fills=fill_34dc0314 textStyle=style_f5e80fd9 text="9"
+    [TEXT] #2:267 template=EL-032b63b5
+    [TEXT] #2:268 layout=layout_3792c272 fills=fill_34dc0314 textStyle=style_ae9f1680 text="P"
+    [TEXT] #2:269 layout=layout_e1fe93dc fills=fill_34dc0314 textStyle=style_f5e80fd9 text="0"
+    [TEXT] #2:270 template=EL-00213932
+    [RECTANGLE] #2:271 layout=layout_06080be8 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:272 layout=layout_96459e80 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:273 layout=layout_185e2cfb fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:274 layout=layout_a3f34c04 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:275 layout=layout_5dfd558d fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:276 layout=layout_50dbbae1 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:277 layout=layout_bca888e3 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:278 layout=layout_324a325a fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:279 layout=layout_413303a2 fills=fill_658ab2fa effects=effect_309be11c
+    [TEXT] #2:280 layout=layout_ad5ca04a fills=fill_34dc0314 textStyle=style_ae9f1680 text="A"
+    [TEXT] #2:281 layout=layout_0358ff20 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="aq"
+    [TEXT] #2:282 layout=layout_17613661 fills=fill_34dc0314 textStyle=style_ae9f1680 text="S"
+    [TEXT] #2:283 layout=layout_139730bb fills=fill_34dc0314 textStyle=style_f5e80fd9 text="s"
+    [TEXT] #2:284 layout=layout_2be39433 fills=fill_34dc0314 textStyle=style_ae9f1680 text="D"
+    [TEXT] #2:285 layout=layout_e70bdb4a fills=fill_34dc0314 textStyle=style_ae9f1680 text="F"
+    [TEXT] #2:286 template=EL-529d12fd
+    [TEXT] #2:287 layout=layout_b22bee75 fills=fill_34dc0314 textStyle=style_ae9f1680 text="G"
+    [TEXT] #2:288 template=EL-acfd64cd
+    [TEXT] #2:289 layout=layout_10c04bca fills=fill_34dc0314 textStyle=style_ae9f1680 text="H"
+    [TEXT] #2:290 layout=layout_2ff5cc5c fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\("
+    [TEXT] #2:291 layout=layout_3ddfb96a fills=fill_34dc0314 textStyle=style_ae9f1680 text="J"
+    [TEXT] #2:292 layout=layout_16a8f59c fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\)"
+    [TEXT] #2:293 layout=layout_58e432fe fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\["
+    [TEXT] #2:294 layout=layout_23a48e15 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="\\]"
+    [TEXT] #2:295 template=EL-10619d72
+    [TEXT] #2:296 template=EL-af548ec6
+    [TEXT] #2:297 layout=layout_371dac05 fills=fill_34dc0314 textStyle=style_ae9f1680 text="K"
+    [TEXT] #2:298 layout=layout_8eeb6f8d fills=fill_34dc0314 textStyle=style_f5e80fd9 text="Δ"
+    [RECTANGLE] #2:299 layout=layout_a4633c26 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:300 layout=layout_7fd70720 fills=fill_658ab2fa effects=effect_776f2f10
+    [RECTANGLE] #2:301 layout=layout_91ff0044 fills=fill_658ab2fa effects=effect_776f2f10
+    [RECTANGLE] #2:302 layout=layout_2e6fae34 fills=fill_658ab2fa effects=effect_776f2f10
+    [RECTANGLE] #2:303 layout=layout_c714f524 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:304 layout=layout_0e66864b fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:305 layout=layout_5ab3b979 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:306 layout=layout_176c3b95 fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:307 layout=layout_2876f924 fills=fill_658ab2fa effects=effect_776f2f10
+    [RECTANGLE] #2:308 layout=layout_423ca874 fills=fill_658ab2fa effects=effect_776f2f10
+    [RECTANGLE] #2:309 template=EL-17178ed0
+    [RECTANGLE] #2:310 layout=layout_610e246f fills=fill_658ab2fa effects=effect_309be11c
+    [RECTANGLE] #2:311 layout=layout_d762545c fills=fill_658ab2fa effects=effect_309be11c
+    [TEXT] #2:312 layout=layout_10eb151b fills=fill_34dc0314 textStyle=style_ae9f1680 text="Z"
+    [TEXT] #2:313 layout=layout_bf70af25 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="="
+    [TEXT] #2:314 template=EL-6936d563
+    [TEXT] #2:315 layout=layout_aba669cc fills=fill_34dc0314 textStyle=style_ae9f1680 text="X"
+    [TEXT] #2:316 layout=layout_a4bd92d7 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="-"
+    [TEXT] #2:317 layout=layout_2b2d30b7 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="c"
+    [TEXT] #2:318 layout=layout_303a140f fills=fill_34dc0314 textStyle=style_ae9f1680 text="C"
+    [TEXT] #2:319 layout=layout_10266ee4 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="+"
+    [TEXT] #2:320 layout=layout_4e5f5e98 fills=fill_34dc0314 textStyle=style_ae9f1680 text="V"
+    [TEXT] #2:321 template=EL-53cdfe0a
+    [TEXT] #2:322 layout=layout_2f5abbb2 fills=fill_34dc0314 textStyle=style_ae9f1680 text="B"
+    [TEXT] #2:323 template=EL-b4d2d353
+    [TEXT] #2:324 layout=layout_6a2cc7d3 fills=fill_34dc0314 textStyle=style_ae9f1680 text="N"
+    [TEXT] #2:325 template=EL-63ded61e
+    [TEXT] #2:326 layout=layout_8b78b45c fills=fill_34dc0314 textStyle=style_ae9f1680 text="M"
+    [TEXT] #2:327 template=EL-08bd39a9
+    [TEXT] #2:328 layout=layout_7ab1746b fills=fill_34dc0314 textStyle=style_ae9f1680 text="L"
+    [TEXT] #2:329 template=EL-406f4948
+    [TEXT] #2:330 template=EL-04250a53
+    [TEXT] #2:331 template=EL-422a0c37
+    [TEXT] #2:332 layout=layout_8eb2858f fills=fill_34dc0314 textStyle=style_7648931c text="ν"
+    [TEXT] #2:333 layout=layout_3db5345d fills=fill_34dc0314 textStyle=style_7648931c text="↑"
+    [TEXT] #2:334 layout=layout_8f983542 fills=fill_34dc0314 textStyle=style_7648931c text="↓"
+    [TEXT] #2:335 template=EL-3b1f3c69
+    [TEXT] #2:336 template=EL-4b3292be
+    [TEXT] #2:337 layout=layout_7681a92f fills=fill_34dc0314 textStyle=style_7648931c text="·"
+    [TEXT] #2:338 template=EL-b40c421d
+    [TEXT] #2:339 layout=layout_c43b7018 fills=fill_34dc0314 textStyle=style_f5e80fd9 text="→"
+    [TEXT] #2:340 template=EL-ec0d0a73
+    [IMAGE-SVG] #2:341 layout=layout_f4408d7d fills=fill_97d170e1 strokes=fill_34dc0314 strokeWeight=1px
+    [IMAGE-SVG] "Union" #2:342 layout=layout_f10bcab1 fills=fill_34dc0314 strokes=fill_34dc0314
+    [IMAGE-SVG] #2:345 layout=layout_6f369b55 strokes=fill_34dc0314 strokeWeight=1px
+    [TEXT] #2:346 layout=layout_37007a5f fills=fill_34dc0314 textStyle=style_ae9f1680 text="拼   {ts3}素{/ts3}"
+    [LINE] #2:347 layout=layout_2fb36c1e fills=fill_34dc0314 strokes=fill_34dc0314 strokeWeight=1px
+    [TEXT] #2:348 layout=layout_0bad2b5f fills=fill_34dc0314 textStyle=style_ae9f1680 text="，"
+    [TEXT] #2:349 template=EL-0c388d3c
+    [IMAGE-SVG] #2:350 layout=layout_f89afb49 strokes=fill_658ab2fa strokeWeight=1px
+    [TEXT] #2:351 layout=layout_c907a150 fills=fill_34dc0314 textStyle=style_ae9f1680 text="空格"
+    [TEXT] #2:352 layout=layout_c256b82d fills=fill_34dc0314 textStyle=style_e378bd31 text="⇌"
+    [COMPONENT] #4:983 template=EL-4979b9e0
+      [RECTANGLE] #4:369 template=EL-682ee6c8
+      [TEXT] #4:370 template=EL-74ba8cdb
+  [FRAME] "iPhone 17 - 4" #4:531 template=EL-d602f4a5
+    [RECTANGLE] #4:532 template=EL-67a6364e
+    [RECTANGLE] #4:533 template=EL-2c9f0a4a
+    [IMAGE-SVG] #4:534 template=EL-f5bbd1fb
+    [TEXT] #4:535 template=EL-0e684d07
+    [TEXT] #4:536 template=EL-4c6cf26d
+    [INSTANCE] #4:537 layout=layout_8dec6a8d fills=fill_97d170e1 componentId=4:364
+      [RECTANGLE] #I4:537;2:12 template=EL-cbcbe070
+      [TEXT] #I4:537;2:16 template=EL-9b95310b
+      [RECTANGLE] #I4:537;2:18 template=EL-dd3e91d1
+      [TEXT] #I4:537;2:19 template=EL-24a8b51a
+    [COMPONENT] #4:1004 template=EL-89b27106
+      [RECTANGLE] #4:538 layout=layout_149d1e5d fills=fill_34dc0314 strokes=fill_13cbf414 strokeWeight=1px
+      [TEXT] #4:539 template=EL-fd7a3da2
+    [TEXT] #4:540 template=EL-68bf8b7a
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:541 template=EL-3293ddf6
+    [TEXT] #4:542 template=EL-d311406e
+    [IMAGE-SVG] "Arrow 1 (Stroke)" #4:543 template=EL-916fbe67
+    [RECTANGLE] #4:544 layout=layout_b82ceb79 fills=fill_96f59904
+    [RECTANGLE] #4:545 layout=layout_85720185 fills=fill_34dc0314
+    [RECTANGLE] #4:546 layout=layout_89d244c3 fills=fill_34dc0314 strokes=fill_13cbf414 strokeWeight=1px
+    [RECTANGLE] #4:547 layout=layout_85968bee fills=fill_34dc0314 strokes=fill_13cbf414 strokeWeight=1px
+    [RECTANGLE] #4:548 template=EL-64ca3957
+    [LINE] #4:549 layout=layout_894b5283 strokes=fill_34dc0314 strokeWeight=1px
+    [IMAGE-SVG] #4:550 template=EL-69254fb8
+    [IMAGE-SVG] "Frame" #4:551 template=EL-a2f49e28
+    [RECTANGLE] #4:554 layout=layout_5afe8147 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:555 layout=layout_5ddfe163 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:556 layout=layout_0a71cc05 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:557 layout=layout_eb6521d7 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:558 layout=layout_df08b8ce fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:559 layout=layout_c7142fb8 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:560 layout=layout_9c1c6737 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:561 layout=layout_3dcdcdfb fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:562 layout=layout_0180877d fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:563 layout=layout_d2be798a fills=fill_34dc0314 effects=effect_309be11c
+    [TEXT] #4:564 layout=layout_a8c376cd fills=fill_658ab2fa textStyle=style_ae9f1680 text="Q"
+    [TEXT] #4:565 layout=layout_7abd5d28 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="1"
+    [TEXT] #4:566 template=EL-fb787fef
+    [TEXT] #4:567 layout=layout_58577e43 fills=fill_658ab2fa textStyle=style_ae9f1680 text="W"
+    [TEXT] #4:568 layout=layout_3bd85ef3 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="2"
+    [TEXT] #4:569 template=EL-8ecd0ec7
+    [TEXT] #4:570 layout=layout_0671831a fills=fill_658ab2fa textStyle=style_ae9f1680 text="E"
+    [TEXT] #4:571 layout=layout_dcf1d279 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="3"
+    [TEXT] #4:572 template=EL-d70d02b4
+    [TEXT] #4:573 layout=layout_be4f4109 fills=fill_658ab2fa textStyle=style_ae9f1680 text="R"
+    [TEXT] #4:574 layout=layout_589f2f57 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="4"
+    [TEXT] #4:575 template=EL-482e26d0
+    [TEXT] #4:576 layout=layout_206033ad fills=fill_658ab2fa textStyle=style_ae9f1680 text="T"
+    [TEXT] #4:577 layout=layout_b6ac5a4e fills=fill_658ab2fa textStyle=style_f5e80fd9 text="5"
+    [TEXT] #4:578 template=EL-9b61a5c2
+    [TEXT] #4:579 layout=layout_2fac6afc fills=fill_658ab2fa textStyle=style_ae9f1680 text="Y"
+    [TEXT] #4:580 layout=layout_a6dbccd5 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="6"
+    [TEXT] #4:581 template=EL-5be17ce7
+    [TEXT] #4:582 layout=layout_fcc14114 fills=fill_658ab2fa textStyle=style_ae9f1680 text="U"
+    [TEXT] #4:583 layout=layout_653357c9 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="7"
+    [TEXT] #4:584 template=EL-20f5bce5
+    [TEXT] #4:585 layout=layout_a9be1824 fills=fill_658ab2fa textStyle=style_ae9f1680 text="I"
+    [TEXT] #4:586 layout=layout_89a4b54a fills=fill_658ab2fa textStyle=style_f5e80fd9 text="8"
+    [TEXT] #4:587 template=EL-d086dae5
+    [TEXT] #4:588 layout=layout_5585d660 fills=fill_658ab2fa textStyle=style_ae9f1680 text="O"
+    [TEXT] #4:589 layout=layout_79a8be6a fills=fill_658ab2fa textStyle=style_f5e80fd9 text="9"
+    [TEXT] #4:590 template=EL-032b63b5
+    [TEXT] #4:591 layout=layout_3792c272 fills=fill_658ab2fa textStyle=style_ae9f1680 text="P"
+    [TEXT] #4:592 layout=layout_e1fe93dc fills=fill_658ab2fa textStyle=style_f5e80fd9 text="0"
+    [TEXT] #4:593 template=EL-00213932
+    [RECTANGLE] #4:594 layout=layout_06080be8 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:595 layout=layout_96459e80 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:596 layout=layout_185e2cfb fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:597 layout=layout_a3f34c04 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:598 layout=layout_5dfd558d fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:599 layout=layout_50dbbae1 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:600 layout=layout_bca888e3 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:601 layout=layout_324a325a fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:602 layout=layout_413303a2 fills=fill_34dc0314 effects=effect_309be11c
+    [TEXT] #4:603 layout=layout_ad5ca04a fills=fill_658ab2fa textStyle=style_ae9f1680 text="A"
+    [TEXT] #4:604 layout=layout_0358ff20 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="aq"
+    [TEXT] #4:605 layout=layout_17613661 fills=fill_658ab2fa textStyle=style_ae9f1680 text="S"
+    [TEXT] #4:606 layout=layout_139730bb fills=fill_658ab2fa textStyle=style_f5e80fd9 text="s"
+    [TEXT] #4:607 layout=layout_2be39433 fills=fill_658ab2fa textStyle=style_ae9f1680 text="D"
+    [TEXT] #4:608 layout=layout_e70bdb4a fills=fill_658ab2fa textStyle=style_ae9f1680 text="F"
+    [TEXT] #4:609 template=EL-529d12fd
+    [TEXT] #4:610 layout=layout_b22bee75 fills=fill_658ab2fa textStyle=style_ae9f1680 text="G"
+    [TEXT] #4:611 template=EL-acfd64cd
+    [TEXT] #4:612 layout=layout_10c04bca fills=fill_658ab2fa textStyle=style_ae9f1680 text="H"
+    [TEXT] #4:613 layout=layout_2ff5cc5c fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\("
+    [TEXT] #4:614 layout=layout_3ddfb96a fills=fill_658ab2fa textStyle=style_ae9f1680 text="J"
+    [TEXT] #4:615 layout=layout_16a8f59c fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\)"
+    [TEXT] #4:616 layout=layout_58e432fe fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\["
+    [TEXT] #4:617 layout=layout_23a48e15 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="\\]"
+    [TEXT] #4:618 template=EL-10619d72
+    [TEXT] #4:619 template=EL-af548ec6
+    [TEXT] #4:620 layout=layout_371dac05 fills=fill_658ab2fa textStyle=style_ae9f1680 text="K"
+    [TEXT] #4:621 layout=layout_8eeb6f8d fills=fill_658ab2fa textStyle=style_f5e80fd9 text="Δ"
+    [RECTANGLE] #4:622 layout=layout_a4633c26 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:623 layout=layout_7fd70720 fills=fill_34dc0314 effects=effect_fadc47c6
+    [RECTANGLE] #4:624 layout=layout_91ff0044 fills=fill_34dc0314 effects=effect_fadc47c6
+    [RECTANGLE] #4:625 layout=layout_2e6fae34 fills=fill_34dc0314 effects=effect_fadc47c6
+    [RECTANGLE] #4:626 layout=layout_c714f524 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:627 layout=layout_0e66864b fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:628 layout=layout_5ab3b979 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:629 layout=layout_176c3b95 fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:630 layout=layout_2876f924 fills=fill_34dc0314 effects=effect_fadc47c6
+    [RECTANGLE] #4:631 layout=layout_423ca874 fills=fill_34dc0314 effects=effect_fadc47c6
+    [RECTANGLE] #4:632 template=EL-17178ed0
+    [RECTANGLE] #4:633 layout=layout_610e246f fills=fill_34dc0314 effects=effect_309be11c
+    [RECTANGLE] #4:634 layout=layout_d762545c fills=fill_34dc0314 effects=effect_309be11c
+    [TEXT] #4:635 layout=layout_10eb151b fills=fill_658ab2fa textStyle=style_ae9f1680 text="Z"
+    [TEXT] #4:636 layout=layout_bf70af25 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="="
+    [TEXT] #4:637 template=EL-6936d563
+    [TEXT] #4:638 layout=layout_aba669cc fills=fill_658ab2fa textStyle=style_ae9f1680 text="X"
+    [TEXT] #4:639 layout=layout_a4bd92d7 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="-"
+    [TEXT] #4:640 layout=layout_2b2d30b7 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="c"
+    [TEXT] #4:641 layout=layout_303a140f fills=fill_658ab2fa textStyle=style_ae9f1680 text="C"
+    [TEXT] #4:642 layout=layout_10266ee4 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="+"
+    [TEXT] #4:643 layout=layout_4e5f5e98 fills=fill_658ab2fa textStyle=style_ae9f1680 text="V"
+    [TEXT] #4:644 template=EL-53cdfe0a
+    [TEXT] #4:645 layout=layout_2f5abbb2 fills=fill_658ab2fa textStyle=style_ae9f1680 text="B"
+    [TEXT] #4:646 template=EL-b4d2d353
+    [TEXT] #4:647 layout=layout_6a2cc7d3 fills=fill_658ab2fa textStyle=style_ae9f1680 text="N"
+    [TEXT] #4:648 template=EL-63ded61e
+    [TEXT] #4:649 layout=layout_8b78b45c fills=fill_658ab2fa textStyle=style_ae9f1680 text="M"
+    [TEXT] #4:650 template=EL-08bd39a9
+    [TEXT] #4:651 layout=layout_7ab1746b fills=fill_658ab2fa textStyle=style_ae9f1680 text="L"
+    [TEXT] #4:652 template=EL-406f4948
+    [TEXT] #4:653 template=EL-04250a53
+    [TEXT] #4:654 template=EL-422a0c37
+    [TEXT] #4:655 layout=layout_8eb2858f fills=fill_658ab2fa textStyle=style_7648931c text="ν"
+    [TEXT] #4:656 layout=layout_3db5345d fills=fill_658ab2fa textStyle=style_7648931c text="↑"
+    [TEXT] #4:657 layout=layout_8f983542 fills=fill_658ab2fa textStyle=style_7648931c text="↓"
+    [TEXT] #4:658 template=EL-3b1f3c69
+    [TEXT] #4:659 template=EL-4b3292be
+    [TEXT] #4:660 layout=layout_7681a92f fills=fill_658ab2fa textStyle=style_7648931c text="·"
+    [TEXT] #4:661 template=EL-b40c421d
+    [TEXT] #4:662 layout=layout_c43b7018 fills=fill_658ab2fa textStyle=style_f5e80fd9 text="→"
+    [TEXT] #4:663 template=EL-ec0d0a73
+    [IMAGE-SVG] #4:664 layout=layout_f4408d7d fills=fill_97d170e1 strokes=fill_658ab2fa strokeWeight=1px
+    [IMAGE-SVG] "Union" #4:665 layout=layout_f10bcab1 fills=fill_658ab2fa strokes=fill_658ab2fa
+    [IMAGE-SVG] #4:668 layout=layout_6f369b55 strokes=fill_658ab2fa strokeWeight=1px
+    [TEXT] #4:669 layout=layout_37007a5f fills=fill_658ab2fa textStyle=style_ae9f1680 text="拼   {ts6}素{/ts6}"
+    [LINE] #4:670 layout=layout_2fb36c1e fills=fill_658ab2fa strokes=fill_658ab2fa strokeWeight=1px
+    [TEXT] #4:671 layout=layout_0bad2b5f fills=fill_658ab2fa textStyle=style_ae9f1680 text="，"
+    [TEXT] #4:672 template=EL-0c388d3c
+    [IMAGE-SVG] #4:673 layout=layout_f89afb49 strokes=fill_34dc0314 strokeWeight=1px
+    [TEXT] #4:674 layout=layout_c907a150 fills=fill_658ab2fa textStyle=style_ae9f1680 text="空格"
+    [TEXT] #4:675 layout=layout_c256b82d fills=fill_658ab2fa textStyle=style_e378bd31 text="⇌"
+    [COMPONENT] #4:986 template=EL-4979b9e0
+      [RECTANGLE] #4:676 template=EL-73f3e380
+      [TEXT] #4:677 template=EL-74ba8cdb
+  [IMAGE-SVG] "图标" #1:14 layout={"mode":"none","sizing":{},"dimensions":{"width":80,"height":80}} fills=fill_658ab2fa
+  [FRAME] #2:169 template=EL-770bddf4
+    [RECTANGLE] "image 1" #2:167 layout=layout_db0cff65 fills=["rgba(0, 0, 0, 0.5)",{"type":"IMAGE","imageRef":"90a066c5baa9dd63785810634c81cfb07dce4360","scaleMode":"FILL","objectFit":"cover","isBackground":false,"imageDownloadArguments":{"needsCropping":false,"requiresImageDimensions":false}}]
+    [RECTANGLE] #2:170 template=EL-74b1d226
+    [RECTANGLE] #2:175 template=EL-b3d9bf37
+    [TEXT] #2:171 template=EL-f7954dd2
+    [RECTANGLE] #2:172 template=EL-63ea2987
+    [TEXT] #2:173 template=EL-89825613
+    [COMPONENT] #4:358 layout=layout_7e7601ee fills=fill_97d170e1
+      [RECTANGLE] #2:177 layout=layout_9d9264a8 fills=fill_658ab2fa strokes=fill_13cbf414 strokeWeight=1px
+      [TEXT] #2:179 template=EL-ef419f42
+    [RECTANGLE] #2:184 template=EL-f0f50c34
+    [RECTANGLE] #2:187 template=EL-faad3971
+    [TEXT] #2:192 template=EL-81467dec
+    [TEXT] #2:194 template=EL-48af4263
+    [RECTANGLE] #2:201 template=EL-5ac2f8ff
+    [TEXT] #2:202 template=EL-3ec40cdd
+  [FRAME] #4:1008 template=EL-770bddf4
+    [RECTANGLE] "image 4" #4:1030 layout=layout_db0cff65 fills=["rgba(0, 0, 0, 0.8)",{"type":"IMAGE","imageRef":"d2455fc42410447f778a61d5616aae6f087f6a5f","scaleMode":"FILL","objectFit":"cover","isBackground":false,"imageDownloadArguments":{"needsCropping":false,"requiresImageDimensions":false}}]
+    [RECTANGLE] #4:1010 template=EL-3c9aac57
+    [RECTANGLE] #4:1011 template=EL-b3d9bf37
+    [TEXT] #4:1012 template=EL-f7954dd2
+    [RECTANGLE] #4:1013 template=EL-63ea2987
+    [TEXT] #4:1014 template=EL-89825613
+    [INSTANCE] #4:1015 layout=layout_7e7601ee fills=fill_97d170e1 componentId=4:358
+      [RECTANGLE] #I4:1015;2:177 layout=layout_9d9264a8 fills=fill_96f59904 strokes=fill_13cbf414 strokeWeight=1px
+      [TEXT] #I4:1015;2:179 template=EL-ef419f42
+    [RECTANGLE] #4:1016 template=EL-d0aca829
+    [RECTANGLE] #4:1017 template=EL-faad3971
+    [TEXT] #4:1018 template=EL-81467dec
+    [TEXT] #4:1019 template=EL-48af4263
+    [RECTANGLE] #4:1020 template=EL-228cf612
+    [TEXT] #4:1021 template=EL-3ec40cdd
+  [FRAME] #2:204 template=EL-770bddf4
+    [RECTANGLE] "image 2" #2:354 layout=layout_db0cff65 fills=["rgba(0, 0, 0, 0.5)",{"type":"IMAGE","imageRef":"0cc87a54645071fb4fa6ebedf2b8f8bf85025930","scaleMode":"FILL","objectFit":"cover","isBackground":false,"imageDownloadArguments":{"needsCropping":false,"requiresImageDimensions":false}}]
+    [RECTANGLE] #2:206 template=EL-74b1d226
+    [RECTANGLE] #2:207 template=EL-fdc307b0
+    [TEXT] #2:208 template=EL-f7954dd2
+    [RECTANGLE] #2:209 template=EL-63ea2987
+    [TEXT] #2:210 template=EL-d6ed7dc2
+    [RECTANGLE] #2:211 template=EL-afc9507f
+    [TEXT] #2:212 template=EL-a5e59129
+    [RECTANGLE] #2:213 template=EL-f0f50c34
+    [COMPONENT] #4:360 layout=layout_016fdfb4 fills=fill_97d170e1
+      [RECTANGLE] #2:214 layout=layout_9d9264a8 fills=fill_658ab2fa strokes=fill_7ed6cbc7 strokeWeight=1px
+      [TEXT] #2:215 template=EL-89e8a652
+    [TEXT] #2:216 template=EL-48af4263
+    [RECTANGLE] #2:217 template=EL-5ac2f8ff
+    [TEXT] #2:218 template=EL-3ec40cdd
+  [FRAME] #4:1032 template=EL-770bddf4
+    [RECTANGLE] "image 5" #4:1051 layout=layout_db0cff65 fills=["rgba(0, 0, 0, 0.8)",{"type":"IMAGE","imageRef":"77e4d86a2a3c24b20971e25ff2572c65fe21b371","scaleMode":"FILL","objectFit":"cover","isBackground":false,"imageDownloadArguments":{"needsCropping":false,"requiresImageDimensions":false}}]
+    [RECTANGLE] #4:1034 template=EL-3c9aac57
+    [RECTANGLE] #4:1035 template=EL-fdc307b0
+    [TEXT] #4:1036 template=EL-f7954dd2
+    [RECTANGLE] #4:1037 template=EL-63ea2987
+    [TEXT] #4:1038 template=EL-d6ed7dc2
+    [RECTANGLE] #4:1039 template=EL-afc9507f
+    [TEXT] #4:1040 template=EL-a5e59129
+    [RECTANGLE] #4:1041 template=EL-d0aca829
+    [INSTANCE] #4:1042 layout=layout_016fdfb4 fills=fill_97d170e1 componentId=4:360
+      [RECTANGLE] #I4:1042;2:214 layout=layout_9d9264a8 fills=fill_96f59904 strokes=fill_7ed6cbc7 strokeWeight=1px
+      [TEXT] #I4:1042;2:215 template=EL-89e8a652
+    [TEXT] #4:1043 template=EL-48af4263
+    [RECTANGLE] #4:1044 template=EL-228cf612
+    [TEXT] #4:1045 template=EL-3ec40cdd

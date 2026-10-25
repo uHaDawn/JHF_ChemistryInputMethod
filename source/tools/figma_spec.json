@@ -1,0 +1,40 @@
+{
+  "_comment": "接化发界面规格，单位 dp。来源：Figma 画板 JHFkeyBoard (402x874) + 真机实测校准。density=2.625 时 1dp = 2.625px。",
+  "density": 2.625,
+  "tolerance_px": 6,
+  "size_checks": [
+    { "page": "main", "text": "关于", "name": "主界面·关于按钮", "w": 78, "h": 33 },
+    { "page": "main", "text": "切换", "name": "主界面·模式切换按钮", "w": 78, "h": 33 },
+    { "page": "main", "text": "CuCl₂", "name": "主界面·主题值框", "w": 78, "h": 33 },
+    { "page": "main", "text": "化｜符", "name": "预览·化符芯片", "w": 75, "h": 35 },
+    { "page": "main", "text": "⌄", "name": "预览·展开芯片", "w": 35, "h": 35 },
+    { "page": "about", "text": "返回", "name": "关于页·返回按钮", "w": 78, "h": 33 },
+    { "page": "about", "text": "0.0.1", "name": "关于页·版本值框", "w": 102, "h": 56 }
+  ],
+  "gap_checks": [
+    {
+      "page": "main", "name": "头卡内：关于按钮底 → 标题顶",
+      "above": ["关于", 0], "below": ["接化发", 0], "gap": 38
+    },
+    {
+      "page": "main", "name": "主题值框底 → 「浅色模式」文字顶（8dp 卡距 + 9dp 卡内居中）",
+      "above": ["CuCl₂", 0], "below": ["浅色模式", 0], "gap": 28
+    },
+    {
+      "page": "about", "name": "头卡内：返回按钮底 → 标题顶",
+      "above": ["返回", 0], "below": ["关于软件", 0], "gap": 38
+    },
+    {
+      "page": "about", "name": "「软件信息」组头底 → 版本卡顶（行间距 4dp）",
+      "above": [" 软件信息", 0], "below": ["当前版本", 0], "gap": 4
+    },
+    {
+      "page": "about", "name": "版本卡底 → 「作者信息」组头顶（行间距 4dp）",
+      "above": ["当前版本", 0], "below": [" 作者信息", 0], "gap": 4
+    },
+    {
+      "page": "about", "name": "「作者信息」组头底 → 作者卡顶（行间距 4dp）",
+      "above": [" 作者信息", 0], "below": ["设计制作", 0], "gap": 4
+    }
+  ]
+}

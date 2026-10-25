@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="86dp"
+    android:height="15dp"
+    android:viewportWidth="86"
+    android:viewportHeight="15">
+
+    <!-- G：HAGO 品牌色，固定不随主题变化（需求 B） -->
+    <path
+        android:fillColor="#00C4D2"
+        android:pathData="M5.87302,1 H6.85186 V2 H7.8307 V3 H8.80953 V4 H9.78837 V5 H10.7672 V6 H11.746 V7 H12.7249 V8 H13.7037 V9 H14.6826 V14 H13.7037 V15 H0.978837 V14 H0 V1 H0.978837 V0 H5.87302 V1 Z M2.93651,12 H11.746 V11 H10.7672 V10 H9.78837 V9 H8.80953 V8 H7.8307 V7 H6.85186 V6 H5.87302 V5 H4.89418 V4 H3.91535 V3 H2.93651 V12 Z M13.7037,1 H14.6826 V5 H13.7037 V4 H12.7249 V3 H11.746 V2 H10.7672 V1 H9.78837 V0 H13.7037 V1 Z" />
+    <!-- H -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24.3332,6 H30.2063 V7 H31.1851 V8 H32.1639 V9 H24.3332 V15 H21.3967 V0 H24.3332 V6 Z M36.0793,15 H33.1428 V0 H36.0793 V15 Z" />
+    <!-- A -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M51.7407,1 H52.7196 V2 H53.6984 V15 H50.7619 V3 H41.9524 V6 H47.8254 V7 H48.8042 V8 H49.7831 V9 H41.9524 V15 H39.0159 V0 H51.7407 V1 Z" />
+    <!-- O -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M85.0211,4 H85.9999 V14 H85.0211 V15 H75.2327 V14 H74.2539 V4 H75.2327 V3 H85.0211 V4 Z M77.1904,12 H83.0634 V6 H77.1904 V12 Z" />
+    <!-- G -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M69.3598,1 H70.3386 V2 H71.3174 V5 H69.3598 V4 H68.3809 V3 H59.5714 V12 H64.4656 V13 H65.4444 V14 H66.4233 V15 H58.5926 V14 H57.6137 V13 H56.6349 V0 H69.3598 V1 Z M69.3598,8 H70.3386 V9 H71.3174 V15 H68.3809 V10 H64.4656 V9 H63.4867 V8 H62.5079 V7 H69.3598 V8 Z" />
+</vector>

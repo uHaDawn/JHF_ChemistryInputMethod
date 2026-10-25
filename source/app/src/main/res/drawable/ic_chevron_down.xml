@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 收起键盘箭头：客户提供的 18×11 SVG（单笔画折线，主题色描边）。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="18dp"
+    android:height="12dp"
+    android:viewportWidth="20"
+    android:viewportHeight="13">
+    <path
+        android:pathData="M1.363525,1.843323 L9.86353,10.84332 L18.3635,1.843323"
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

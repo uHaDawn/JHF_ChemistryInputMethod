@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">#05BEC1</item>
+        <item name="android:colorPrimaryDark">#05696B</item>
+        <item name="android:colorAccent">#05BEC1</item>
+        <item name="android:statusBarColor">#05696B</item>
+        <item name="android:windowBackground">#EAEAEA</item>
+        <!-- 应用自管深浅主题，禁止系统 Force Dark 反转自绘颜色（否则浅色页黑字被反转成白字） -->
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+</resources>

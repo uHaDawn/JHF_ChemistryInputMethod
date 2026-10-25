@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="59dp"
+    android:height="50dp"
+    android:viewportWidth="59"
+    android:viewportHeight="50">
+
+    <!-- 化 · 撇 -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="6"
+        android:pathData="M18.2422,6 L2.24223,24" />
+    <!-- 化 · 左竖 -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="6"
+        android:pathData="M14.2422,11 L14.2422,50" />
+    <!-- 匕 · 竖弯钩折线 -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="6"
+        android:pathData="M31.2422,19 C31.2422,19.5149 31.2422,37.8812 31.2422,47 L49.2422,47 L49.2422,36" />
+    <!-- 右上圆环 -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:fillColor="#00000000"
+        android:pathData="M25.7422,8 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0" />
+    <!-- 右下实心三角 -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M40.2422,38 L49.2422,29 L58.2422,38 Z" />
+</vector>

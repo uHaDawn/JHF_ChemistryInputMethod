@@ -1,0 +1,17 @@
+*.iml
+.gradle/
+.idea/
+local.properties
+build/
+out/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk.idsig
+
+# 测试：基线保留，本轮采集与报告不入库
+tests/current/
+tests/reports/
+
+# 签名密钥刻意纳入版本管理（详见 build.cmd 注释）：
+# out/ 会被清理，重新生成的密钥将导致无法覆盖安装。
