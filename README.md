@@ -4,7 +4,7 @@
 符号变体，全程离线运行、不申请网络权限。
 
 **📖 [用户使用手册](https://my.feishu.cn/docx/PHNfdxuEYoLYJpx0IXUcMurD6id)** ·
-[更新日志](https://my.feishu.cn/docx/Uw3WdDHdeomiZ8xi0EFcf80Y6Cd) · QQ 交流群 `1132293331`
+[更新日志](https://my.feishu.cn/docx/Uw3WdDHdeomiZ8xi0EFcf80Y6Cd) ·[作者账号](https://space.bilibili.com/2006965744) QQ 交流群 `1132293331`
 
 
 ## 它是什么
