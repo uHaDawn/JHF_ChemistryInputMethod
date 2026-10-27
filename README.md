@@ -6,7 +6,6 @@
 **📖 [用户使用手册](https://my.feishu.cn/docx/PHNfdxuEYoLYJpx0IXUcMurD6id)** ·
 [更新日志](https://my.feishu.cn/docx/Uw3WdDHdeomiZ8xi0EFcf80Y6Cd) · QQ 交流群 `1132293331`
 
-![功能说明](shots/v9_feature_long.png)
 
 ## 它是什么
 
