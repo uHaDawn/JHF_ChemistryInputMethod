@@ -24,8 +24,9 @@ public class PinyinMatcher {
     public static class Entry {
         public String name;
         public String[] formulas;
-        public String[] syls;
-        public String initials;
+        /** 每个读音一组音节，支持 "chong ge …|zhong ge …" 多读音。 */
+        public String[][] pinyins;
+        public String[] initials;
         public int nameLen;
     }
 
@@ -48,11 +49,16 @@ public class PinyinMatcher {
                 JSONArray fs = o.getJSONArray("f");
                 e.formulas = new String[fs.length()];
                 for (int j = 0; j < fs.length(); j++) e.formulas[j] = fs.getString(j);
-                String[] syls = o.getString("p").trim().split("\\s+");
-                e.syls = syls;
-                StringBuilder ini = new StringBuilder();
-                for (String s : syls) if (!s.isEmpty()) ini.append(s.charAt(0));
-                e.initials = ini.toString();
+                String[] alts = o.getString("p").trim().split("\\|");
+                e.pinyins = new String[alts.length][];
+                e.initials = new String[alts.length];
+                for (int k = 0; k < alts.length; k++) {
+                    String[] syls = alts[k].trim().split("\\s+");
+                    e.pinyins[k] = syls;
+                    StringBuilder ini = new StringBuilder();
+                    for (String s : syls) if (!s.isEmpty()) ini.append(s.charAt(0));
+                    e.initials[k] = ini.toString();
+                }
                 entries.add(e);
             }
         } catch (Exception ignored) {
@@ -76,16 +82,15 @@ public class PinyinMatcher {
         List<Entry> ini = new ArrayList<>(), iniP = new ArrayList<>();
         if (!typed.isEmpty()) {
             for (Entry e : entries) {
-                if (fullMatch(typed, e)) exact.add(e);
-                else if (prefixMatch(typed, e)) prefix.add(e);
-                else if (e.initials.equals(typed)) ini.add(e);
-                else if (e.initials.startsWith(typed)) iniP.add(e);
+                int rank = bestRank(typed, e);
+                if (rank == 0) exact.add(e);
+                else if (rank == 1) prefix.add(e);
+                else if (rank == 2) ini.add(e);
+                else if (rank == 3) iniP.add(e);
             }
         }
-        Comparator<Entry> byLen = (a, b) -> {
-            int c = Integer.compare(a.nameLen, b.nameLen);
-            return c != 0 ? c : a.name.compareTo(b.name);
-        };
+        // 只按名称长度排序，同长度保持词库顺序（手写常用词优先，其次按酸根/阳离子常用度生成）。
+        Comparator<Entry> byLen = Comparator.comparingInt(a -> a.nameLen);
         exact.sort(byLen);
         prefix.sort(byLen);
         ini.sort(byLen);
@@ -115,6 +120,15 @@ public class PinyinMatcher {
         return out;
     }
 
+    /** 返回该词目在所有读音中的最佳匹配等级；-1 表示不匹配。 */
+    private int bestRank(String typed, Entry e) {
+        for (String[] syls : e.pinyins) if (fullMatch(typed, syls)) return 0;
+        for (String[] syls : e.pinyins) if (prefixMatch(typed, syls)) return 1;
+        for (String s : e.initials) if (s.equals(typed)) return 2;
+        for (String s : e.initials) if (s.startsWith(typed)) return 3;
+        return -1;
+    }
+
     /**
      * 音节等价判断：'lv'(lü) 允许用户打成 'lu'。
      * 快路径零分配——只有词库音节里确实含 'v' 时才走字符串替换。
@@ -126,50 +140,50 @@ public class PinyinMatcher {
     }
 
     /** typed 能否恰好被词目拼音逐字消耗完。 */
-    private boolean fullMatch(String t, Entry e) {
+    private boolean fullMatch(String t, String[] syls) {
         memo.clear();
-        return fullDp(t, e, 0, 0);
+        return fullDp(t, syls, 0, 0);
     }
 
     private final Map<Long, Boolean> memo = new HashMap<>();
 
-    private boolean fullDp(String t, Entry e, int i, int j) {
-        int T = t.length(), S = e.syls.length;
+    private boolean fullDp(String t, String[] syls, int i, int j) {
+        int T = t.length(), S = syls.length;
         if (j == T) return i == S;
         if (i >= S) return false;
         long key = (long) i * 1000 + j;
         Boolean cached = memo.get(key);
         if (cached != null) return cached;
         boolean ok = false;
-        String syl = e.syls[i];
+        String syl = syls[i];
         int maxLen = Math.min(6, T - j);
         for (int len = 1; len <= maxLen && !ok; len++) {
-            if (sylEquals(syl, t.substring(j, j + len))) ok = fullDp(t, e, i + 1, j + len);
+            if (sylEquals(syl, t.substring(j, j + len))) ok = fullDp(t, syls, i + 1, j + len);
         }
         memo.put(key, ok);
         return ok;
     }
 
     /** typed 能否被消耗完（允许末音节只打了一部分，用于联想）。 */
-    private boolean prefixMatch(String t, Entry e) {
+    private boolean prefixMatch(String t, String[] syls) {
         memo.clear();
-        return prefixDp(t, e, 0, 0);
+        return prefixDp(t, syls, 0, 0);
     }
 
-    private boolean prefixDp(String t, Entry e, int i, int j) {
-        int T = t.length(), S = e.syls.length;
+    private boolean prefixDp(String t, String[] syls, int i, int j) {
+        int T = t.length(), S = syls.length;
         if (j == T) return i >= 1;
         if (i >= S) return false;
         long key = (long) i * 1000 + j;
         Boolean cached = memo.get(key);
         if (cached != null) return cached;
         boolean ok = false;
-        String syl = e.syls[i];
+        String syl = syls[i];
         int maxLen = Math.min(6, T - j);
         for (int len = 1; len <= maxLen && !ok; len++) {
             String piece = t.substring(j, j + len);
             if (sylEquals(syl, piece)) {
-                ok = prefixDp(t, e, i + 1, j + len);
+                ok = prefixDp(t, syls, i + 1, j + len);
             } else if (syl.startsWith(piece) && j + len == T) {
                 ok = true; // 末音节前缀联想
             }

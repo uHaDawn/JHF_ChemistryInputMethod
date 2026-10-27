@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionCode="1"
-    android:versionName="0.0.1">
+    android:versionCode="9"
+    android:versionName="0.0.9">
+
+    <!-- 按键触感反馈（2026-10-26）：按键震动需要 VIBRATE 权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".JhfApp"

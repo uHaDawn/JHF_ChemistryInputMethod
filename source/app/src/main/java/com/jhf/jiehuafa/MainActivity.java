@@ -1,10 +1,16 @@
 package com.jhf.jiehuafa;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -28,8 +34,17 @@ import java.util.List;
 /**
  * 接化发主界面（Figma 402 画板，px=dp 一比一还原）：
  * 顶栏卡 381×146 @(10,11)（logo 56×50 卡内(24,24)、标题 32sp 卡内(24,82)、关于 78×33 卡内上11右10）→
- * ◥外观和显示（卡底下8）→ 主题条 381×51（下距5）→ 芯片行 → 模式卡 381×51（上距8）→
+ * ◥通用（卡底下8）→ 主题条 381×51（下距5）→ 芯片行 → 模式卡 381×51（上距8）
+ * → 触感反馈卡 381×51（上距8，右侧 78×33 开关）→
  * 弹性间隔（设计稿 y309→y504 空白，自适应）→ ◥键盘预览（下距10）→ 候选栏 402×52 + 键盘全宽贴底。
+ *
+ * 修改日志（之后每次改动都在这里追加一条：日期 + 改动内容）：
+ *   2026-10-25 「自动」主题接入莫奈壁纸取色（WallpaperColors → 壁纸位图量化 → accent 兜底）；
+ *              预览区收起箭头由文字 ⌄ 改为 ImageView，统一使用 ic_chevron_down 矢量图并随主题色着色；
+ *              注册壁纸变更广播，壁纸更换后重新计算主题色并刷新界面。
+ *   2026-10-26 板块标题「外观和显示」改为「通用」；新增「触感反馈」卡（78×33 自绘开关，
+ *              prefs 键 haptic，默认开启），关闭后键盘按键不再震动（键盘侧 setHapticEnabled）；
+ *              开关去掉全部圆角（轨道/滑块均直角，drawRect 绘制），震动实现改走 Vibrator 服务。
  */
 public class MainActivity extends Activity {
 
@@ -42,18 +57,25 @@ public class MainActivity extends Activity {
     private boolean darkMode = false;
     /** 深浅色是否跟随系统（客户意见 11）。 */
     private boolean followSystem = false;
+    /** 按键触感反馈开关（2026-10-26，与输入法共用 prefs 键 haptic）。 */
+    private boolean haptic = true;
 
     private ScrollView scroll;
-    private FrameLayout headCard, themeBar, modeCard;
+    private FrameLayout headCard, themeBar, modeCard, hapticCard;
+    private TextView hapticLabel;
+    private SwitchView hapticSwitch;
     private LinearLayout previewCard, prevBar;
     private TextView themeBarLabel, themeBarValue, modeLabel;
     private TextView aboutBtn, modeBtn;
     /** 品牌标题：必须持有引用，深浅色切换时要跟着刷新（漏刷会白底白字/黑底黑字直接消失）。 */
     private TextView brandTitle, brandSub;
     private ImageView headIcon;
-    private TextView prevChip, prevField, prevExp;
+    private TextView prevChip, prevField;
+    private ImageView prevExp;
     private ChemKeyboardView preview;
     private GuidePanel guide;
+    /** 壁纸换了要立刻丢掉「自动」主题的旧色并重刷（客户 2026-10-25 反馈自动模式不生效）。 */
+    private BroadcastReceiver wallpaperReceiver;
 
     /** 主题选择浮层（点击「当前主题」条弹出，背景模糊）。竖排列表，对齐设计稿 8a653cd5。 */
     private FrameLayout wrap, pickerLayer;
@@ -75,6 +97,14 @@ public class MainActivity extends Activity {
             ChemKeyboardView.resolveAutoColors(this);
             loadPrefs();
             buildUi();
+            wallpaperReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    ChemKeyboardView.invalidateAutoColors();
+                    if (ChemKeyboardView.THEME_AUTO.equals(themeId)) restyleAll();
+                }
+            };
+            registerReceiver(wallpaperReceiver, new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED));
         } catch (Throwable e) {
             ErrorActivity.launch(this, e);
         }
@@ -141,8 +171,8 @@ public class MainActivity extends Activity {
         headLp.setMargins(dp(10), 0, dp(11), 0); // 设计稿 x10 宽381（右距11）
         root.addView(headCard, headLp);
 
-        // ---- ◥外观和显示 ----
-        LinearLayout sec1 = section("外观和显示");
+        // ---- ◥通用（2026-10-26 由「外观和显示」改名，设计稿 138-1558） ----
+        LinearLayout sec1 = section("通用");
         LinearLayout.LayoutParams sec1Lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         sec1Lp.setMargins(dp(10), dp(8), 0, dp(5)); // 设计稿 y157卡底→y165文字、文字底194→条y199
@@ -219,6 +249,38 @@ public class MainActivity extends Activity {
         modeLp.setMargins(dp(10), dp(8), dp(11), 0);
         root.addView(modeCard, modeLp);
 
+        // ---- 触感反馈卡 381×51（与模式卡间距8，右侧 78×33 开关，设计稿 138-1558） ----
+        hapticCard = new FrameLayout(this);
+        hapticLabel = new TextView(this);
+        hapticLabel.setText("触感反馈");
+        hapticLabel.setTextSize(20);
+        hapticLabel.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        hapticLabel.setTextColor(cText);
+        FrameLayout.LayoutParams hlLp = new FrameLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        hlLp.gravity = Gravity.CENTER_VERTICAL | Gravity.LEFT;
+        hlLp.setMargins(dp(24), 0, 0, 0);
+        hapticCard.addView(hapticLabel, hlLp);
+
+        // 自绘开关：轨道 78×33、滑块 34×22（尺寸取自设计稿实测）
+        hapticSwitch = new SwitchView(this);
+        hapticSwitch.setChecked(haptic);
+        FrameLayout.LayoutParams hsLp = new FrameLayout.LayoutParams(dp(78), dp(33));
+        hsLp.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+        hsLp.setMargins(0, 0, dp(10), 0);
+        hapticCard.addView(hapticSwitch, hsLp);
+        // 整行可点，点哪儿都能切（键盘侧下读到同一个 prefs 键会立即生效）
+        hapticCard.setOnClickListener(v -> {
+            haptic = !haptic;
+            hapticSwitch.setChecked(haptic);
+            savePrefs();
+            toast(haptic ? "触感反馈已开启" : "触感反馈已关闭");
+        });
+        LinearLayout.LayoutParams hapticLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, dp(51));
+        hapticLp.setMargins(dp(10), dp(8), dp(11), 0);
+        root.addView(hapticCard, hapticLp);
+
         // ---- 弹性间隔：设计稿 y309→y504 空白区（自适应撑满，键盘贴底） ----
         Space spacer = new Space(this);
         root.addView(spacer, new LinearLayout.LayoutParams(
@@ -252,10 +314,9 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams fieldLp = new LinearLayout.LayoutParams(0, dp(35), 1f);
         fieldLp.setMargins(dp(8), 0, dp(8), 0);
         prevBar.addView(prevField, fieldLp);
-        prevExp = new TextView(this);
-        prevExp.setText("⌄");
-        prevExp.setTextSize(14);
-        prevExp.setGravity(Gravity.CENTER);
+        prevExp = new ImageView(this);
+        prevExp.setImageResource(R.drawable.ic_chevron_down);
+        prevExp.setScaleType(ImageView.ScaleType.CENTER);
         prevBar.addView(prevExp, new LinearLayout.LayoutParams(dp(35), dp(35)));
         previewCard.addView(prevBar, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -488,13 +549,19 @@ public class MainActivity extends Activity {
 
         if (headCard != null) headCard.setBackground(rounded(cCard, 0));
         if (modeCard != null) modeCard.setBackground(rounded(cCard, 0));
+        if (hapticCard != null) {
+            hapticCard.setBackground(rounded(cCard, 0));
+            hapticLabel.setTextColor(cText);
+            hapticSwitch.setStyle(accent, darkMode);
+            hapticSwitch.setChecked(haptic);
+        }
         if (prevBar != null) prevBar.setBackground(rounded(cCard, 0));
         if (prevChip != null) {
             prevChip.setBackground(filled(accent, 0));
             prevChip.setTextColor(Color.WHITE);
             prevField.setBackground(ring(accent, 0));
             prevExp.setBackground(ring(accent, 0));
-            prevExp.setTextColor(accent);
+            prevExp.setColorFilter(accent);
         }
         if (guide != null) guide.refresh(themeId, darkMode);
     }
@@ -527,6 +594,7 @@ public class MainActivity extends Activity {
         themeId = p.getString("theme", "cucl2");
         followSystem = p.getBoolean("follow", false);
         darkMode = followSystem ? systemDark() : p.getBoolean("dark", false);
+        haptic = p.getBoolean("haptic", true);
     }
 
     private void savePrefs() {
@@ -534,6 +602,7 @@ public class MainActivity extends Activity {
         p.edit().putString("theme", themeId)
                 .putBoolean("dark", darkMode)
                 .putBoolean("follow", followSystem)
+                .putBoolean("haptic", haptic)
                 .apply();
     }
 
@@ -674,5 +743,75 @@ public class MainActivity extends Activity {
 
     private int dp(int v) {
         return (int) (v * getResources().getDisplayMetrics().density);
+    }
+
+    /**
+     * 「触感反馈」开关（2026-10-26，按 Figma 138-1558 实测尺寸自绘）：
+     * 轨道 78×33、直角、1dp 描边；滑块 34×22、直角，上下左边距各 6dp（2026-10-26 客户要求去圆角）。
+     * 关闭：卡底色填充 + 主题色描边，滑块在左且为主题色；开启：主题色实心，滑块在右且为白色。
+     */
+    private class SwitchView extends View {
+        private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final RectF track = new RectF();
+        private final RectF knob = new RectF();
+        private boolean checked;
+        private int accent = 0xFF00C4D2;
+        private boolean dark;
+
+        SwitchView(Context ctx) {
+            super(ctx);
+        }
+
+        void setChecked(boolean on) {
+            if (checked == on) return;
+            checked = on;
+            invalidate();
+        }
+
+        void setStyle(int accentColor, boolean darkModeNow) {
+            accent = accentColor;
+            dark = darkModeNow;
+            invalidate();
+        }
+
+        @Override
+        protected void onDraw(Canvas c) {
+            float w = getWidth();
+            float h = getHeight();
+            float stroke = dp(1);
+            track.set(stroke / 2, stroke / 2, w - stroke / 2, h - stroke / 2);
+
+            // 轨道：开启时主题色实心，关闭时用卡底色 + 主题色描边；客户要求全部直角，用 drawRect 不用圆角
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(checked ? accent : (dark ? Color.BLACK : Color.WHITE));
+            c.drawRect(track, paint);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(stroke);
+            paint.setColor(accent);
+            c.drawRect(track, paint);
+
+            // 滑块：34×22，距轨道左右边 6dp，垂直居中
+            float kw = dp(34);
+            float kh = dp(22);
+            float inset = dp(6);
+            float left = checked ? w - inset - kw : inset;
+            float top = (h - kh) / 2f;
+            knob.set(left, top, left + kw, top + kh);
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(checked ? Color.WHITE : accent);
+            c.drawRect(knob, paint); // 滑块同样直角
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (wallpaperReceiver != null) {
+            try {
+                unregisterReceiver(wallpaperReceiver);
+            } catch (Throwable ignored) {
+            }
+            wallpaperReceiver = null;
+        }
+        super.onDestroy();
     }
 }

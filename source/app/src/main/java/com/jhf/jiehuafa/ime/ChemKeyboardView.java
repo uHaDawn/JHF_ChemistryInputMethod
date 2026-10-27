@@ -1,6 +1,7 @@
 package com.jhf.jiehuafa.ime;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.app.WallpaperManager;
 import android.app.WallpaperColors;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
@@ -20,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.jhf.jiehuafa.R;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +32,28 @@ import java.util.List;
  * 接化发键盘（Figma 设计稿样式）：全直角白键 + 底影 + 主题强调色。
  *
  * 字母页：QWERTY 三排 + 功能行「拼｜素 · ， · 空格 · ←」+ 底部细条 ⇌（切换系统输入法）。
- * 符号页：左侧 5 分类竖向 tab（度量 / 物质 / 反应 / 角标 / 其他）+ 右侧符号网格 + 功能行。
+ * 符号页：左侧 4 分类竖向 tab（度量 / 物质 / 反应 / 其他）+ 右侧符号网格 + 功能行。
  * 收起键盘的入口在候选栏右侧的 ⌄ 芯片（服务侧 JhfImeService）。
  *
  * 手势：
  *   点按 = 主字符；上滑 = 化学符号（带预览气泡）；长按 = 形态三选（数字/符号 · 大写 · 小写）。
+ *
+ * 修改日志（之后每次改动都在这里追加一条：日期 + 改动内容）：
+ *   2026-10-25 删除键/回车键改用客户提供的 SVG（ic_backspace 21×13、ic_enter 21×11），
+ *              统一走 drawBitmapIcon() 按主题色着色，删除旧的手绘回车图标；
+ *              新增长按删除连续退格（420ms 触发后每 70ms 一发，松手/取消立即停止）；
+ *              新增 Shift 两种大写行为：点按=只大写一次；长按后另一指连续点字母=持续大写、松手恢复；
+ *              副指按键闪烁高亮（flashRow/flashCol），Listener 增加 onShiftHoldChanged()；
+ *              自动主题改为莫奈壁纸取色（WallpaperColors → 壁纸位图量化 → system_accent 兜底）。
+ *   2026-10-26 按键震动改为受 setHapticEnabled() 控制（主界面「通用」里的「触感反馈」开关），
+ *              三处震动调用统一收口到 tapFeedback()；
+ *              震动实现改走 performHapticFeedback(..., FLAG_IGNORE_GLOBAL_SETTING)：
+ *              系统「触摸振动」关闭时会过滤普通触感（IGNORED_FOR_SETTINGS），
+ *              加该 flag 后只受本应用开关控制，保证开关打开就一定有反馈。
+ *   2026-10-27 符号页带「+ / −」气泡的 N 键，长按候选里补充上标电荷符号 ⁺ / ⁻。
+ *              符号页删除「角标」分类，仅保留度量 / 物质 / 反应 / 其他 4 个分页；
+ *              命中测试外扩半格：行上下各探半格行距、列取最近按键中心并左右扩半格，
+ *              点在按键缝隙里也会命中相邻按键（原来缝隙完全无触控事件）。
  */
 public class ChemKeyboardView extends View {
 
@@ -48,6 +69,13 @@ public class ChemKeyboardView extends View {
          * @param ax/ay 被长按按键的上边中点（浮层与按键之间的连线用）
          */
         default void onLongPressPopup(List<String> opts, RectF box, int hover, float ax, float ay) {
+        }
+
+        /**
+         * 长按 Shift 的「按住大写」状态（2026-10-25）。
+         * held=true：按住期间字母一律大写；held=false：松手恢复默认小写。
+         */
+        default void onShiftHoldChanged(boolean held) {
         }
     }
 
@@ -67,7 +95,7 @@ public class ChemKeyboardView extends View {
     public static final int ACT_HIDE = 9;
 
     /** 符号页分类名（顺序即 tab 顺序）。 */
-    public static final String[] SYM_CAT_NAMES = {"度量", "物质", "反应", "角标", "其他"};
+    public static final String[] SYM_CAT_NAMES = {"度量", "物质", "反应", "其他"};
 
     private static final int PAGE_LETTER = 0, PAGE_SYMBOL = 1;
     private static final int ROW_TAB = -2;   // pressedRow 标记：命中的是分类 tab
@@ -145,6 +173,8 @@ public class ChemKeyboardView extends View {
     private boolean pinyinMode = true;
     private boolean autoCase = true;
     private boolean darkMode = false;
+    /** 按键触感反馈开关（主界面「通用 → 触感反馈」，2026-10-26）。 */
+    private boolean hapticEnabled = true;
 
     // 主题色
     private int accent = 0xFF05BEC1;
@@ -170,7 +200,10 @@ public class ChemKeyboardView extends View {
     private final Paint chemPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint tabPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint dividerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);   // 分类卡内分隔线
-    private final Paint iconPaint = new Paint(Paint.ANTI_ALIAS_FLAG);      // 回车 / 收起键盘的手绘图标
+    /** 底部切换输入法图标（客户提供的 SVG，已转为 vector drawable）。 */
+    private Drawable imeSwitchIcon;
+    /** 删除键 / 回车键图标（客户 2026-10-25 提供的 SVG，随主题色/白字着色）。 */
+    private Drawable backspaceIcon, enterIcon;
     private final Paint bubblePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint bubbleBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint bubbleText = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -183,6 +216,32 @@ public class ChemKeyboardView extends View {
     private String bubbleChar = null;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable longPressRunnable = this::fireLongPress;
+
+    // ---- 2026-10-25 新增：长按删除连发 / 按住 Shift 双指大写 ----
+    /** 副指点按字母时的短暂高亮（主指正按住 Shift，不能用 pressedRow 抢状态）。 */
+    private int flashRow = -1, flashCol = -1;
+    /** 按住 Shift 的那根手指的 pointerId；-1 表示当前没有按住。 */
+    private int shiftPointerId = -1;
+    private boolean shiftHeld = false;
+    private final Runnable clearFlash = new Runnable() {
+        @Override
+        public void run() {
+            flashRow = -1;
+            flashCol = -1;
+            invalidate();
+        }
+    };
+    /** 每 70ms 删一个字符，直到 ACTION_UP / CANCEL 移除回调。 */
+    private final Runnable backspaceRepeat = new Runnable() {
+        @Override
+        public void run() {
+            if (pressedRow < 0 || pressedCol < 0) return;
+            List<Key> keys = rowKeys(pressedRow);
+            if (pressedCol >= keys.size() || keys.get(pressedCol).action != ACT_BACK) return;
+            listener.onAction(ACT_BACK);
+            handler.postDelayed(this, 70);
+        }
+    };
 
     /** 长按浮层状态（自绘 + 滑动选择，客户意见 3/6）。opts 为 null 表示未显示。 */
     private List<String> popupOpts;
@@ -203,11 +262,11 @@ public class ChemKeyboardView extends View {
         radius = 0;              // 设计稿全部直角矩形
         tabW = 118 * d;          // 符号页左侧分类栏宽度
         tabGap = 11.5f * d;
+        imeSwitchIcon = getContext().getDrawable(R.drawable.ic_ime_switch);
+        backspaceIcon = getContext().getDrawable(R.drawable.ic_backspace);
+        enterIcon = getContext().getDrawable(R.drawable.ic_enter);
         bubbleBorder.setStyle(Paint.Style.STROKE);
         bubbleBorder.setStrokeWidth(d);
-        iconPaint.setStyle(Paint.Style.STROKE);
-        iconPaint.setStrokeCap(Paint.Cap.ROUND);
-        iconPaint.setStrokeJoin(Paint.Join.ROUND);
         dividerPaint.setStyle(Paint.Style.FILL);
         textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
@@ -226,42 +285,156 @@ public class ChemKeyboardView extends View {
     public static final String THEME_AUTO = "auto";
     private static int autoAccent = 0xFF5C6BC0;
     private static int autoAccentDark = 0xFF3949AB;
+    /** 取色结果缓存：壁纸没变就不必反复解码位图。收到壁纸变更广播时置脏。 */
+    private static boolean autoResolved = false;
+
+    /** 壁纸换了：丢弃缓存，下次 resolveAutoColors 重新取色。 */
+    public static void invalidateAutoColors() {
+        autoResolved = false;
+    }
 
     /**
      * 解析「自动」主题的颜色并缓存到静态字段。
      *
-     * Android 12+ 直接取系统 Monet 调色板（system_accent1_*，由壁纸生成）；
-     * 低版本退回「壁纸主导色」。必须在 Activity / IME 启动时调用一次。
+     * 取色顺序（由准到稳）：
+     * 1. Android 12+ 的 {@link WallpaperColors} —— 系统 Monet 调色板的种子色，最贴合壁纸；
+     * 2. 壁纸位图量化 —— 部分 OEM（实测 HyperOS）不做系统级取色
+     *    （dumpsys wallpaper 里 isColorExtracted=false），此时 WallpaperColors 为 null，
+     *    只能自己降采样统计主色调；
+     * 3. 系统 accent1_500 资源 —— 最后兜底。
+     *
+     * 取到的种子色统一做饱和度/明度归一化，保证主题色够鲜艳、且白字对比度足够。
      */
     public static void resolveAutoColors(Context ctx) {
-        int a = 0, d = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (autoResolved) return;
+        int seed = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            seed = wallpaperColorsSeed(ctx);
+        }
+        if (seed == 0) {
+            seed = wallpaperBitmapSeed(ctx);
+        }
+        if (seed == 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             try {
-                a = ctx.getResources().getColor(android.R.color.system_accent1_500, ctx.getTheme());
-                d = ctx.getResources().getColor(android.R.color.system_accent1_700, ctx.getTheme());
+                seed = ctx.getResources().getColor(android.R.color.system_accent1_500, ctx.getTheme());
             } catch (Throwable ignored) {
             }
         }
-        if (a == 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            try {
-                WallpaperManager wm = WallpaperManager.getInstance(ctx);
-                WallpaperColors wc = wm.getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
-                if (wc != null && wc.getPrimaryColor() != null) {
-                    a = wc.getPrimaryColor().toArgb();
-                    d = darken(a);
-                }
-            } catch (Throwable ignored) {
-            }
-        }
+        int a = normalizeAccent(seed);
         if (a != 0) {
             autoAccent = a;
-            autoAccentDark = (d != 0) ? d : darken(a);
+            autoAccentDark = darkerAccent(a);
+        }
+        autoResolved = true;
+    }
+
+    /** Monet 种子：主/次/三级色里挑最鲜艳、明度适中的那个。 */
+    private static int wallpaperColorsSeed(Context ctx) {
+        try {
+            WallpaperManager wm = WallpaperManager.getInstance(ctx);
+            WallpaperColors wc = wm.getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
+            if (wc == null) return 0;
+            Color[] colors = {wc.getPrimaryColor(), wc.getSecondaryColor(), wc.getTertiaryColor()};
+            int best = 0;
+            float bestScore = 0f;
+            float[] hsv = new float[3];
+            for (Color c : colors) {
+                if (c == null) continue;
+                int rgb = c.toArgb();
+                Color.RGBToHSV(Color.red(rgb), Color.green(rgb), Color.blue(rgb), hsv);
+                if (hsv[1] < 0.12f || hsv[2] < 0.10f || hsv[2] > 0.97f) continue;
+                float score = hsv[1] * (1f - Math.abs(hsv[2] - 0.55f));
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = rgb;
+                }
+            }
+            return best;
+        } catch (Throwable t) {
+            return 0;
         }
     }
 
-    private static int darken(int c) {
-        float f = 0.62f;
-        return Color.rgb((int) (Color.red(c) * f), (int) (Color.green(c) * f), (int) (Color.blue(c) * f));
+    /** 壁纸位图降采样后按色相分桶，取占比最高的鲜艳色。 */
+    private static int wallpaperBitmapSeed(Context ctx) {
+        Bitmap small = null;
+        try {
+            Drawable d = WallpaperManager.getInstance(ctx).getDrawable();
+            if (d == null) return 0;
+            small = Bitmap.createBitmap(64, 64, Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(small);
+            d.setBounds(0, 0, 64, 64);
+            d.draw(c);
+
+            final int bins = 24; // 每桶 15°
+            int[] weight = new int[bins];
+            long[] r = new long[bins], g = new long[bins], b = new long[bins];
+            float[] hsv = new float[3];
+            for (int y = 0; y < 64; y++) {
+                for (int x = 0; x < 64; x++) {
+                    int p = small.getPixel(x, y);
+                    if (Color.alpha(p) < 128) continue;
+                    Color.RGBToHSV(Color.red(p), Color.green(p), Color.blue(p), hsv);
+                    // 跳过灰、过暗、过曝的像素（都不适合当主题色）
+                    if (hsv[1] < 0.18f || hsv[2] < 0.12f || hsv[2] > 0.97f) continue;
+                    int idx = (int) (hsv[0] / (360f / bins)) % bins;
+                    int w = (int) (hsv[1] * 100);
+                    weight[idx] += w;
+                    r[idx] += (long) Color.red(p) * w;
+                    g[idx] += (long) Color.green(p) * w;
+                    b[idx] += (long) Color.blue(p) * w;
+                }
+            }
+            int best = -1, bw = 0;
+            for (int i = 0; i < bins; i++) {
+                // 相邻桶合并，避免主色刚好跨桶时被拆散
+                int sum = weight[i] + weight[(i + 1) % bins];
+                if (sum > bw) {
+                    bw = sum;
+                    best = i;
+                }
+            }
+            // 鲜艳像素太少（几乎纯灰壁纸）就不硬造颜色
+            if (best < 0 || bw < 1200) return 0;
+            int i2 = (best + 1) % bins;
+            long tw = weight[best] + weight[i2];
+            return Color.rgb((int) ((r[best] + r[i2]) / tw),
+                    (int) ((g[best] + g[i2]) / tw),
+                    (int) ((b[best] + b[i2]) / tw));
+        } catch (Throwable t) {
+            return 0;
+        } finally {
+            if (small != null) small.recycle();
+        }
+    }
+
+    /** 把任意种子色调成「适合当强调色」的鲜艳中间调；灰色返回 0。 */
+    private static int normalizeAccent(int seed) {
+        if (seed == 0) return 0;
+        float[] hsv = new float[3];
+        Color.RGBToHSV(Color.red(seed), Color.green(seed), Color.blue(seed), hsv);
+        if (hsv[1] < 0.12f) return 0;
+        hsv[1] = Math.min(0.92f, Math.max(0.55f, hsv[1] * 1.15f + 0.10f));
+        hsv[2] = 0.78f;
+        int c = Color.HSVToColor(hsv);
+        // 主题条上是白字，明度压到白字可读为止（与 AgBr 黄的处理一致）
+        while (luminance(c) > 158 && hsv[2] > 0.40f) {
+            hsv[2] -= 0.04f;
+            c = Color.HSVToColor(hsv);
+        }
+        return c;
+    }
+
+    /** 同色相/饱和度，压暗得到深色变体（键底影、按压、状态栏）。 */
+    private static int darkerAccent(int accent) {
+        float[] hsv = new float[3];
+        Color.RGBToHSV(Color.red(accent), Color.green(accent), Color.blue(accent), hsv);
+        hsv[2] = Math.max(0.28f, hsv[2] * 0.58f);
+        return Color.HSVToColor(hsv);
+    }
+
+    private static float luminance(int c) {
+        return 0.299f * Color.red(c) + 0.587f * Color.green(c) + 0.114f * Color.blue(c);
     }
 
     /** Figma 设计稿四主题 + 「自动」（壁纸取色）：AgBr 金 / KMnO₄ 紫 / CuCl₂ 青 / Fe₂O₃ 红。 */
@@ -392,8 +565,9 @@ public class ChemKeyboardView extends View {
     }
 
     /**
-     * 符号页 5 分类，每分类 3 行内容 + 1 行功能键（空格 / ⌫ / ←）。
-     * 「度量 / 物质 / 反应 / 其他」取自设计稿；「角标」及「其他」第三行为拟定内容。
+     * 符号页 4 分类，每分类 3 行内容 + 1 行功能键（空格 / ⌫ / ←）。
+     * 「度量 / 物质 / 反应 / 其他」取自设计稿；「其他」第三行为拟定内容。
+     * 2026-10-27 客户要求删除「角标」分类（上/下标可由字母键长按浮层与符号页其他分页补齐）。
      */
     private void buildSymbolCats() {
         symbolCats.clear();
@@ -413,15 +587,7 @@ public class ChemKeyboardView extends View {
                 row(sym("×"), sym("⬡"), sym("⬢"), sym("⇅"), sym("⇌"), sym("↺")),
                 row(sym("→"), sym("←"), sym("↔"), sym("⇄"), sym("↑"), sym("↓"))));
 
-        symbolCats.add(cat(          // 3 角标
-                row(sym("⁰"), sym("¹"), sym("²"), sym("³"), sym("⁴"),
-                        sym("⁵"), sym("⁶"), sym("⁷"), sym("⁸"), sym("⁹")),
-                row(sym("₀"), sym("₁"), sym("₂"), sym("₃"), sym("₄"),
-                        sym("₅"), sym("₆"), sym("₇"), sym("₈"), sym("₉")),
-                row(sym("⁺"), sym("⁻"), sym("⁼"), sym("⁽"), sym("⁾"),
-                        sym("₍"), sym("₎"), sym("ⁿ"), sym("·"), sym("⇌"))));
-
-        symbolCats.add(cat(          // 4 其他
+        symbolCats.add(cat(          // 3 其他
                 row(sym("a"), sym("β"), sym("⊕"), sym("⊖"), sym("λ"), sym("%")),
                 row(sym("-"), sym("="), sym("≡"), sym("⊓")),
                 row(sym("("), sym(")"), sym("["), sym("]"), sym("{"), sym("}"))));
@@ -483,6 +649,23 @@ public class ChemKeyboardView extends View {
     public void setAutoCase(boolean on) {
         autoCase = on;
         invalidate();
+    }
+
+    /** 打开/关闭按键震动反馈（2026-10-26「通用 → 触感反馈」开关）。 */
+    public void setHapticEnabled(boolean on) {
+        hapticEnabled = on;
+    }
+
+    /**
+     * 统一的按键触感：开关关闭时什么都不做。
+     * 2026-10-26 修正：设备上系统「触摸振动」是关闭的（haptic_feedback_enabled=0），
+     * 普通 performHapticFeedback 会被系统过滤（日志状态 IGNORED_FOR_SETTINGS），导致完全没手感。
+     * 这里加 FLAG_IGNORE_GLOBAL_SETTING，只受本应用「通用 → 触感反馈」开关控制。
+     */
+    private void tapFeedback() {
+        if (!hapticEnabled) return;
+        performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY,
+                HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
     }
 
     public void setPinyinMode(boolean on) {
@@ -571,7 +754,8 @@ public class ChemKeyboardView extends View {
                 Key key = keys.get(i);
                 float[] f = keyRect(r, i, w);
                 rect.set(f[0], f[1], f[2], f[3]);
-                boolean pressed = (r == pressedRow && i == pressedCol);
+                boolean pressed = (r == pressedRow && i == pressedCol)
+                        || (r == flashRow && i == flashCol);
                 if (key.style != STYLE_PLAIN) {
                     Paint bg = key.style == STYLE_ACCENT ? bgAccent
                             : key.style == STYLE_SPECIAL ? bgSpecial : bgNormal;
@@ -598,9 +782,12 @@ public class ChemKeyboardView extends View {
                 textPaint.setColor(tc);
                 Paint.FontMetrics fm = textPaint.getFontMetrics();
 
-                if (key.action == ACT_ENTER) {
-                    // 回车键：手绘矢量图标（客户意见 7，替代 Unicode「←」）
-                    drawEnterIcon(c, cx, cy, Color.WHITE);
+                if (key.action == ACT_BACK) {
+                    // 删除键：客户 2026-10-25 提供的 21×13 SVG，按主题文字色着色
+                    drawBitmapIcon(c, backspaceIcon, cx, cy, 21 * d, 13 * d, tc);
+                } else if (key.action == ACT_ENTER) {
+                    // 回车键：客户 2026-10-25 提供的 21×11 SVG，强调色键上用白色
+                    drawBitmapIcon(c, enterIcon, cx, cy, 21 * d, 11 * d, Color.WHITE);
                 } else if (key.action == ACT_IME) {
                     // 底部 ⇌ 条：手绘矢量「可逆箭头」，与设计稿的 ⇌ 字形对齐
                     drawSwitchImeIcon(c, cx, cy, labelColor);
@@ -692,28 +879,22 @@ public class ChemKeyboardView extends View {
         }
     }
 
-    /** 回车键图标：手绘矢量（替换原来的 Unicode「←」，客户意见 7）。 */
-    private void drawEnterIcon(Canvas c, float cx, float cy, int color) {
-        iconPaint.setColor(color);
-        iconPaint.setStrokeWidth(2.2f * d);
-        float top = cy - 9 * d, bottom = cy + 6 * d, left = cx - 9 * d, right = cx + 10 * d;
-        c.drawLine(right, bottom, right, top, iconPaint);                      // 右端竖杆
-        c.drawLine(right, bottom, left, bottom, iconPaint);                    // 横杆
-        c.drawLine(left, bottom, left + 6 * d, bottom - 6 * d, iconPaint);     // 左端箭头
-        c.drawLine(left, bottom, left + 6 * d, bottom + 6 * d, iconPaint);
+    /**
+     * 矢量图标统一绘制入口（删除键 / 回车键 / 底部切换输入法）。
+     * 图标资源本身是黑色，这里用 tint 染成主题文字色或白色。
+     */
+    private void drawBitmapIcon(Canvas c, Drawable icon, float cx, float cy,
+                                float w, float h, int color) {
+        if (icon == null) return;
+        icon.setTint(color);
+        icon.setBounds((int) (cx - w / 2), (int) (cy - h / 2),
+                (int) (cx + w / 2), (int) (cy + h / 2));
+        icon.draw(c);
     }
 
-    /** 底部 ⇌ 条图标：手绘矢量「可逆箭头」（替换原来的 Unicode「⇌」，客户意见 7）。 */
+    /** 底部 ⇌ 条图标：客户 2026-10-25 提供的 SVG（14×10），按 24dp 宽等比绘制。 */
     private void drawSwitchImeIcon(Canvas c, float cx, float cy, int color) {
-        iconPaint.setColor(color);
-        iconPaint.setStrokeWidth(2.2f * d);
-        float l = cx - 13 * d, r = cx + 13 * d, t = cy - 5 * d, b = cy + 5 * d;
-        c.drawLine(l, t, r - 3 * d, t, iconPaint);
-        c.drawLine(r - 3 * d, t, r - 8 * d, t - 4.5f * d, iconPaint);
-        c.drawLine(r - 3 * d, t, r - 8 * d, t + 4.5f * d, iconPaint);
-        c.drawLine(r, b, l + 3 * d, b, iconPaint);
-        c.drawLine(l + 3 * d, b, l + 8 * d, b - 4.5f * d, iconPaint);
-        c.drawLine(l + 3 * d, b, l + 8 * d, b + 4.5f * d, iconPaint);
+        drawBitmapIcon(c, imeSwitchIcon, cx, cy, 24 * d, 24 * d * 10f / 14f, color);
     }
 
     /**
@@ -767,18 +948,20 @@ public class ChemKeyboardView extends View {
     private int[] hitKey(float x, float y) {
         int w = getWidth();
         List<Key> keys;
-        if (y < padH) return null;
+        if (y < padH - vGap / 2) return null;   // 顶部允许上探半格，扩大第一排按键的触控范围
         if (page == PAGE_SYMBOL) {
             for (int i = 0; i < SYM_CAT_NAMES.length; i++) {
                 float[] f = tabRect(i);
                 if (x >= f[0] && x <= f[2] && y >= f[1] && y <= f[3]) return new int[]{ROW_TAB, i};
             }
         }
-        float y0 = padH;
+        // 触控范围外扩（2026-10-27）：行向上探半格、向下覆盖整条行间隙；列取最近的按键中心。
+        // 这样点在按键缝隙里也会命中相邻键，不再出现「点在缝里没反应」。
+        float y0 = padH - vGap / 2;
         int row = -1;
         for (int r = 0; r < rowCount(); r++) {
             float y1 = y0 + rowH(r);
-            if (y >= y0 && y <= y1 + vGap / 2) {
+            if (y >= y0 && y < y1 + vGap / 2) {
                 row = r;
                 break;
             }
@@ -786,11 +969,22 @@ public class ChemKeyboardView extends View {
         }
         if (row < 0) return null;
         keys = rowKeys(row);
+        int best = -1;
+        float bestDist = Float.MAX_VALUE;
+        float[] bestRect = null;
         for (int i = 0; i < keys.size(); i++) {
             float[] f = keyRect(row, i, w);
-            if (x >= f[0] && x <= f[2]) return new int[]{row, i};
+            float dist = Math.abs(x - (f[0] + f[2]) / 2);
+            if (dist < bestDist) {
+                bestDist = dist;
+                best = i;
+                bestRect = f;
+            }
         }
-        return null;
+        if (best < 0 || bestRect == null) return null;
+        // 列方向只外扩半个间隙：更远的位置（如符号页左侧分类栏）不算命中，仍交给 tab 判断
+        if (x < bestRect[0] - gap / 2 || x > bestRect[2] + gap / 2) return null;
+        return new int[]{row, best};
     }
 
     // ---------------- 触摸 ----------------
@@ -809,12 +1003,45 @@ public class ChemKeyboardView extends View {
                 swipeFired = false;
                 longPressDone = false;
                 bubbleChar = null;
-                performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-                if (pressedRow != ROW_TAB) handler.postDelayed(longPressRunnable, 420);
+                tapFeedback();
+                handler.removeCallbacks(backspaceRepeat);
+                if (pressedRow != ROW_TAB) {
+                    handler.postDelayed(longPressRunnable, 420);
+                    if (rowKeys(pressedRow).get(pressedCol).action == ACT_SHIFT) {
+                        shiftPointerId = e.getPointerId(0);
+                    }
+                }
                 invalidate();
                 return true;
             }
+            case MotionEvent.ACTION_POINTER_DOWN: {
+                // 主指按住 Shift 时，副指点字母 = 直接上屏大写字母（不进入长按/滑动流程）
+                if (!shiftHeld) return true;
+                int idx = e.getActionIndex();
+                int[] hit = hitKey(e.getX(idx), e.getY(idx));
+                if (hit == null || hit[0] == ROW_TAB) return true;
+                Key k = rowKeys(hit[0]).get(hit[1]);
+                if (k.action == 0 && k.label != null && k.label.length() == 1
+                        && isAsciiLetter(k.label.charAt(0))) {
+                    flashRow = hit[0];
+                    flashCol = hit[1];
+                    handler.removeCallbacks(clearFlash);
+                    handler.postDelayed(clearFlash, 90);
+                    tapFeedback();
+                    listener.onChar(k.label);
+                    invalidate();
+                }
+                return true;
+            }
+            case MotionEvent.ACTION_POINTER_UP: {
+                // 抬起的是按住 Shift 的那根手指 → 结束「按住大写」
+                if (shiftHeld && e.getPointerId(e.getActionIndex()) == shiftPointerId) {
+                    endShiftHold();
+                }
+                return true;
+            }
             case MotionEvent.ACTION_MOVE: {
+                if (shiftHeld) return true;   // 按住 Shift 时忽略主指的滑动判定
                 if (pressedRow == ROW_TAB) {
                     curX = e.getX();
                     curY = e.getY();
@@ -840,13 +1067,22 @@ public class ChemKeyboardView extends View {
                 if (!swipeFired && up != null && downY - curY > keyH * 0.55f) {
                     swipeFired = true;
                     bubbleChar = up;
-                    performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                    tapFeedback();
                 }
                 invalidate();
                 return true;
             }
             case MotionEvent.ACTION_UP: {
                 handler.removeCallbacks(longPressRunnable);
+                handler.removeCallbacks(backspaceRepeat);
+                handler.removeCallbacks(clearFlash);
+                flashRow = -1;
+                flashCol = -1;
+                if (shiftHeld) {
+                    endShiftHold();
+                    return true;
+                }
+                shiftPointerId = -1;
                 if (pressedRow == ROW_TAB) {
                     int[] hit = hitKey(e.getX(), e.getY());
                     if (hit != null && hit[0] == ROW_TAB) setSymbolCategory(hit[1]);
@@ -879,15 +1115,40 @@ public class ChemKeyboardView extends View {
             }
             case MotionEvent.ACTION_CANCEL: {
                 handler.removeCallbacks(longPressRunnable);
+                handler.removeCallbacks(backspaceRepeat);
+                handler.removeCallbacks(clearFlash);
                 dismissPopup();
                 swipeFired = false;
                 bubbleChar = null;
-                pressedRow = -1;
-                invalidate();
+                flashRow = -1;
+                flashCol = -1;
+                if (shiftHeld) {
+                    endShiftHold();
+                } else {
+                    shiftPointerId = -1;
+                    pressedRow = -1;
+                    invalidate();
+                }
                 return true;
             }
         }
         return super.onTouchEvent(e);
+    }
+
+    /** 结束「按住 Shift」：恢复默认大小写，并清掉主指状态（2026-10-25）。 */
+    private void endShiftHold() {
+        if (!shiftHeld) return;
+        shiftHeld = false;
+        shiftPointerId = -1;
+        handler.removeCallbacks(longPressRunnable);
+        pressedRow = -1;
+        pressedCol = -1;
+        invalidate();
+        listener.onShiftHoldChanged(false);
+    }
+
+    private static boolean isAsciiLetter(char c) {
+        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
     }
 
     // ---------------- 长按多选 ----------------
@@ -899,6 +1160,20 @@ public class ChemKeyboardView extends View {
             // 长按「拼｜素」= 开关元素自动大小写（设计稿 §3.6.2）
             longPressDone = true;
             listener.onAction(ACT_CASE);
+            return;
+        }
+        if (key.action == ACT_BACK) {
+            // 长按删除：先删一个，之后每 70ms 连续删除，松手停止（2026-10-25 新需求）
+            longPressDone = true;
+            listener.onAction(ACT_BACK);
+            handler.postDelayed(backspaceRepeat, 70);
+            return;
+        }
+        if (key.action == ACT_SHIFT) {
+            // 长按 Shift：进入「按住大写」；另一根手指可连续点字母，松手恢复小写
+            longPressDone = true;
+            shiftHeld = true;
+            listener.onShiftHoldChanged(true);
             return;
         }
         if (key.action != 0) return;
@@ -936,6 +1211,11 @@ public class ChemKeyboardView extends View {
         addOpt(opts, key.alt);     // 数字/符号的常规形态
         addOpt(opts, key.swipe);   // 上角标形态
         addOpt(opts, key.chem);    // 下角标形态
+        // 符号页里带「+ / −」气泡的 N 键：长按候选补上标电荷符号 ⁺ / ⁻（2026-10-27）
+        if ("N".equals(key.label) && "+".equals(key.swipe)) {
+            addOpt(opts, "⁺");
+            addOpt(opts, "⁻");
+        }
         String label = key.label;
         if (label != null && label.length() == 1 && Character.isLetter(label.charAt(0))) {
             addOpt(opts, superscriptOf(label));           // 字母上角标
