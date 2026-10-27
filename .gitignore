@@ -1,0 +1,24 @@
+# ===== 签名密钥（绝不公开）=====
+keystore/
+source/keystore/
+*.jks
+*.keystore
+
+# ===== 仅保留在本地，不入公开仓库 =====
+交付说明.md
+tests/
+delivery/
+.tmp/
+windows/
+windows-ime/
+.idea/
+.vscode/
+
+# ===== 构建产物 =====
+source/app/release/
+source/app/Store/
+*.apk.idsig
+
+# ===== 系统文件 =====
+Thumbs.db
+desktop.ini
