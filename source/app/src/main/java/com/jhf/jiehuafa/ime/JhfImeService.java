@@ -20,13 +20,19 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
@@ -70,6 +76,9 @@ import java.util.regex.Pattern;
  *              直通模式手打 kg、L、mol 等单位时也给出复合单位候选（UNIT_COMBOS）；
  *              单位候选排序规则：直通模式、无拼音候选、组合区为多字母单位（kg/mol…）时单位置顶；
  *              拼音模式单字母 L 仍拼音优先、单位接在后面，保证手打 L 也能选到 L/mol。
+ *   2026-10-27 读取 kb_layout 布局偏好并下发键盘（0 手机默认 / 1 限宽居中 / 2 横屏分体 / 3 悬浮小键盘）；
+ *              新增 syncCandBar()：限宽与悬浮模式下候选栏宽度/位移跟随键区，不再横跨整屏；
+ *              横竖屏切换时重新读取偏好并重建布局模式。
  *   2026-10-27 新增上屏联想符号：沉淀化合物（AgCl/BaSO₄/Fe(OH)₃ 等）上屏后候选栏给出「↓」，
  *              气体（H₂/O₂/CO₂/NH₃ 等）给出「↑」，单独元素给出常见离子电荷（Fe → ²⁺、³⁺，
  *              Cl → ⁻ 等）；直通模式下组合区成化学式时实时联想，上屏后保留到下一次输入。
@@ -78,6 +87,23 @@ import java.util.regex.Pattern;
  *              直通模式支持同位素质量数写法：整串为「数字 + 单个元素」时数字写成上标，
  *              2H → ²H、14C → ¹⁴C、235U → ²³⁵U（2H2O 这类仍按系数处理）；
  *              直通模式下数字（含符号页角标的上标数字）可开头进入组合区，才能拼出上述同位素写法。
+ *   2026-10-28 布局收敛为 铺满 / 左右断开 / 浮窗 三种（删除限宽居中）；候选栏不再单独对齐，
+ *              因为浮窗模式下候选栏已在卡片内、随卡片整体移动；
+ *              浮窗实现：输入视图铺满整屏当画布，卡片（20dp 抓手 + 候选栏 + 键盘）是画布里的
+ *              一个子 View，位置由外边距决定，抓手按住后可上下左右任意拖动；
+ *              onComputeInsets 把卡片外的触摸区域让回应用（浮窗不挤压、也不独占屏幕）。
+ *              键盘布局在输入法显示/隐藏、横竖屏切换、设置项变化时统一走 applyLayoutMode()。
+ *   2026-10-28 浮窗改为「整屏输入视图 + 卡片子 View」：原先 PopupWindow 挂在 IME 窗口下，
+ *              会被按 1px 高的父窗口裁成 0 高——卡片收不到触摸、候选栏量不出高度所以空白；
+ *              现在输入视图铺满整屏当画布，卡片用它自己的外边距定位，抓手拖动只改边距，
+ *              上下左右都跟手（拖动中不重算 insets，松手才刷新，避免手势被重布局打断）；
+ *              onComputeInsets 把可见区让回应用（浮窗不挤压应用排版），
+ *              可触摸区域收窄成卡片矩形，卡片外的点击照常落到应用上。
+ *   2026-10-28 浮窗卡片宽度改为固定 420dp（原来取屏宽 42%，横屏会撑到 1431px 显得过宽），
+ *              横竖屏浮窗尺寸与键面大小完全一致。
+ *   2026-10-28 手机不给手选布局：非平板（最小宽度 < 600dp）时横屏自动悬浮、竖屏自动平铺，
+ *              旋转后由 onConfigurationChanged 重新 loadPrefs + applyLayoutMode 生效；
+ *              平板仍按设置里的选择走。
  */
 public class JhfImeService extends InputMethodService implements ChemKeyboardView.Listener {
 
@@ -116,6 +142,25 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
     private List<PinyinMatcher.Candidate> current;
     private String themeId = "cucl2";
     private boolean darkMode = false;
+    /** 平板布局模式（2026-10-28）：0 铺满 / 1 左右断开 / 2 浮窗。 */
+    private int kbLayout = ChemKeyboardView.LAYOUT_FULL;
+    /**
+     * 浮窗卡片：整张卡（抓手 + 候选栏 + 键盘）是输入视图里的一个普通子 View，
+     * 位置用外边距控制（2026-10-28 二次实现：原来的 PopupWindow 会被系统按 IME
+     * 窗口高度裁成 0 高，导致卡片收不到触摸、候选栏不显示）。
+     */
+    private FrameLayout inputHost, floatCard, gripBar;
+    private View gripLineView;
+    private LinearLayout cardColumn;
+    private boolean floatPositioned = false;
+    private int floatX, floatY;
+    /** 抓手拖动起点（屏幕坐标与起始边距）。 */
+    private float dragRawX, dragRawY;
+    private int dragStartX, dragStartY;
+    private static final float GRIP_DP = 20f;
+    /** 设置项变化监听：键盘布局改动需要即时下发（2026-10-27）。 */
+    private SharedPreferences prefs;
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
     /** 按键震动反馈（主界面「通用 → 触感反馈」，2026-10-26）。 */
     private boolean haptic = true;
     /** 壁纸变了：「自动」主题的缓存色作废，键盘在屏上时立即换色。 */
@@ -139,10 +184,24 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
             }
         };
         registerReceiver(wallpaperReceiver, new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED));
+        // 设置页改动「键盘布局」后立即生效：输入法进程会常驻，光靠下次重建输入视图不会刷新
+        prefs = getSharedPreferences("jhf_settings", Context.MODE_PRIVATE);
+        prefListener = (sp, key) -> {
+            if ("kb_layout".equals(key)) {
+                loadPrefs();
+                applyLayoutMode();
+            }
+        };
+        prefs.registerOnSharedPreferenceChangeListener(prefListener);
     }
 
     @Override
     public void onDestroy() {
+        if (prefs != null && prefListener != null) {
+            prefs.unregisterOnSharedPreferenceChangeListener(prefListener);
+            prefs = null;
+            prefListener = null;
+        }
         if (wallpaperReceiver != null) {
             try {
                 unregisterReceiver(wallpaperReceiver);
@@ -164,8 +223,23 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
         boolean follow = p.getBoolean("follow", false);
         darkMode = follow ? systemDark() : p.getBoolean("dark", false);
         haptic = p.getBoolean("haptic", true);
+        kbLayout = p.getInt("kb_layout", ChemKeyboardView.LAYOUT_FULL);
+        // 手机端不给手动选：横屏自动悬浮、竖屏自动平铺（2026-10-28）
+        if (!isTablet()) {
+            kbLayout = isLandscape()
+                    ? ChemKeyboardView.LAYOUT_FLOAT : ChemKeyboardView.LAYOUT_FULL;
+        }
         // 「自动」主题的颜色来自系统壁纸，进程起来后必须解析一次
         ChemKeyboardView.resolveAutoColors(this);
+    }
+
+    /** 平板判定（与主界面一致）：最小宽度 ≥ 600dp。 */
+    private boolean isTablet() {
+        return getResources().getConfiguration().smallestScreenWidthDp >= 600;
+    }
+
+    private boolean isLandscape() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     private boolean systemDark() {
@@ -178,7 +252,11 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         loadPrefs();
-        if (keyboard != null) applyTheme();
+        if (keyboard != null) {
+            applyTheme();
+            floatPositioned = false;   // 横竖屏尺寸变了，浮窗按新屏幕重新落位
+            applyLayoutMode();
+        }
     }
 
     private boolean isDarkColor(int c) {
@@ -193,9 +271,6 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
     public View onCreateInputView() {
         float d = getResources().getDisplayMetrics().density;
         loadPrefs();
-
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
 
         // 候选栏：[化|符] [组合区+候选…] [⌄]
         candBar = new LinearLayout(this);
@@ -269,26 +344,215 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
         keyboard = new ChemKeyboardView(this, this);
         keyboard.setPinyinMode(pinyinMode);
         keyboard.setAutoCase(autoCase);
-        applyTheme();
+        keyboard.setLayoutMode(kbLayout);
 
-        root.addView(candBar, new LinearLayout.LayoutParams(
+        // ---- 浮窗抓手（2026-10-28）：整张卡片顶部 20dp 横条，按住可上下左右拖动整卡 ----
+        gripBar = new FrameLayout(this);
+        gripLineView = new View(this);
+        gripBar.addView(gripLineView, new FrameLayout.LayoutParams(
+                (int) (44 * d), (int) (4 * d), Gravity.CENTER));
+        gripBar.setOnTouchListener((v, ev) -> handleGripTouch(v, ev));
+
+        // 一张卡片 = 抓手 + 候选栏 + 键盘；浮窗时整张卡片在输入视图里按边距定位，候选栏随卡片移动
+        cardColumn = new LinearLayout(this);
+        cardColumn.setOrientation(LinearLayout.VERTICAL);
+        cardColumn.addView(gripBar, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, (int) (GRIP_DP * d)));
+        cardColumn.addView(candBar, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        root.addView(keyboard, new LinearLayout.LayoutParams(
+        cardColumn.addView(keyboard, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        // 外层套 FrameLayout：长按浮层要盖在键盘上方（键盘自己画不出界外），
-        // 该层不可点击，触摸仍然落到下面的键盘上。
-        FrameLayout wrap = new FrameLayout(this);
-        wrap.addView(root, new FrameLayout.LayoutParams(
+        // 卡片外层再套一层：长按浮层要盖在键区上方（键盘自己画不出界外）
+        floatCard = new FrameLayout(this);
+        floatCard.addView(cardColumn, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
         popupView = new KeyPopupView(this);
-        popupView.setTheme(darkMode, ChemKeyboardView.themeColor(themeId));
-        // 不传 LayoutParams：它自己在显示时按浮层区域设置宽高与边距（用 MATCH_PARENT 会把
-        // WRAP_CONTENT 的宿主撑到整屏，IME 窗口跟着变满屏）。
-        wrap.addView(popupView);
+        // 不传 LayoutParams：它自己在显示时按浮层区域设置宽高与边距。
+        floatCard.addView(popupView);
 
+        // 输入视图宿主：铺满/断开时高度正好一张卡片；浮窗时铺满整屏当画布（触摸区域收窄见 onComputeInsets）
+        inputHost = new FrameLayout(this);
+        applyTheme();
+        applyLayoutMode();
         refreshCandidates();
-        return wrap;
+        return inputHost;
+    }
+
+    /** 卡片底色（浮窗时的卡片本身；直角，跟随深浅色）。 */
+    private GradientDrawable cardBackground() {
+        GradientDrawable g = new GradientDrawable();
+        g.setColor(darkMode ? 0xFF000000 : 0xFFEAEAEA);
+        g.setCornerRadius(0);
+        return g;
+    }
+
+    /** 抓手横杠颜色跟随深浅色。 */
+    private void restyleGripLine() {
+        if (gripLineView == null) return;
+        GradientDrawable g = new GradientDrawable();
+        g.setColor(darkMode ? 0x59FFFFFF : 0x59000000);
+        g.setCornerRadius(2 * getResources().getDisplayMetrics().density);
+        gripLineView.setBackground(g);
+    }
+
+    /**
+     * 按当前模式装配卡片（2026-10-28 二次实现）：
+     * 铺满 / 左右断开 → 输入视图正好一张卡片高，卡片铺满宽度；
+     * 浮窗 → 输入视图铺满整屏当画布，卡片在其中按边距定位、可上下左右拖动。
+     */
+    private void applyLayoutMode() {
+        if (keyboard == null || inputHost == null || floatCard == null) return;
+        keyboard.setLayoutMode(kbLayout);
+        boolean floatMode = kbLayout == ChemKeyboardView.LAYOUT_FLOAT;
+        if (gripBar != null) gripBar.setVisibility(floatMode ? View.VISIBLE : View.GONE);
+        if (cardColumn != null) cardColumn.setBackground(floatMode ? cardBackground() : null);
+        restyleGripLine();
+        if (floatMode) {
+            inputHost.setMinimumHeight(displaySize().y);
+            if (floatCard.getParent() != inputHost) {
+                inputHost.addView(floatCard, new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+            if (!floatPositioned) {
+                // 卡片高度要等它真正布局完才准（未布局时手量会偏小，卡片会掉到屏幕外）
+                inputHost.post(() -> {
+                    if (kbLayout != ChemKeyboardView.LAYOUT_FLOAT || floatPositioned) return;
+                    setFloatDefaultPosition();
+                    floatPositioned = true;
+                    placeFloatCard();
+                });
+            } else {
+                placeFloatCard();
+            }
+        } else {
+            inputHost.setMinimumHeight(1);
+            if (floatCard.getParent() != inputHost) {
+                inputHost.addView(floatCard, new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) floatCard.getLayoutParams();
+            lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            lp.leftMargin = 0;
+            lp.topMargin = 0;
+            floatCard.setLayoutParams(lp);
+            inputHost.requestLayout();
+        }
+    }
+
+    /** 浮窗卡片宽度：固定 420dp（横屏与竖屏同尺寸，键面大小一致），且两侧各留 8dp。 */
+    private int floatCardWidth() {
+        float d = getResources().getDisplayMetrics().density;
+        int sw = displaySize().x;
+        int w = (int) (420 * d);
+        return Math.min(w, sw - (int) (16 * d));
+    }
+
+    /** 屏幕真实尺寸（横屏时宽高互换，不受输入法 Resources 的陈旧配置影响）。 */
+    private Point displaySize() {
+        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Rect b = wm.getCurrentWindowMetrics().getBounds();
+            return new Point(b.width(), b.height());
+        }
+        Point p = new Point();
+        wm.getDefaultDisplay().getRealSize(p);
+        return p;
+    }
+
+    /** 按给定宽度量一次卡片高度（还没布局时用它决定默认落点与拖动边界）。 */
+    private int measureCardHeight(int cardW) {
+        if (floatCard == null) return 0;
+        floatCard.measure(View.MeasureSpec.makeMeasureSpec(cardW, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        return floatCard.getMeasuredHeight();
+    }
+
+    /** 首次进入浮窗：水平居中、贴底上方 24dp。 */
+    private void setFloatDefaultPosition() {
+        int cardW = floatCardWidth();
+        int cardH = floatCard.getHeight() > 0 ? floatCard.getHeight() : measureCardHeight(cardW);
+        Point size = displaySize();
+        floatX = (size.x - cardW) / 2;
+        floatY = size.y - cardH - (int) (24 * getResources().getDisplayMetrics().density);
+    }
+
+    /**
+     * 把 floatX / floatY 落到卡片外边距上；整卡（抓手 + 候选栏 + 键盘）一起移动。
+     *
+     * @param refreshTouchRegion 是否顺手刷新可触摸区域。拖动过程中不能刷：
+     *                           输入法窗口一旦重算 insets 会重新布局，进行中的手势会被系统取消
+     *                           （表现为拖一下就不跟手），所以拖动时只挪位置，松手才刷新。
+     */
+    private void placeFloatCard(boolean refreshTouchRegion) {
+        if (floatCard == null || inputHost == null) return;
+        int cardW = floatCardWidth();
+        int cardH = floatCard.getHeight() > 0 ? floatCard.getHeight() : measureCardHeight(cardW);
+        clampFloat(cardW, cardH);
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) floatCard.getLayoutParams();
+        if (lp == null) return;
+        lp.width = cardW;
+        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        lp.leftMargin = floatX;
+        lp.topMargin = floatY;
+        floatCard.setLayoutParams(lp);
+        if (refreshTouchRegion) inputHost.requestLayout();
+    }
+
+    private void placeFloatCard() {
+        placeFloatCard(true);
+    }
+
+    /** 把卡片位置限制在屏幕内（上下左右都不能拖出屏）。 */
+    private void clampFloat(int cardW, int cardH) {
+        Point size = displaySize();
+        floatX = Math.max(0, Math.min(floatX, size.x - cardW));
+        floatY = Math.max(0, Math.min(floatY, Math.max(0, size.y - cardH)));
+    }
+
+    /** 抓手拖动：整卡（含候选栏）跟着手指上下左右走。 */
+    private boolean handleGripTouch(View v, MotionEvent e) {
+        switch (e.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                dragRawX = e.getRawX();
+                dragRawY = e.getRawY();
+                dragStartX = floatX;
+                dragStartY = floatY;
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                floatX = dragStartX + Math.round(e.getRawX() - dragRawX);
+                floatY = dragStartY + Math.round(e.getRawY() - dragRawY);
+                placeFloatCard(false);
+                return true;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                // 松手后再刷新触摸区域，避免拖动中途被窗口重布局打断
+                placeFloatCard(true);
+                return true;
+            default:
+                return true;
+        }
+    }
+
+    /**
+     * 浮窗不挤压应用、只让卡片本身接收触摸（2026-10-28）。
+     * 输入视图在浮窗模式下铺满整屏，系统默认会把整屏都当成键盘热区，
+     * 这里把可见区/内容区都顶到屏幕底部（应用按“没有键盘”排版），
+     * 可触摸区域收窄成卡片矩形，卡片外的点击照常到达应用。
+     */
+    @Override
+    public void onComputeInsets(Insets outInsets) {
+        super.onComputeInsets(outInsets);
+        if (kbLayout != ChemKeyboardView.LAYOUT_FLOAT || floatCard == null
+                || floatCard.getParent() != inputHost) return;
+        Point size = displaySize();
+        outInsets.contentTopInsets = size.y;
+        outInsets.visibleTopInsets = size.y;
+        outInsets.touchableInsets = Insets.TOUCHABLE_INSETS_REGION;
+        int w = floatCard.getWidth() > 0 ? floatCard.getWidth() : floatCardWidth();
+        int h = floatCard.getHeight() > 0 ? floatCard.getHeight() : measureCardHeight(w);
+        outInsets.touchableRegion.set(floatX, floatY, floatX + w, floatY + h);
     }
 
     @Override
@@ -396,6 +660,11 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
         ring.setCornerRadius(0); // 设计稿直角
         ring.setStroke((int) (1.2f * d), ChemKeyboardView.themeColor(themeId));
         candContainer.setBackground(ring);
+        // 浮窗卡片底色与抓手颜色跟随深浅色
+        restyleGripLine();
+        if (cardColumn != null && kbLayout == ChemKeyboardView.LAYOUT_FLOAT) {
+            cardColumn.setBackground(cardBackground());
+        }
     }
 
     @Override
@@ -405,6 +674,7 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
             applyTheme();
             composing.setLength(0);
             updateComposition();
+            applyLayoutMode();
         }
     }
 

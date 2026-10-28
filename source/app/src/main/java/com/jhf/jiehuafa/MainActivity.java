@@ -58,6 +58,20 @@ import java.util.List;
  *   2026-10-26 板块标题「外观和显示」改为「通用」；新增「触感反馈」卡（78×33 自绘开关，
  *              prefs 键 haptic，默认开启），关闭后键盘按键不再震动（键盘侧 setHapticEnabled）；
  *              开关去掉全部圆角（轨道/滑块均直角，drawRect 绘制），震动实现改走 Vibrator 服务。
+ *   2026-10-27 新增「键盘布局」卡（位于触感反馈下方，prefs 键 kb_layout）：点按循环切换
+ *              手机默认 / 限宽居中 / 横屏分体 / 悬浮小键盘，右侧实时显示当前模式并弹出提示。
+ *   2026-10-28 布局收敛为 铺满 / 左右断开 / 浮窗 三种（删除限宽居中），点按循环这三项。
+ *   2026-10-28 「键盘布局」改为与「当前主题」一致的气泡框选择：点卡片弹出靠右对齐的浮层
+ *              （头部主题色 + ✕、三行布局、当前项填主题色并打勾），选完即保存；不再点按循环。
+ *   2026-10-28 「键盘布局」卡右侧按钮改为与其它卡片一致的 78×33 带边框值框（文字居中），
+ *              三个模式显示名改为 平铺 / 悬浮 / 分离（浮层顺序见 KB_ORDER）。
+ *   2026-10-28 进入界面检测设备类型：最小宽度 ≥ 600dp 视为平板，可手动选布局；
+ *              手机隐藏「键盘布局」卡，布局随屏幕方向自动切换（横屏悬浮、竖屏平铺）。
+ *   2026-10-28 深浅色模式改为气泡框选择（浅色 / 深色 / 跟随系统），尺寸与主题/布局浮层一致；
+ *              该卡右侧由「切换」按钮改为 78×33 带边框值框，卡标题固定为「深浅色模式」。
+ *   2026-10-28 「触感反馈」开关按客户 Figma（Frame 13 / Frame 14）重绘：轨道直角实心
+ *              （关 #DDDDDD、开主题色），滑块 34×25 白色、距边 3dp、带 2dp 实心投影，
+ *              滑块内标记为关闭圆环 / 开启竖线。
  */
 public class MainActivity extends Activity {
 
@@ -65,6 +79,11 @@ public class MainActivity extends Activity {
     static final String[] THEME_IDS = {"agbr", "kmno4", "cucl2", "fe2o3", ChemKeyboardView.THEME_AUTO};
     /** 主题选择浮层里的显示顺序（设计稿 8a653cd5）。 */
     static final int[] PICKER_ORDER = {3, 2, 1, 0, 4};
+    /** 键盘布局浮层里的显示顺序：平铺 → 悬浮 → 分离（常量值不变，避免旧偏好错位）。 */
+    static final int[] KB_ORDER = {ChemKeyboardView.LAYOUT_FULL, ChemKeyboardView.LAYOUT_FLOAT,
+            ChemKeyboardView.LAYOUT_SPLIT};
+    /** 深浅色模式：0 浅色、1 深色、2 跟随系统。 */
+    static final String[] MODE_NAMES = {"浅色", "深色", "跟随系统"};
 
     private String themeId = "cucl2";
     private boolean darkMode = false;
@@ -74,12 +93,17 @@ public class MainActivity extends Activity {
     private boolean haptic = true;
 
     private ScrollView scroll;
-    private FrameLayout headCard, themeBar, modeCard, hapticCard;
+    private FrameLayout headCard, themeBar, modeCard, hapticCard, kbLayoutCard;
     private TextView hapticLabel;
     private SwitchView hapticSwitch;
+    /** 键盘布局：标题 + 右侧当前模式值框（点卡弹出气泡选择，2026-10-28）。 */
+    private TextView kbLayoutTitle, kbLayoutValue;
+    private int kbLayout = ChemKeyboardView.LAYOUT_FULL;
     private LinearLayout previewCard, prevBar;
     private TextView themeBarLabel, themeBarValue, modeLabel;
-    private TextView aboutBtn, modeBtn;
+    /** 深浅色当前值框（与主题条/键盘布局同款 78×33 带边框，2026-10-28）。 */
+    private TextView modeValue;
+    private TextView aboutBtn;
     /** 品牌标题：必须持有引用，深浅色切换时要跟着刷新（漏刷会白底白字/黑底黑字直接消失）。 */
     private TextView brandTitle, brandSub;
     private ImageView headIcon;
@@ -97,6 +121,22 @@ public class MainActivity extends Activity {
     private final List<FrameLayout> pickerRowBoxes = new ArrayList<>();
     private final List<TextView> pickerRowLabels = new ArrayList<>();
     private final List<TextView> pickerRowChecks = new ArrayList<>();
+
+    /** 键盘布局选择浮层（2026-10-28：与主题浮层同款气泡框，点「键盘布局」卡弹出）。 */
+    private FrameLayout kbPickerLayer;
+    private LinearLayout kbPickerPanel, kbPickerHeader;
+    private TextView kbPickerHeaderLabel, kbPickerClose;
+    private final List<FrameLayout> kbRowBoxes = new ArrayList<>();
+    private final List<TextView> kbRowLabels = new ArrayList<>();
+    private final List<TextView> kbRowChecks = new ArrayList<>();
+
+    /** 深浅色选择浮层（2026-10-28：与主题/键盘布局同款气泡框，点「浅色/深色」卡弹出）。 */
+    private FrameLayout modePickerLayer;
+    private LinearLayout modePickerPanel, modePickerHeader;
+    private TextView modePickerHeaderLabel, modePickerClose;
+    private final List<FrameLayout> modeRowBoxes = new ArrayList<>();
+    private final List<TextView> modeRowLabels = new ArrayList<>();
+    private final List<TextView> modeRowChecks = new ArrayList<>();
     private final List<TextView> sectionArrows = new ArrayList<>();
     private final List<TextView> sectionTexts = new ArrayList<>();
 
@@ -225,7 +265,7 @@ public class MainActivity extends Activity {
         // ---- 模式卡 381×51（与主题条间距8） ----
         modeCard = new FrameLayout(this);
         modeLabel = new TextView(this);
-        modeLabel.setText(darkMode ? "深色模式" : "浅色模式");
+        modeLabel.setText("深浅色模式");
         modeLabel.setTextSize(20);
         modeLabel.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
         modeLabel.setTextColor(cText);
@@ -235,27 +275,18 @@ public class MainActivity extends Activity {
         mllLp.setMargins(dp(24), 0, 0, 0);
         modeCard.addView(modeLabel, mllLp);
 
-        modeBtn = pill("切换", dp(78), dp(33));
-        //「切换」文字在按钮内居中（原来按设计稿做成右对齐，客户反馈应居中）
-        // 三态循环：浅色 → 深色 → 跟随系统 → 浅色（客户意见 11）
-        modeBtn.setOnClickListener(v -> {
-            if (followSystem) {
-                followSystem = false;
-                darkMode = false;
-            } else if (darkMode) {
-                followSystem = true;
-                darkMode = systemDark();
-            } else {
-                darkMode = true;
-            }
-            savePrefs();
-            restyleAll();
-            toast(modeLabelText());
-        });
-        FrameLayout.LayoutParams mbLp = new FrameLayout.LayoutParams(dp(78), dp(33));
-        mbLp.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
-        mbLp.setMargins(0, 0, dp(10), 0);
-        modeCard.addView(modeBtn, mbLp);
+        // 右侧值框 78×33（与主题条/键盘布局同款，带边框），点整卡弹出气泡选择（2026-10-28）
+        modeValue = new TextView(this);
+        modeValue.setText(MODE_NAMES[modeIndex()]);
+        modeValue.setTextSize(16);
+        modeValue.setGravity(Gravity.CENTER);
+        modeValue.setMaxLines(1);
+        modeValue.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        FrameLayout.LayoutParams mvLp = new FrameLayout.LayoutParams(dp(78), dp(33));
+        mvLp.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+        mvLp.setMargins(0, 0, dp(10), 0);
+        modeCard.addView(modeValue, mvLp);
+        modeCard.setOnClickListener(v -> showModePicker());
 
         LinearLayout.LayoutParams modeLp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, dp(51));
@@ -293,6 +324,39 @@ public class MainActivity extends Activity {
                 LinearLayout.LayoutParams.MATCH_PARENT, dp(51));
         hapticLp.setMargins(dp(10), dp(8), dp(11), 0);
         root.addView(hapticCard, hapticLp);
+
+        // ---- 键盘布局卡（仅平板，2026-10-28）：点卡弹出气泡选择 平铺 / 悬浮 / 分离 ----
+        kbLayoutCard = new FrameLayout(this);
+        kbLayoutTitle = new TextView(this);
+        kbLayoutTitle.setText("键盘布局");
+        kbLayoutTitle.setTextSize(20);
+        kbLayoutTitle.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        FrameLayout.LayoutParams klLp = new FrameLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        klLp.gravity = Gravity.CENTER_VERTICAL | Gravity.LEFT;
+        klLp.setMargins(dp(24), 0, 0, 0);
+        kbLayoutCard.addView(kbLayoutTitle, klLp);
+
+        kbLayoutValue = new TextView(this);
+        kbLayoutValue.setText(ChemKeyboardView.LAYOUT_NAMES[kbLayout]);
+        kbLayoutValue.setTextSize(16);
+        // 值框与主题条/深浅色卡一致：78×33、文字居中、带边框（2026-10-28）
+        kbLayoutValue.setGravity(Gravity.CENTER);
+        kbLayoutValue.setMaxLines(1);
+        kbLayoutValue.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        FrameLayout.LayoutParams kvLp = new FrameLayout.LayoutParams(dp(78), dp(33));
+        kvLp.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+        kvLp.setMargins(0, 0, dp(10), 0);
+        kbLayoutCard.addView(kbLayoutValue, kvLp);
+
+        // 点按弹出气泡框选择（与「当前主题」条一致，2026-10-28）
+        kbLayoutCard.setOnClickListener(v -> showKbLayoutPicker());
+        LinearLayout.LayoutParams kbLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, dp(51));
+        kbLp.setMargins(dp(10), dp(8), dp(11), 0);
+        root.addView(kbLayoutCard, kbLp);
+        // 手机上不显示这张卡：布局由系统方向自动决定，不需要也不允许手选（2026-10-28）
+        if (!isTabletDevice()) kbLayoutCard.setVisibility(View.GONE);
 
         // ---- 弹性间隔：设计稿 y309→y504 空白区（自适应撑满，键盘贴底） ----
         Space spacer = new Space(this);
@@ -339,6 +403,7 @@ public class MainActivity extends Activity {
 
             @Override public void onAction(int action) { }
         });
+        preview.setLayoutMode(kbLayout);
         previewCard.addView(preview, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         root.addView(previewCard, new LinearLayout.LayoutParams(
@@ -350,6 +415,12 @@ public class MainActivity extends Activity {
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         buildThemePicker();
         wrap.addView(pickerLayer, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        buildKbLayoutPicker();
+        wrap.addView(kbPickerLayer, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        buildModePicker();
+        wrap.addView(modePickerLayer, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         guide = new GuidePanel(this);
         guide.setBackdropSource(scroll);
@@ -444,6 +515,8 @@ public class MainActivity extends Activity {
             return;
         }
         // 面板与「当前主题」条所在位置对齐（滚动后仍然对得上）
+        hideKbLayoutPicker();
+        hideModePicker();
         int[] bar = new int[2], w = new int[2];
         themeBar.getLocationInWindow(bar);
         wrap.getLocationInWindow(w);
@@ -463,6 +536,264 @@ public class MainActivity extends Activity {
 
     private void hideThemePicker() {
         if (pickerLayer.getVisibility() != View.GONE) pickerLayer.setVisibility(View.GONE);
+    }
+
+    // ---------- 键盘布局选择浮层（与主题浮层同款气泡框，2026-10-28） ----------
+
+    private void buildKbLayoutPicker() {
+        kbPickerLayer = new FrameLayout(this);
+        kbPickerLayer.setVisibility(View.GONE);
+        kbPickerLayer.setClickable(true);
+        kbPickerLayer.setOnClickListener(v -> hideKbLayoutPicker());
+
+        kbPickerPanel = new LinearLayout(this);
+        kbPickerPanel.setOrientation(LinearLayout.VERTICAL);
+        kbPickerPanel.setClickable(true); // 消费点击，避免穿透到遮罩把自己关掉
+
+        // ---- 头部：「键盘布局」+ ✕ ----
+        kbPickerHeader = new LinearLayout(this);
+        kbPickerHeader.setOrientation(LinearLayout.HORIZONTAL);
+        kbPickerHeader.setGravity(Gravity.CENTER_VERTICAL);
+        kbPickerHeader.setPadding(dp(16), 0, dp(12), 0);
+        kbPickerHeaderLabel = new TextView(this);
+        kbPickerHeaderLabel.setText("键盘布局");
+        kbPickerHeaderLabel.setTextSize(18);
+        kbPickerHeaderLabel.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        kbPickerHeaderLabel.setGravity(Gravity.CENTER_VERTICAL);
+        kbPickerHeader.addView(kbPickerHeaderLabel, new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        kbPickerClose = new TextView(this);
+        kbPickerClose.setText("✕");
+        kbPickerClose.setTextSize(18);
+        kbPickerClose.setGravity(Gravity.CENTER);
+        kbPickerClose.setOnClickListener(v -> hideKbLayoutPicker());
+        kbPickerHeader.addView(kbPickerClose, new LinearLayout.LayoutParams(dp(28), dp(28)));
+        kbPickerPanel.addView(kbPickerHeader, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, dp(48)));
+
+        // ---- 布局行（平铺 / 悬浮 / 分离，顺序见 KB_ORDER，选中打勾） ----
+        for (int i = 0; i < KB_ORDER.length; i++) {
+            final int mode = KB_ORDER[i];
+            FrameLayout row = new FrameLayout(this);
+            row.setClickable(true);
+            TextView label = new TextView(this);
+            label.setText(ChemKeyboardView.LAYOUT_NAMES[mode]);
+            label.setTextSize(18);
+            label.setGravity(Gravity.CENTER_VERTICAL);
+            FrameLayout.LayoutParams llp = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            llp.gravity = Gravity.CENTER_VERTICAL | Gravity.LEFT;
+            llp.setMargins(dp(16), 0, 0, 0);
+            row.addView(label, llp);
+            TextView check = new TextView(this);
+            check.setText("✓");
+            check.setTextSize(16);
+            check.setGravity(Gravity.CENTER);
+            FrameLayout.LayoutParams clp = new FrameLayout.LayoutParams(dp(28), dp(28));
+            clp.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+            clp.setMargins(0, 0, dp(12), 0);
+            row.addView(check, clp);
+            row.setOnClickListener(v -> {
+                kbLayout = mode;
+                kbLayoutValue.setText(ChemKeyboardView.LAYOUT_NAMES[mode]);
+                if (preview != null) preview.setLayoutMode(mode);   // 预览区同步切换，便于对照
+                savePrefs();
+                hideKbLayoutPicker();
+                restyleAll();
+                toast("键盘布局：" + ChemKeyboardView.LAYOUT_NAMES[mode]);
+            });
+            kbRowBoxes.add(row);
+            kbRowLabels.add(label);
+            kbRowChecks.add(check);
+            kbPickerPanel.addView(row, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, dp(46)));
+        }
+
+        // 面板靠右贴着值框的位置，纵向对齐「键盘布局」卡
+        FrameLayout.LayoutParams panelLp = new FrameLayout.LayoutParams(
+                dp(168), FrameLayout.LayoutParams.WRAP_CONTENT);
+        panelLp.gravity = Gravity.TOP | Gravity.RIGHT;
+        panelLp.setMargins(0, 0, dp(11), 0);
+        kbPickerLayer.addView(kbPickerPanel, panelLp);
+    }
+
+    private void showKbLayoutPicker() {
+        if (kbPickerLayer.getVisibility() == View.VISIBLE) {
+            hideKbLayoutPicker();
+            return;
+        }
+        hideThemePicker();
+        hideModePicker();
+        // 面板与「键盘布局」卡所在位置对齐（滚动后仍然对得上）
+        int[] card = new int[2], w = new int[2];
+        kbLayoutCard.getLocationInWindow(card);
+        wrap.getLocationInWindow(w);
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) kbPickerPanel.getLayoutParams();
+        lp.topMargin = Math.max(0, card[1] - w[1]);
+        kbPickerLayer.removeAllViews();
+
+        ImageView backdrop = new ImageView(this);
+        UiBlur.apply(backdrop, scroll, 0x66000000, cBg);
+        kbPickerLayer.addView(backdrop, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        kbPickerLayer.addView(kbPickerPanel, lp);
+        restyleKbPicker();
+        kbPickerLayer.setVisibility(View.VISIBLE);
+    }
+
+    private void hideKbLayoutPicker() {
+        if (kbPickerLayer != null && kbPickerLayer.getVisibility() != View.GONE) {
+            kbPickerLayer.setVisibility(View.GONE);
+        }
+    }
+
+    /** 键盘布局浮层配色（与主题浮层同一套规则：头部主题色，选中行填主题色并打勾）。 */
+    private void restyleKbPicker() {
+        if (kbPickerPanel == null) return;
+        int accent = ChemKeyboardView.themeColor(themeId);
+        kbPickerHeader.setBackground(filled(accent, 0));
+        kbPickerHeaderLabel.setTextColor(onAccent(accent));
+        kbPickerClose.setTextColor(onAccent(accent));
+        int stroke = (int) (1.3f * getResources().getDisplayMetrics().density);
+        for (int i = 0; i < kbRowBoxes.size(); i++) {
+            boolean sel = KB_ORDER[i] == kbLayout;
+            GradientDrawable g = new GradientDrawable();
+            g.setCornerRadius(0);
+            g.setColor(sel ? accent : cCard);
+            g.setStroke(stroke, darkMode ? 0x1AFFFFFF : 0x14000000);
+            kbRowBoxes.get(i).setBackground(g);
+            kbRowLabels.get(i).setTextColor(sel ? onAccent(accent) : accent);
+            kbRowChecks.get(i).setTextColor(sel ? onAccent(accent) : Color.TRANSPARENT);
+        }
+    }
+
+    // ---------- 深浅色选择浮层（与主题/键盘布局同款气泡框，2026-10-28） ----------
+
+    private void buildModePicker() {
+        modePickerLayer = new FrameLayout(this);
+        modePickerLayer.setVisibility(View.GONE);
+        modePickerLayer.setClickable(true);
+        modePickerLayer.setOnClickListener(v -> hideModePicker());
+
+        modePickerPanel = new LinearLayout(this);
+        modePickerPanel.setOrientation(LinearLayout.VERTICAL);
+        modePickerPanel.setClickable(true); // 消费点击，避免穿透到遮罩把自己关掉
+
+        // ---- 头部：「深浅色模式」+ ✕ ----
+        modePickerHeader = new LinearLayout(this);
+        modePickerHeader.setOrientation(LinearLayout.HORIZONTAL);
+        modePickerHeader.setGravity(Gravity.CENTER_VERTICAL);
+        modePickerHeader.setPadding(dp(16), 0, dp(12), 0);
+        modePickerHeaderLabel = new TextView(this);
+        modePickerHeaderLabel.setText("深浅色模式");
+        modePickerHeaderLabel.setTextSize(18);
+        modePickerHeaderLabel.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        modePickerHeaderLabel.setGravity(Gravity.CENTER_VERTICAL);
+        modePickerHeader.addView(modePickerHeaderLabel, new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        modePickerClose = new TextView(this);
+        modePickerClose.setText("✕");
+        modePickerClose.setTextSize(18);
+        modePickerClose.setGravity(Gravity.CENTER);
+        modePickerClose.setOnClickListener(v -> hideModePicker());
+        modePickerHeader.addView(modePickerClose, new LinearLayout.LayoutParams(dp(28), dp(28)));
+        modePickerPanel.addView(modePickerHeader, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, dp(48)));
+
+        // ---- 模式行（浅色 / 深色 / 跟随系统，选中打勾） ----
+        for (int i = 0; i < MODE_NAMES.length; i++) {
+            final int idx = i;
+            FrameLayout row = new FrameLayout(this);
+            row.setClickable(true);
+            TextView label = new TextView(this);
+            label.setText(MODE_NAMES[idx]);
+            label.setTextSize(18);
+            label.setGravity(Gravity.CENTER_VERTICAL);
+            FrameLayout.LayoutParams llp = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            llp.gravity = Gravity.CENTER_VERTICAL | Gravity.LEFT;
+            llp.setMargins(dp(16), 0, 0, 0);
+            row.addView(label, llp);
+            TextView check = new TextView(this);
+            check.setText("✓");
+            check.setTextSize(16);
+            check.setGravity(Gravity.CENTER);
+            FrameLayout.LayoutParams clp = new FrameLayout.LayoutParams(dp(28), dp(28));
+            clp.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+            clp.setMargins(0, 0, dp(12), 0);
+            row.addView(check, clp);
+            row.setOnClickListener(v -> {
+                // 0 浅色 / 1 深色：固定；2 跟随系统：立即取系统当前深浅
+                followSystem = idx == 2;
+                darkMode = idx == 2 ? systemDark() : idx == 1;
+                savePrefs();
+                hideModePicker();
+                restyleAll();
+                toast(MODE_NAMES[idx]);
+            });
+            modeRowBoxes.add(row);
+            modeRowLabels.add(label);
+            modeRowChecks.add(check);
+            modePickerPanel.addView(row, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, dp(46)));
+        }
+
+        // 面板靠右贴着值框的位置，纵向对齐「深浅色模式」卡（宽度与其它浮层一致）
+        FrameLayout.LayoutParams panelLp = new FrameLayout.LayoutParams(
+                dp(168), FrameLayout.LayoutParams.WRAP_CONTENT);
+        panelLp.gravity = Gravity.TOP | Gravity.RIGHT;
+        panelLp.setMargins(0, 0, dp(11), 0);
+        modePickerLayer.addView(modePickerPanel, panelLp);
+    }
+
+    private void showModePicker() {
+        if (modePickerLayer.getVisibility() == View.VISIBLE) {
+            hideModePicker();
+            return;
+        }
+        hideThemePicker();
+        hideKbLayoutPicker();
+        // 面板与「深浅色模式」卡所在位置对齐（滚动后仍然对得上）
+        int[] card = new int[2], w = new int[2];
+        modeCard.getLocationInWindow(card);
+        wrap.getLocationInWindow(w);
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) modePickerPanel.getLayoutParams();
+        lp.topMargin = Math.max(0, card[1] - w[1]);
+        modePickerLayer.removeAllViews();
+
+        ImageView backdrop = new ImageView(this);
+        UiBlur.apply(backdrop, scroll, 0x66000000, cBg);
+        modePickerLayer.addView(backdrop, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        modePickerLayer.addView(modePickerPanel, lp);
+        restyleModePicker();
+        modePickerLayer.setVisibility(View.VISIBLE);
+    }
+
+    private void hideModePicker() {
+        if (modePickerLayer != null && modePickerLayer.getVisibility() != View.GONE) {
+            modePickerLayer.setVisibility(View.GONE);
+        }
+    }
+
+    /** 深浅色浮层配色（与主题/键盘布局浮层同一套规则：头部主题色，选中行填主题色并打勾）。 */
+    private void restyleModePicker() {
+        if (modePickerPanel == null) return;
+        int accent = ChemKeyboardView.themeColor(themeId);
+        modePickerHeader.setBackground(filled(accent, 0));
+        modePickerHeaderLabel.setTextColor(onAccent(accent));
+        modePickerClose.setTextColor(onAccent(accent));
+        int stroke = (int) (1.3f * getResources().getDisplayMetrics().density);
+        for (int i = 0; i < modeRowBoxes.size(); i++) {
+            boolean sel = i == modeIndex();
+            GradientDrawable g = new GradientDrawable();
+            g.setCornerRadius(0);
+            g.setColor(sel ? accent : cCard);
+            g.setStroke(stroke, darkMode ? 0x1AFFFFFF : 0x14000000);
+            modeRowBoxes.get(i).setBackground(g);
+            modeRowLabels.get(i).setTextColor(sel ? onAccent(accent) : accent);
+            modeRowChecks.get(i).setTextColor(sel ? onAccent(accent) : Color.TRANSPARENT);
+        }
     }
 
     /** 「自动」主题取色可能随壁纸变，每次刷新都重新解析一次。 */
@@ -501,9 +832,18 @@ public class MainActivity extends Activity {
         return mode == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    private String modeLabelText() {
-        String base = darkMode ? "深色模式" : "浅色模式";
-        return followSystem ? base + " ｜ 跟随系统" : base;
+    /** 当前深浅色模式下标：0 浅色、1 深色、2 跟随系统（2026-10-28）。 */
+    private int modeIndex() {
+        return followSystem ? 2 : (darkMode ? 1 : 0);
+    }
+
+    /** 平板判定：最小宽度 ≥ 600dp（与输入法侧 JhfImeService.isTablet() 一致）。 */
+    private boolean isTabletDevice() {
+        return getResources().getConfiguration().smallestScreenWidthDp >= 600;
+    }
+
+    private boolean isLandscapeNow() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     // ---------- 样式 ----------
@@ -542,6 +882,8 @@ public class MainActivity extends Activity {
         if (brandTitle != null) brandTitle.setTextColor(cText);
         if (brandSub != null) brandSub.setTextColor(cText);
         restylePicker();
+        restyleKbPicker();
+        restyleModePicker();
         if (headIcon != null) {
             headIcon.setImageDrawable(buildLogo());
         }
@@ -556,9 +898,16 @@ public class MainActivity extends Activity {
         }
 
         if (aboutBtn != null) stylePill(aboutBtn, "关于", cCard, accent, accent);
-        if (modeBtn != null) stylePill(modeBtn, "切换", cCard, accent, cText);
-        modeLabel.setText(modeLabelText());
-        modeLabel.setTextColor(cText);
+        // 深浅色卡右侧改成与主题条同款 78×33 带边框值框（2026-10-28）
+        if (modeValue != null) {
+            modeValue.setText(MODE_NAMES[modeIndex()]);
+            modeValue.setTextColor(accent);
+            modeValue.setBackground(ring(accent, 0));
+        }
+        if (modeLabel != null) {
+            modeLabel.setText("深浅色模式");
+            modeLabel.setTextColor(cText);
+        }
 
         if (headCard != null) headCard.setBackground(rounded(cCard, 0));
         if (modeCard != null) modeCard.setBackground(rounded(cCard, 0));
@@ -567,6 +916,14 @@ public class MainActivity extends Activity {
             hapticLabel.setTextColor(cText);
             hapticSwitch.setStyle(accent, darkMode);
             hapticSwitch.setChecked(haptic);
+        }
+        if (kbLayoutCard != null) {
+            kbLayoutCard.setBackground(rounded(cCard, 0));
+            kbLayoutTitle.setTextColor(cText);
+            // 值框与主题条/深浅色卡一致：主题色描边 + 主题色文字（2026-10-28）
+            kbLayoutValue.setTextColor(accent);
+            kbLayoutValue.setBackground(ring(accent, 0));
+            kbLayoutValue.setText(ChemKeyboardView.LAYOUT_NAMES[kbLayout]);
         }
         if (prevBar != null) prevBar.setBackground(rounded(cCard, 0));
         if (prevChip != null) {
@@ -608,6 +965,12 @@ public class MainActivity extends Activity {
         followSystem = p.getBoolean("follow", false);
         darkMode = followSystem ? systemDark() : p.getBoolean("dark", false);
         haptic = p.getBoolean("haptic", true);
+        kbLayout = p.getInt("kb_layout", ChemKeyboardView.LAYOUT_FULL);
+        // 手机不给手动选布局：横屏自动悬浮、竖屏自动平铺（2026-10-28）
+        if (!isTabletDevice()) {
+            kbLayout = isLandscapeNow()
+                    ? ChemKeyboardView.LAYOUT_FLOAT : ChemKeyboardView.LAYOUT_FULL;
+        }
     }
 
     private void savePrefs() {
@@ -616,17 +979,29 @@ public class MainActivity extends Activity {
                 .putBoolean("dark", darkMode)
                 .putBoolean("follow", followSystem)
                 .putBoolean("haptic", haptic)
+                .putInt("kb_layout", kbLayout)
                 .apply();
     }
 
-    /** 跟随系统时，系统深浅色一变就刷新。 */
+    /** 跟随系统时，系统深浅色一变就刷新；手机旋转后自动布局也要重算（2026-10-28）。 */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        boolean changed = false;
         if (followSystem) {
             darkMode = systemDark();
-            restyleAll();
+            changed = true;
         }
+        if (!isTabletDevice()) {
+            int mode = isLandscapeNow()
+                    ? ChemKeyboardView.LAYOUT_FLOAT : ChemKeyboardView.LAYOUT_FULL;
+            if (mode != kbLayout) {
+                kbLayout = mode;
+                if (preview != null) preview.setLayoutMode(kbLayout);
+                changed = true;
+            }
+        }
+        if (changed) restyleAll();
     }
 
     @Override
@@ -655,6 +1030,14 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         if (pickerLayer != null && pickerLayer.getVisibility() == View.VISIBLE) {
             hideThemePicker();
+            return;
+        }
+        if (kbPickerLayer != null && kbPickerLayer.getVisibility() == View.VISIBLE) {
+            hideKbLayoutPicker();
+            return;
+        }
+        if (modePickerLayer != null && modePickerLayer.getVisibility() == View.VISIBLE) {
+            hideModePicker();
             return;
         }
         super.onBackPressed();
@@ -759,9 +1142,11 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * 「触感反馈」开关（2026-10-26，按 Figma 138-1558 实测尺寸自绘）：
-     * 轨道 78×33、直角、1dp 描边；滑块 34×22、直角，上下左边距各 6dp（2026-10-26 客户要求去圆角）。
-     * 关闭：卡底色填充 + 主题色描边，滑块在左且为主题色；开启：主题色实心，滑块在右且为白色。
+     * 「触感反馈」开关（2026-10-26 自绘；2026-10-28 按客户 Figma Frame 13 / Frame 14 重绘）：
+     * 轨道 78×33 直角实心；关闭 #DDDDDD、开启主题色（设计稿 #05BEC1）。
+     * 滑块 34×25 白色，距轨道左/右、上边各 3dp，带向下 2dp 的实心投影
+     * （关闭 #ADADAD、开启取主题色的压暗色，设计稿 #009295）。
+     * 滑块内标记：关闭为 13×13 黑色 1px 圆环，开启为 11dp 高黑色竖线，均居中。
      */
     private class SwitchView extends View {
         private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -769,7 +1154,6 @@ public class MainActivity extends Activity {
         private final RectF knob = new RectF();
         private boolean checked;
         private int accent = 0xFF00C4D2;
-        private boolean dark;
 
         SwitchView(Context ctx) {
             super(ctx);
@@ -783,7 +1167,6 @@ public class MainActivity extends Activity {
 
         void setStyle(int accentColor, boolean darkModeNow) {
             accent = accentColor;
-            dark = darkModeNow;
             invalidate();
         }
 
@@ -791,29 +1174,51 @@ public class MainActivity extends Activity {
         protected void onDraw(Canvas c) {
             float w = getWidth();
             float h = getHeight();
-            float stroke = dp(1);
-            track.set(stroke / 2, stroke / 2, w - stroke / 2, h - stroke / 2);
 
-            // 轨道：开启时主题色实心，关闭时用卡底色 + 主题色描边；客户要求全部直角，用 drawRect 不用圆角
+            // 轨道：直角实心，关闭灰底、开启主题色（Frame 13 / Frame 14 的 About Button 底）
+            track.set(0, 0, w, h);
             paint.setStyle(Paint.Style.FILL);
-            paint.setColor(checked ? accent : (dark ? Color.BLACK : Color.WHITE));
+            paint.setColor(checked ? accent : 0xFFDDDDDD);
             c.drawRect(track, paint);
+
+            // 滑块：34×25，左/右/上各留 3dp
+            float kw = dp(34);
+            float kh = dp(25);
+            float inset = dp(3);
+            float left = checked ? w - inset - kw : inset;
+            float top = dp(3);
+            knob.set(left, top, left + kw, top + kh);
+
+            // 滑块投影：0 2px 0，关闭 #ADADAD、开启为压暗的主题色
+            float shadowY = dp(2);
+            paint.setColor(checked ? darken(accent, 0.78f) : 0xFFADADAD);
+            c.drawRect(left, top + shadowY, left + kw, top + kh + shadowY, paint);
+
+            paint.setColor(Color.WHITE);
+            c.drawRect(knob, paint);
+
+            // 滑块内标记：关闭 = 圆环，开启 = 竖线（黑色 1px）
+            float cx = (knob.left + knob.right) / 2f;
+            float cy = (knob.top + knob.bottom) / 2f;
+            float stroke = dp(1);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(stroke);
-            paint.setColor(accent);
-            c.drawRect(track, paint);
-
-            // 滑块：34×22，距轨道左右边 6dp，垂直居中
-            float kw = dp(34);
-            float kh = dp(22);
-            float inset = dp(6);
-            float left = checked ? w - inset - kw : inset;
-            float top = (h - kh) / 2f;
-            knob.set(left, top, left + kw, top + kh);
+            paint.setColor(Color.BLACK);
+            if (checked) {
+                float half = dp(11) / 2f;
+                c.drawLine(cx, cy - half, cx, cy + half, paint);
+            } else {
+                c.drawCircle(cx, cy, dp(13) / 2f, paint);
+            }
             paint.setStyle(Paint.Style.FILL);
-            paint.setColor(checked ? Color.WHITE : accent);
-            c.drawRect(knob, paint); // 滑块同样直角
         }
+    }
+
+    /** 取主题色的压暗变体（阴影用，0.78 倍即设计稿 #05BEC1 → #009295 的比例）。 */
+    private static int darken(int color, float factor) {
+        return Color.rgb((int) (Color.red(color) * factor),
+                (int) (Color.green(color) * factor),
+                (int) (Color.blue(color) * factor));
     }
 
     @Override

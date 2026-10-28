@@ -67,6 +67,21 @@ import java.util.List;
  *              符号页删除「角标」分类，仅保留度量 / 物质 / 反应 / 其他 4 个分页；
  *              命中测试外扩半格：行上下各探半格行距、列取最近按键中心并左右扩半格，
  *              点在按键缝隙里也会命中相邻按键（原来缝隙完全无触控事件）。
+ *   2026-10-27 新增三种平板布局（setLayoutMode）：1 限宽居中（宽度上限 720dp，两侧留白）、
+ *              2 横屏分体（字母三排与功能行中间断开 28dp 握持区，留白区不响应触摸）、
+ *              3 悬浮小键盘（宽 66% / 上限 560dp 的直角卡片，顶部 20dp 拖动条可横向拖动，
+ *              卡片外背景透明透出应用）；键区坐标统一走 contentLeft/contentW，
+ *              大屏（>560dp）按键按 1.12 倍放大避免键面矮胖。
+ *   2026-10-28 按参考图重构为三种平板布局：铺满 / 左右断开 / 浮窗（删除「限宽居中」）。
+ *              左右断开按图逐行给出左右两套重复按键（Q..Y｜T..P、⇧A..H｜F..L、Z..B｜V..⌫、
+ *              功能行 拼｜素·，·空格｜空格·←），中间 28dp 握持留白，底部 ⇌ 不分体、居中；
+ *              浮窗不再由键盘自绘卡片与横向拖动，改为服务侧一张卡片（抓手 + 候选栏 + 键盘）
+ *              整体上下左右拖动，候选栏随卡片一起移动，键区始终按卡片宽度铺满。
+ *   2026-10-28 左右断开按 Figma 稿重新排版：两簇各占可用宽度 34.5%（原来各占半屏、键面被拉宽），
+ *              中间留白约 31% 不响应触摸；右簇第三行 V B N M ⌫ 中 ⌫ 按图加宽到 2.2 倍键宽
+ *              （复制一份键改权重，不影响铺满布局）。
+ *   2026-10-28 三种布局显示名改为 平铺 / 分离 / 悬浮（常量值 LAYOUT_FULL=0、LAYOUT_SPLIT=1、
+ *              LAYOUT_FLOAT=2 保持不变，避免旧偏好错位）。
  */
 public class ChemKeyboardView extends View {
 
@@ -110,6 +125,14 @@ public class ChemKeyboardView extends View {
     /** 符号页分类名（顺序即 tab 顺序）。 */
     public static final String[] SYM_CAT_NAMES = {"度量", "物质", "反应", "其他"};
 
+    // ---- 平板布局模式（2026-10-28 按参考图收敛为三种）----
+    // 0 平铺：按可用宽度铺满（手机/平板默认）
+    // 1 分离：字母行与功能行左右各一套重复按键，中间留握持区
+    // 2 悬浮：整张卡片（抓手 + 候选栏 + 键盘）由服务侧上下左右拖动
+    public static final int LAYOUT_FULL = 0, LAYOUT_SPLIT = 1, LAYOUT_FLOAT = 2;
+    /** 显示名按索引对应上面三个常量（浮层里的显示顺序见 MainActivity.KB_ORDER）。 */
+    public static final String[] LAYOUT_NAMES = {"平铺", "分离", "悬浮"};
+
     private static final int PAGE_LETTER = 0, PAGE_SYMBOL = 1;
     private static final int ROW_TAB = -2;   // pressedRow 标记：命中的是分类 tab
 
@@ -122,6 +145,8 @@ public class ChemKeyboardView extends View {
         int style = STYLE_NORMAL;
         /** 角标与主字同轴上下堆叠（设计稿的「，/。」键），而非贴右下角。 */
         boolean stackChem = false;
+        /** 占位键：只占宽度、不绘制也不响应触摸（左右断开的行首缩进用）。 */
+        boolean spacer = false;
     }
 
     private static Key mk(String label, String swipe, String chem) {
@@ -225,6 +250,23 @@ public class ChemKeyboardView extends View {
 
     private int pressedRow = -1, pressedCol = -1;
     private float downX, downY, curX, curY;
+
+    // ---- 平板布局（2026-10-28）----
+    /** 当前布局模式，见 LAYOUT_* 常量。 */
+    private int layoutMode = LAYOUT_FULL;
+    /** 键区宽度与左边界：各模式都按自身可用宽度铺满（浮窗的宽度由服务侧卡片决定）。 */
+    private float contentW = 0f, contentLeft = 0f;
+    /** 大屏按键放大系数（1 表示不放大）。 */
+    private float keyScale = 1f;
+    /** 左右断开：左半 / 右半各行的按键（可复用同一 Key 对象，故允许重复键）与拼接后的整行。 */
+    private final List<List<Key>> splitLeftRows = new ArrayList<>();
+    private final List<List<Key>> splitRightRows = new ArrayList<>();
+    private final List<List<Key>> splitRows = new ArrayList<>();
+    /**
+     * 左右断开时每一簇占「可用宽度」的比例（2026-10-28 按 Figma 稿量取：
+     * 左簇 11→354 / 996、右簇 637→985 / 996，两簇各约 34.5%，中间留白约 31%）。
+     */
+    private static final float SPLIT_RATIO = 0.345f;
     private boolean swipeFired = false, longPressDone = false;
     private String bubbleChar = null;
     private final Handler handler = new Handler(Looper.getMainLooper());
@@ -523,14 +565,76 @@ public class ChemKeyboardView extends View {
         bubbleBorder.setColor(accent);
         bubbleText.setColor(labelColor);
         dividerPaint.setColor(darkMode ? 0x1AFFFFFF : 0x14000000);
-        setBackgroundColor(kbBg);
+        // 悬浮模式的卡片外区域要透出下方应用，其余模式铺满键盘底色
+        setBackgroundColor(layoutMode == LAYOUT_FLOAT ? Color.TRANSPARENT : kbBg);
     }
 
     // ---------------- 页数据 ----------------
 
     private void buildPages() {
         buildLetterRows();
+        buildSplitRows();
         buildSymbolCats();
+    }
+
+    /**
+     * 左右断开用的重复键行（2026-10-28，对齐参考图）：
+     * 复用原键对象，因此同一个键会同时出现在左右两半；行首占位键只占宽度不绘制。
+     */
+    private void buildSplitRows() {
+        splitLeftRows.clear();
+        splitRightRows.clear();
+        splitRows.clear();
+        if (letterRows == null || letterRows.size() < 4) return;
+        List<Key> r0 = letterRows.get(0), r1 = letterRows.get(1),
+                r2 = letterRows.get(2), rf = letterRows.get(3);
+
+        splitLeftRows.add(row(keyOf(r0, "Q"), keyOf(r0, "W"), keyOf(r0, "E"),
+                keyOf(r0, "R"), keyOf(r0, "T"), keyOf(r0, "Y")));
+        splitRightRows.add(row(keyOf(r0, "T"), keyOf(r0, "Y"), keyOf(r0, "U"),
+                keyOf(r0, "I"), keyOf(r0, "O"), keyOf(r0, "P")));
+
+        splitLeftRows.add(row(keyOf(r1, "A"), keyOf(r1, "S"), keyOf(r1, "D"),
+                keyOf(r1, "F"), keyOf(r1, "G"), keyOf(r1, "H")));
+        splitRightRows.add(row(keyOf(r1, "F"), keyOf(r1, "G"), keyOf(r1, "H"),
+                keyOf(r1, "J"), keyOf(r1, "K"), keyOf(r1, "L")));
+
+        splitLeftRows.add(row(keyOf(r2, "⇧"), keyOf(r2, "Z"), keyOf(r2, "X"),
+                keyOf(r2, "C"), keyOf(r2, "V"), keyOf(r2, "B")));
+        // 右簇只有 5 键，参考图里 ⌫ 约为普通键 2.2 倍宽；复制一份改权重，避免影响铺满布局
+        splitRightRows.add(row(keyOf(r2, "V"), keyOf(r2, "B"), keyOf(r2, "N"),
+                keyOf(r2, "M"), withWeight(keyOf(r2, "⌫"), 2.2f)));
+
+        Key space = keyOf(rf, "空格");
+        splitLeftRows.add(row(keyOfAction(rf, ACT_MODE), keyOf(rf, "，"), space));
+        splitRightRows.add(row(space, keyOfAction(rf, ACT_ENTER)));
+
+        for (int i = 0; i < splitLeftRows.size(); i++) {
+            List<Key> both = new ArrayList<>(splitLeftRows.get(i));
+            both.addAll(splitRightRows.get(i));
+            splitRows.add(both);
+        }
+    }
+
+    private static Key keyOf(List<Key> keys, String label) {
+        for (Key k : keys) if (label.equals(k.label)) return k;
+        return null;
+    }
+
+    private static Key keyOfAction(List<Key> keys, int action) {
+        for (Key k : keys) if (k.action == action) return k;
+        return null;
+    }
+
+    /** 复制一个键并改权重（左右断开里同一键在两簇中的宽度可能不同）。 */
+    private static Key withWeight(Key src, float weight) {
+        if (src == null) return null;
+        Key key = mk(src.label, src.swipe, src.chem, src.alt);
+        key.action = src.action;
+        key.style = src.style;
+        key.stackChem = src.stackChem;
+        key.weight = weight;
+        return key;
     }
 
     /**
@@ -692,12 +796,22 @@ public class ChemKeyboardView extends View {
         return page == PAGE_LETTER ? letterRows.size() : symbolCats.get(symbolCat).size();
     }
 
+    /**
+     * 某行当前要绘制的按键序列。
+     * 左右断开时返回「左半 + 右半」拼接后的整行（含重复键与行首占位键），
+     * 因此按下坐标、绘制、长按逻辑都用同一套下标。
+     */
     private List<Key> rowKeys(int row) {
-        return page == PAGE_LETTER ? letterRows.get(row) : symbolCats.get(symbolCat).get(row);
+        if (page == PAGE_LETTER) {
+            if (splitActive() && row < splitRows.size()) return splitRows.get(row);
+            return letterRows.get(row);
+        }
+        return symbolCats.get(symbolCat).get(row);
     }
 
     private float rowH(int row) {
-        return rowKeys(row).get(0).style == STYLE_PLAIN ? imeH : keyH;
+        // 底部 ⇌ 条保持原高；其余行在大屏布局下按 keyScale 放大
+        return rowKeys(row).get(0).style == STYLE_PLAIN ? imeH : keyH * keyScale;
     }
 
     /** 符号页右侧网格左边界（跳过左侧分类栏）。 */
@@ -705,27 +819,78 @@ public class ChemKeyboardView extends View {
         return padH + tabW + gap;
     }
 
+    /** 设置平板布局模式（见 LAYOUT_*）。 */
+    public void setLayoutMode(int mode) {
+        if (mode < LAYOUT_FULL || mode > LAYOUT_FLOAT) mode = LAYOUT_FULL;
+        layoutMode = mode;
+        setBackgroundColor(mode == LAYOUT_FLOAT ? Color.TRANSPARENT : kbBg);
+        requestLayout();
+        invalidate();
+    }
+
+    /** 分体布局是否生效：仅字母页、且键区足够宽。 */
+    private boolean splitActive() {
+        return layoutMode == LAYOUT_SPLIT && page == PAGE_LETTER && contentW >= 560 * d;
+    }
+
+    /** 该行是否要在中间断开（功能行跟随断开，底部 ⇌ 条不断）。 */
+    private boolean isSplitRow(int row) {
+        return splitActive() && row < splitRows.size();
+    }
+
+    /**
+     * 算出键区宽度与左边界。
+     * 三种模式都按自身可用宽度铺满：铺满/断开用整屏，浮窗用服务侧卡片的宽度。
+     */
+    private void computeContent(int w) {
+        contentW = w;
+        contentLeft = 0f;
+        // 大屏按键略微放大，避免键面「矮胖」
+        keyScale = (layoutMode != LAYOUT_FULL && w > 560 * d) ? 1.12f : 1f;
+    }
+
     @Override
     protected void onMeasure(int wSpec, int hSpec) {
         int w = MeasureSpec.getSize(wSpec);
+        computeContent(w);
         float h = padH + padBottom;
         for (int r = 0; r < rowCount(); r++) h += rowH(r) + vGap;
         setMeasuredDimension(w, (int) h);
     }
 
+    /** 在给定起点与可用宽度里，按权重排第 idx 个键。 */
+    private float[] keyRectIn(List<Key> group, int idx, float start, float avail, float y, float rowHeight) {
+        float sumW = 0;
+        for (Key key : group) sumW += key.weight;
+        float x = start;
+        for (int i = 0; i < idx; i++) x += avail * (group.get(i).weight / sumW) + gap;
+        float kw = avail * (group.get(idx).weight / sumW);
+        return new float[]{x, y, x + kw, y + rowHeight};
+    }
+
     private float[] keyRect(int row, int col, int w) {
         List<Key> r = rowKeys(row);
-        float sumW = 0;
-        for (Key key : r) sumW += key.weight;
         boolean sym = (page == PAGE_SYMBOL);
-        float left = sym ? symGridLeft() : padH;
-        float avail = (sym ? (w - padH - symGridLeft()) : (w - 2 * padH)) - (r.size() - 1) * gap;
-        float x = left;
-        for (int i = 0; i < col; i++) x += avail * (r.get(i).weight / sumW) + gap;
-        float kw = avail * (r.get(col).weight / sumW);
         float y = padH;
         for (int i = 0; i < row; i++) y += rowH(i) + vGap;
-        return new float[]{x, y, x + kw, y + rowH(row)};
+        float rh = rowH(row);
+
+        // 左右断开：本行按参考图分左右两套按键，两簇各占 34.5%，中间留握持白
+        if (isSplitRow(row)) {
+            List<Key> left = splitLeftRows.get(row), right = splitRightRows.get(row);
+            float clusterW = (contentW - 2 * padH) * SPLIT_RATIO;
+            if (col < left.size()) {
+                return keyRectIn(left, col, padH,
+                        clusterW - (left.size() - 1) * gap, y, rh);
+            }
+            return keyRectIn(right, col - left.size(), contentW - padH - clusterW,
+                    clusterW - (right.size() - 1) * gap, y, rh);
+        }
+
+        float left = sym ? symGridLeft() : padH;
+        float avail = (sym ? (contentW - padH - symGridLeft()) : (contentW - 2 * padH))
+                - (r.size() - 1) * gap;
+        return keyRectIn(r, col, left, avail, y, rh);
     }
 
     /**
@@ -750,10 +915,12 @@ public class ChemKeyboardView extends View {
     private float[] tabRect(int i) {
         float h = tabContentH() / SYM_CAT_NAMES.length;
         float y = padH + i * h;
-        return new float[]{padH, y, padH + tabW, y + h};
+        float left = padH;
+        return new float[]{left, y, left + tabW, y + h};
     }
 
     // ---------------- 绘制 ----------------
+
 
     @Override
     protected void onDraw(Canvas c) {
@@ -765,6 +932,7 @@ public class ChemKeyboardView extends View {
             List<Key> keys = rowKeys(r);
             for (int i = 0; i < keys.size(); i++) {
                 Key key = keys.get(i);
+                if (key.spacer) continue;   // 行首占位键：只占宽度，不画也不可点
                 float[] f = keyRect(r, i, w);
                 rect.set(f[0], f[1], f[2], f[3]);
                 boolean pressed = (r == pressedRow && i == pressedCol)
@@ -986,6 +1154,7 @@ public class ChemKeyboardView extends View {
         float bestDist = Float.MAX_VALUE;
         float[] bestRect = null;
         for (int i = 0; i < keys.size(); i++) {
+            if (keys.get(i).spacer) continue;   // 占位键不可命中
             float[] f = keyRect(row, i, w);
             float dist = Math.abs(x - (f[0] + f[2]) / 2);
             if (dist < bestDist) {
@@ -995,7 +1164,7 @@ public class ChemKeyboardView extends View {
             }
         }
         if (best < 0 || bestRect == null) return null;
-        // 列方向只外扩半个间隙：更远的位置（如符号页左侧分类栏）不算命中，仍交给 tab 判断
+        // 列方向只外扩半个间隙：更远的位置（如符号页左侧分类栏、分体中间留白）不算命中
         if (x < bestRect[0] - gap / 2 || x > bestRect[2] + gap / 2) return null;
         return new int[]{row, best};
     }
@@ -1266,7 +1435,7 @@ public class ChemKeyboardView extends View {
         float bw = opts.size() * (POPUP_CELL + POPUP_GAP * 2) * d + POPUP_PAD * 2 * d;
         float bh = (POPUP_CELL + POPUP_PAD * 2) * d;
         float bx = (f[0] + f[2]) / 2 - bw / 2;
-        bx = Math.max(padH, Math.min(bx, getWidth() - bw - padH));
+        bx = Math.max(contentLeft + padH, Math.min(bx, contentLeft + contentW - bw - padH));
         float by = getTop() + f[1] - bh - 4 * d;
         if (by < 0) by = 0;                        // 上方空间不足就贴顶（可盖住候选栏）
         popupBox.set(bx, by, bx + bw, by + bh);
