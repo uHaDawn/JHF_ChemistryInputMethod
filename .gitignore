@@ -5,19 +5,51 @@ source/keystore/
 *.keystore
 
 # ===== 仅保留在本地，不入公开仓库 =====
-交付说明.md
-tests/
-delivery/
-.tmp/
-windows/
-windows-ime/
-.idea/
-.vscode/
+/tests/
+/delivery/
+/.tmp/
+/.screenshots/
+/windows/
+/windows-ime/
+/.idea/
+/.vscode/
+/.figma/
+/.verify/
+/.tools/
+/rime/
+/tools/
 
-# ===== 构建产物 =====
-source/app/release/
-source/app/Store/
+# 内部文档
+/交付说明.md
+/复刻CyIME-技术可行性评估报告.md
+/复刻CyIME-分阶段任务拆解清单.md
+/技术债与遗留代码清理清单.md
+/开源前检查清单.md
+/功能更新梳理-*.md
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# ===== 构建产物与调试素材 =====
+/source/out/
+/source/app/release/
+/source/app/Store/
+/out/
+/shots/
+/apk/
+*.apk
 *.apk.idsig
+boost-*.tar.xz
+
+# 根目录调试截图 / UI dump
+/.tmp_*.png
+/out_*.png
+/out_*.xml
+/t*.png
+/t*.xml
+/tmp_*.xml
+/ui*.xml
 
 # ===== 系统文件 =====
 Thumbs.db

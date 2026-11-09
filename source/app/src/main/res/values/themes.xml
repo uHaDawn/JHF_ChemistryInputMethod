@@ -6,6 +6,10 @@
         <item name="android:colorAccent">#05BEC1</item>
         <item name="android:statusBarColor">#05696B</item>
         <item name="android:windowBackground">#EAEAEA</item>
+        <!-- 沉浸式导航栏（2026-11-01）：与页面底色同色，关闭系统对比度黑纱，避免底部黑条 -->
+        <item name="android:navigationBarColor">#EAEAEA</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
         <!-- 应用自管深浅主题，禁止系统 Force Dark 反转自绘颜色（否则浅色页黑字被反转成白字） -->
         <item name="android:forceDarkAllowed">false</item>
     </style>

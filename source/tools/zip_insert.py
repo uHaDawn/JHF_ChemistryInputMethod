@@ -1,11 +1,17 @@
-# 把 classes.dex 插入 aapt2 生成的 APK（保持 resources.arsc 不压缩，符合 API 30+ 要求）
+# 把构件插入 aapt2 生成的 APK（保持 resources.arsc 不压缩，符合 API 30+ 要求）
+# 用法：zip_insert.py <src.apk> <dst.apk> <entry-name>=<file-path> [<entry-name>=<file-path> ...]
+# 例：zip_insert.py unsigned.apk patched.apk classes.dex=interim/dex/classes.dex \
+#        lib/arm64-v8a/librime_jni.so=out/arm64-v8a/librime_jni.so
 import sys
 import zipfile
 
-src, dex_path, dex_name, dst = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-
-with open(dex_path, 'rb') as f:
-    dex_data = f.read()
+src, dst = sys.argv[1], sys.argv[2]
+entries = []
+for arg in sys.argv[3:]:
+    name, _, path = arg.partition('=')
+    if not path:
+        raise SystemExit('bad entry (expect name=path): ' + arg)
+    entries.append((name, path))
 
 with zipfile.ZipFile(src, 'r') as zin, \
      zipfile.ZipFile(dst, 'w', zipfile.ZIP_DEFLATED) as zout:
@@ -16,8 +22,12 @@ with zipfile.ZipFile(src, 'r') as zin, \
         zi.compress_type = comp
         zi.external_attr = item.external_attr
         zout.writestr(zi, data)
-    zi = zipfile.ZipInfo(dex_name)
-    zi.compress_type = zipfile.ZIP_DEFLATED
-    zout.writestr(zi, dex_data)
+    for name, path in entries:
+        with open(path, 'rb') as f:
+            data = f.read()
+        zi = zipfile.ZipInfo(name)
+        zi.compress_type = zipfile.ZIP_DEFLATED
+        zi.external_attr = 0o644 << 16
+        zout.writestr(zi, data)
 
-print('dex inserted ->', dst)
+print('inserted %d entr%s -> %s' % (len(entries), 'y' if len(entries) == 1 else 'ies', dst))

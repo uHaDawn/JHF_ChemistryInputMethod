@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 关闭 / 删除 X：iconmcp close（generic）。剪切板条目删除、键盘调节「取消」共用，运行时染色 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:pathData="M3.75 3.75 L12.25 12.25 M12.25 3.75 L3.75 12.25"
+        android:strokeColor="#000000"
+        android:strokeWidth="1.167"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

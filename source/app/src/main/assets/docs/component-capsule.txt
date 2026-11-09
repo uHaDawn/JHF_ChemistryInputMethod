@@ -1,0 +1,21 @@
+G2 连续圆角（Capsule）
+
+接化发所有圆角统一使用 G2 连续圆角：每个角由「半个贝塞尔曲线 + 圆弧 + 半个贝塞尔曲线」
+组成，曲率在直线与圆弧之间连续过渡，视觉上比普通圆弧圆角更平滑，边缘不会出现明显的
+曲率突变。
+
+· 上游项目：Capsule（Kyant0）
+  https://github.com/Kyant0/Capsule
+· 许可：Apache License 2.0（全文见「第三方许可」中的 Capsule 条目）
+· 使用方式：将 Capsule 的 G2Continuity / G2ContinuityProfile 算法移植为 Java 实现
+  （SmoothCorners），并以 SmoothDrawable 替换应用内的圆角背景；键盘、候选栏、
+  按键气泡、弹窗、卡片等所有圆角都走同一套路径。
+· 关键参数（与 Capsule 默认值一致）：
+  圆角矩形：extendedFraction 0.5286651、arcFraction 5/9、
+            bezierCurvatureScale 1.0732051、arcCurvatureScale 1.0732051
+  胶囊：    extendedFraction 0.5286651 × 0.75、arcFraction 0、
+            bezierCurvatureScale 1、arcCurvatureScale 1
+· 判定：四角相等且两端正好包住短边时按胶囊（横向 / 纵向 / 正圆）绘制，
+  其余情况按标准圆角矩形绘制；圆角为 0 时保持直角。
+
+本项目仅移植其路径生成算法，不包含 Capsule 的 Compose 组件代码。

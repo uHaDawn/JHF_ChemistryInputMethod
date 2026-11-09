@@ -1,0 +1,909 @@
+# 接化发 · 中文词库（由 source/tools/prepare_chinese_dict.py 生成，请勿手改）
+# 数据来源：rime-ice（iDvel/rime-ice @9e66b072）+ CyIME 语料权重表
+---
+name: cyime_di
+version: "2026-10-19"
+sort: by_weight
+...
+慢慢地	man man di	125647
+好好地	hao hao di	88235
+默默地	mo mo di	80368
+不停地	bu ting di	79837
+狠狠地	hen hen di	40701
+静静地	jing jing di	37499
+深深地	shen shen di	37184
+愉快地	yu kuai di	20146
+轻轻地	qing qing di	18662
+成功地	cheng gong di	16390
+更好地	geng hao di	15651
+不断地	bu duan di	14647
+勇敢地	yong gan di	14160
+认真地	ren zhen di	11863
+偷偷地	tou tou di	11269
+无奈地	wu nai di	10249
+紧紧地	jin jin di	9501
+迅速地	xun su di	8425
+坚定地	jian ding di	8304
+自觉地	zi jue di	7953
+安全地	an quan di	7945
+缓缓地	huan huan di	7910
+真诚地	zhen cheng di	7569
+积极地	ji ji di	7415
+拼命地	pin ming di	7112
+巧妙地	qiao miao di	6877
+正确地	zheng que di	6828
+快乐地	kuai le di	6661
+猛地	meng di	6589
+踏实地	ta shi di	6527
+明确地	ming que di	6449
+小心地	xiao xin di	6428
+艰难地	jian nan di	6224
+眼睁睁地	yan zheng zheng di	6176
+平静地	ping jing di	6118
+自然地	zi ran di	5969
+明显地	ming xian di	5929
+无情地	wu qing di	5642
+重重地	zhong zhong di	5597
+坚强地	jian qiang di	5252
+犹豫地	you yu di	5246
+仔细地	zi xi di	5226
+兴奋地	xing fen di	5187
+尽可能地	jin ke neng di	5144
+渐渐地	jian jian di	5057
+弱弱地	ruo ruo di	5040
+深刻地	shen ke di	4749
+幸福地	xing fu di	4602
+悠闲地	you xian di	4576
+彻底地	che di di	4537
+清晰地	qing xi di	4493
+乖乖地	guai guai di	4453
+意外地	yi wai di	4385
+创造性地	chuang zao xing di	4352
+一般地	yi ban di	4174
+远远地	yuan yuan di	4028
+虔诚地	qian cheng di	3913
+固定地	gu ding di	3851
+开心地	kai xin di	3821
+骄傲地	jiao ao di	3813
+高兴地	gao xing di	3793
+清楚地	qing chu di	3753
+伤心地	shang xin di	3520
+不懈地	bu xie di	3457
+呆呆地	dai dai di	3391
+倏地	shu di	3339
+深入地	shen ru di	3332
+人为地	ren wei di	3259
+好奇地	hao qi di	3224
+大胆地	da dan di	3164
+顺利地	shun li di	3151
+嗖地	sou di	3150
+腾地	teng di	3021
+真实地	zhen shi di	2972
+紧张地	jin zhang di	2970
+自由地	zi you di	2925
+客观地	ke guan di	2861
+间接地	jian jie di	2849
+顽强地	wan qiang di	2802
+努力地	nu li di	2715
+暗暗地	an an di	2689
+适当地	shi dang di	2675
+极大地	ji da di	2670
+痛苦地	tong ku di	2658
+完美地	wan mei di	2566
+奇迹般地	qi ji ban di	2544
+倔强地	jue jiang di	2512
+清醒地	qing xing di	2509
+含蓄地	han xu di	2457
+满意地	man yi di	2317
+无声地	wu sheng di	2315
+夸张地	kua zhang di	2309
+坦率地	tan shuai di	2308
+巴巴地	ba ba di	2242
+大声地	da sheng di	2195
+过早地	guo zao di	2186
+安静地	an jing di	2180
+秘密地	mi mi di	2135
+充分地	chong fen di	2056
+忍不住地	ren bu zhu di	2031
+止不住地	zhi bu zhu di	2006
+随便地	sui bian di	2005
+轻松地	qing song di	1985
+傻傻地	sha sha di	1943
+稳定地	wen ding di	1938
+悄悄地	qiao qiao di	1910
+乐观地	le guan di	1798
+严格地	yan ge di	1758
+我偷偷地	wo tou tou di	1749
+如何更好地	ru he geng hao di	1725
+恭敬地	gong jing di	1708
+焦急地	jiao ji di	1676
+敏锐地	min rui di	1674
+热切地	re qie di	1605
+细心地	xi xin di	1586
+激动地	ji dong di	1585
+惊人地	jing ren di	1522
+必要地	bi yao di	1511
+友好地	you hao di	1476
+忽地	hu di	1435
+随意地	sui yi di	1401
+不安地	bu an di	1393
+公正地	gong zheng di	1392
+猛烈地	meng lie di	1379
+粗略地	cu lve di	1335
+缓慢地	huan man di	1335
+主动地	zhu dong di	1318
+愚蠢地	yu chun di	1297
+惊恐地	jing kong di	1256
+疯狂地	feng kuang di	1251
+永远地	yong yuan di	1246
+精确地	jing que di	1232
+慢吞吞地	man tun tun di	1218
+疑惑地	yi huo di	1217
+突然地	tu ran di	1170
+极度地	ji du di	1143
+有力地	you li di	1139
+确切地	que qie di	1131
+贪婪地	tan lan di	1120
+个别地	ge bie di	1100
+有选择地	you xuan ze di	1081
+痛快地	tong kuai di	1076
+合理地	he li di	1064
+爽朗地	shuang lang di	978
+幸运地	xing yun di	952
+含糊地	han hu di	908
+无畏地	wu wei di	851
+广泛地	guang fan di	834
+不恰当地	bu qia dang di	826
+诚挚地	cheng zhi di	822
+失望地	shi wang di	804
+禁不住地	jin bu zhu di	782
+可靠地	ke kao di	766
+沉重地	chen zhong di	761
+异常地	yi chang di	759
+慷慨地	kang kai di	742
+使劲地	shi jin di	722
+狡猾地	jiao hua di	715
+举办地	ju ban di	677
+明智地	ming zhi di	675
+肯定地	ken ding di	671
+开开心心地	kai kai xin xin di	656
+不幸地	bu xing di	629
+负责任地	fu ze ren di	606
+残酷地	can ku di	605
+爽快地	shuang kuai di	604
+简单地	jian dan di	590
+娇羞地	jiao xiu di	566
+活泼地	huo po di	551
+单独地	dan du di	549
+谨慎地	jin shen di	549
+美美地	mei mei di	548
+经常地	jing chang di	532
+高调地	gao diao di	519
+迅猛地	xun meng di	462
+固执地	gu zhi di	399
+孤独地	gu du di	391
+现实地	xian shi di	388
+羞涩地	xiu se di	383
+无私地	wu si di	379
+方便地	fang bian di	376
+懦弱地	nuo ruo di	340
+非常地	fei chang di	329
+尽情地	jin qing di	317
+恶狠狠地	e hen hen di	315
+轻易地	qing yi di	311
+可耻地	ke chi di	305
+平安地	ping an di	305
+十分地	shi fen di	304
+一如既往地	yi ru ji wang di	303
+莫名其妙地	mo ming qi miao di	300
+悲伤地	bei shang di	299
+迫不及待地	po bu ji dai di	299
+时不时地	shi bu shi di	293
+冷静地	leng jing di	292
+甜甜地	tian tian di	288
+很自然地	hen zi ran di	284
+不自觉地	bu zi jue di	281
+很认真地	hen ren zhen di	280
+很得意地	hen de yi di	279
+小心翼翼地	xiao xin yi yi di	278
+神奇地	shen qi di	278
+一次又一次地	yi ci you yi ci di	276
+一味地	yi wei di	275
+深情地	shen qing di	275
+不由自主地	bu you zi zhu di	274
+情不自禁地	qing bu zi jin di	274
+毫不犹豫地	hao bu you yu di	273
+很努力地	hen nu li di	272
+全心全意地	quan xin quan yi di	270
+急切地	ji qie di	270
+机械地	ji xie di	269
+更快地	geng kuai di	268
+热烈地	re lie di	268
+光明正大地	guang ming zheng da di	266
+冒昧地	mao mei di	264
+很明显地	hen ming xian di	264
+不顾一切地	bu gu yi qie di	263
+无缘无故地	wu yuan wu gu di	262
+放心地	fang xin di	261
+发自内心地	fa zi nei xin di	260
+肆无忌惮地	si wu ji dan di	260
+反复地	fan fu di	259
+飞快地	fei kuai di	259
+不知不觉地	bu zhi bu jue di	258
+很容易地	hen rong yi di	257
+不经意地	bu jing yi di	256
+用力地	yong li di	256
+心甘情愿地	xin gan qing yuan di	255
+诚恳地	cheng ken di	255
+会毫不犹豫地	hui hao bu you yu di	254
+毫不留情地	hao bu liu qing di	254
+一点点地	yi dian dian di	253
+不可避免地	bu ke bi mian di	253
+任性地	ren xing di	253
+坚持不懈地	jian chi bu xie di	253
+悄无声息地	qiao wu sheng xi di	253
+没日没夜地	mei ri mei ye di	253
+牢牢地	lao lao di	253
+偷偷摸摸地	tou tou mo mo di	252
+迫切地	po qie di	252
+早早地	zao zao di	251
+自然而然地	zi ran er ran di	251
+盲目地	mang mu di	250
+果断地	guo duan di	249
+能很好地	neng hen hao di	249
+一点一点地	yi dian yi dian di	246
+决绝地	jue jue di	246
+心平气和地	xin ping qi he di	246
+明目张胆地	ming mu zhang dan di	246
+不要脸地	bu yao lian di	245
+委婉地	wei wan di	245
+我不断地	wo bu duan di	245
+接二连三地	jie er lian san di	245
+一直不停地	yi zhi bu ting di	244
+一次次地	yi ci ci di	243
+一步一步地	yi bu yi bu di	243
+义无反顾地	yi wu fan gu di	243
+华丽丽地	hua li li di	243
+堂堂正正地	tang tang zheng zheng di	243
+小声地	xiao sheng di	243
+直截了当地	zhi jie liao dang di	243
+持续地	chi xu di	242
+无条件地	wu tiao jian di	242
+漫无目的地	man wu mu di di	242
+傻乎乎地	sha hu hu di	240
+大方地	da fang di	240
+诚心诚意地	cheng xin cheng yi di	240
+不遗余力地	bu yi yu li di	239
+傲娇地	ao jiao di	239
+安稳地	an wen di	239
+尽可能快地	jin ke neng kuai di	239
+坦诚地	tan cheng di	238
+尽量地	jin liang di	238
+毫无保留地	hao wu bao liu di	238
+一再地	yi zai di	237
+日复一日地	ri fu yi ri di	237
+一步步地	yi bu bu di	236
+一遍一遍地	yi bian yi bian di	236
+尽可能多地	jin ke neng duo di	236
+直白地	zhi bai di	236
+郑重地	zheng zhong di	236
+不厌其烦地	bu yan qi fan di	235
+全身心地	quan shen xin di	235
+客气地	ke qi di	235
+执着地	zhi zhuo di	235
+放肆地	fang si di	234
+熟练地	shu lian di	234
+熟练地	shou lian di	234
+坦然地	tan ran di	232
+专心地	zhuan xin di	231
+坚定不移地	jian ding bu yi di	229
+拼了命地	pin le ming di	229
+精心地	jing xin di	229
+习惯性地	xi guan xing di	228
+兴高采烈地	xing gao cai lie di	228
+害羞地	hai xiu di	228
+慎重地	shen zhong di	228
+断断续续地	duan duan xu xu di	228
+无休止地	wu xiu zhi di	228
+不可思议地	bu ke si yi di	227
+不择手段地	bu ze shou duan di	227
+不间断地	bu jian duan di	227
+毫不费力地	hao bu fei li di	227
+毫不迟疑地	hao bu chi yi di	227
+象征性地	xiang zheng xing di	227
+孜孜不倦地	zi zi bu juan di	226
+急匆匆地	ji cong cong di	226
+更加地	geng jia di	225
+出乎意料地	chu hu yi liao di	224
+非常小心地	fei chang xiao xin di	224
+不情愿地	bu qing yuan di	223
+放心大胆地	fang xin da dan di	223
+永久性地	yong jiu xing di	223
+源源不断地	yuan yuan bu duan di	223
+下意识地	xia yi shi di	221
+卖力地	mai li di	221
+大张旗鼓地	da zhang qi gu di	221
+持续不断地	chi xu bu duan di	221
+按部就班地	an bu jiu ban di	221
+痛痛快快地	tong tong kuai kuai di	221
+还在不停地	hai zai bu ting di	221
+非常努力地	fei chang nu li di	221
+一个劲儿地	yi ge jin er di	220
+一劳永逸地	yi lao yong yi di	220
+假惺惺地	jia xing xing di	220
+善意地	shan yi di	220
+嗡嗡地	weng weng di	220
+很不情愿地	hen bu qing yuan di	220
+最大限度地	zui da xian du di	220
+不约而同地	bu yue er tong di	218
+出奇地	chu qi di	218
+眼巴巴地	yan ba ba di	218
+不争气地	bu zheng qi di	216
+勇猛地	yong meng di	216
+厚脸皮地	hou lian pi di	216
+头也不回地	tou ye bu hui di	216
+年复一年地	nian fu yi nian di	216
+慢悠悠地	man you you di	216
+没命地	mei ming di	216
+自顾自地	zi gu zi di	216
+一刻不停地	yi ke bu ting di	214
+不负责任地	bu fu ze ren di	214
+出人意料地	chu ren yi liao di	214
+卑微地	bei wei di	214
+夜以继日地	ye yi ji ri di	214
+小心谨慎地	xiao xin jin shen di	214
+毫无征兆地	hao wu zheng zhao di	214
+细致地	xi zhi di	214
+长时间地	chang shi jian di	214
+难过地	nan guo di	214
+聪明地	cong ming di	213
+一次性地	yi ci xing di	212
+不合时宜地	bu he shi yi di	212
+信誓旦旦地	xin shi dan dan di	212
+兴冲冲地	xing chong chong di	210
+大大方方地	da da fang fang di	210
+戏剧性地	xi ju xing di	210
+无限期地	wu xian qi di	210
+更早地	geng zao di	210
+毅然决然地	yi ran jue ran di	210
+没来由地	mei lai you di	210
+不客气地	bu ke qi di	209
+专注地	zhuan zhu di	208
+动情地	dong qing di	208
+大言不惭地	da yan bu can di	208
+如愿以偿地	ru yuan yi chang di	208
+无偿地	wu chang di	208
+直勾勾地	zhi gou gou di	208
+硬生生地	ying sheng sheng di	208
+勤快地	qin kuai di	207
+顺其自然地	shun qi zi ran di	207
+不屑地	bu xie di	206
+体贴地	ti tie di	206
+傲慢地	ao man di	206
+凶狠地	xiong hen di	206
+刷刷地	shua shua di	206
+很礼貌地	hen li mao di	206
+忘我地	wang wo di	206
+有意无意地	you yi wu yi di	206
+活活地	huo huo di	206
+冲动地	chong dong di	205
+在不断地	zai bu duan di	205
+不假思索地	bu jia si suo di	203
+争先恐后地	zheng xian kong hou di	203
+仓促地	cang cu di	203
+依依不舍地	yi yi bu she di	203
+厚颜无耻地	hou yan wu chi di	203
+妥善地	tuo shan di	203
+很随意地	hen sui yi di	203
+恭恭敬敬地	gong gong jing jing di	203
+惊喜地	jing xi di	203
+最大程度地	zui da cheng du di	203
+欣然地	xin ran di	203
+武断地	wu duan di	203
+不公平地	bu gong ping di	202
+一股脑地	yi gu nao di	200
+丧心病狂地	sang xin bing kuang di	200
+切切地	qie qie di	200
+史无前例地	shi wu qian li di	200
+嗖嗖地	sou sou di	200
+昼夜不停地	zhou ye bu ting di	200
+更容易地	geng rong yi di	200
+更深入地	geng shen ru di	200
+死死地	si si di	200
+蹭蹭地	ceng ceng di	200
+飞速地	fei su di	200
+不住地	bu zhu di	199
+不慌不忙地	bu huang bu mang di	197
+准时地	zhun shi di	197
+反反复复地	fan fan fu fu di	197
+如何正确地	ru he zheng que di	197
+实事求是地	shi shi qiu shi di	197
+热心地	re xin di	197
+豪迈地	hao mai di	197
+连续不断地	lian xu bu duan di	197
+非常自然地	fei chang zi ran di	197
+贴心地	tie xin di	196
+一勺一勺地	yi shao yi shao di	193
+不受控制地	bu shou kong zhi di	193
+不怀好意地	bu huai hao yi di	193
+不知疲倦地	bu zhi pi juan di	193
+令人惊讶地	ling ren jing ya di	193
+充满信心地	chong man xin xin di	193
+利落地	li luo di	193
+压倒性地	ya dao xing di	193
+吝啬地	lin se di	193
+周期性地	zhou qi xing di	193
+啪啪地	pa pa di	193
+圆满地	yuan man di	193
+大力地	da li di	193
+大口大口地	da kou da kou di	193
+如饥似渴地	ru ji si ke di	193
+始终如一地	shi zhong ru yi di	193
+恰到好处地	qia dao hao chu di	193
+极力地	ji li di	193
+费力地	fei li di	193
+非常幸运地	fei chang xing yun di	193
+吃惊地	chi jing di	190
+一窝蜂地	yi wo feng di	189
+任意地	ren yi di	189
+均匀地	jun yun di	189
+如愿地	ru yuan di	189
+尽全力地	jin quan li di	189
+心无旁骛地	xin wu pang wu di	189
+愣愣地	leng leng di	189
+慢条斯理地	man tiao si li di	189
+慢腾腾地	man teng teng di	189
+懒洋洋地	lan yang yang di	189
+批判地	pi pan di	189
+更广泛地	geng guang fan di	189
+直挺挺地	zhi ting ting di	189
+真心实意地	zhen xin shi yi di	189
+系统性地	xi tong xing di	189
+进一步地	jin yi bu di	189
+逐步地	zhu bu di	189
+一声不吭地	yi sheng bu keng di	185
+抽象地	chou xiang di	185
+顽固地	wan gu di	185
+一下一下地	yi xia yi xia di	184
+一丝不苟地	yi si bu gou di	184
+不出意外地	bu chu yi wai di	184
+不受限制地	bu shou xian zhi di	184
+不疾不徐地	bu ji bu xu di	184
+不眨地	bu zha di	184
+令人信服地	ling ren xin fu di	184
+信心满满地	xin xin man man di	184
+充满热情地	chong man re qing di	184
+全方位地	quan fang wei di	184
+勉强地	mian qiang di	184
+大刀阔斧地	da dao kuo fu di	184
+大口地	da kou di	184
+大度地	da du di	184
+大踏步地	da ta bu di	184
+尽心尽力地	jin xin jin li di	184
+愤愤地	fen fen di	184
+持之以恒地	chi zhi yi heng di	184
+由内而外地	you nei er wai di	184
+直率地	zhi shuai di	184
+知趣地	zhi qu di	184
+经常性地	jing chang xing di	184
+自愿地	zi yuan di	184
+辩证地	bian zheng di	184
+顺从地	shun cong di	184
+草率地	cao shuai di	183
+谦卑地	qian bei di	180
+一分一分地	yi fen yi fen di	178
+不公正地	bu gong zheng di	178
+不折不扣地	bu zhe bu kou di	178
+二话不说地	er hua bu shuo di	178
+公然地	gong ran di	178
+只有不断地	zhi you bu duan di	178
+后来慢慢地	hou lai man man di	178
+客套地	ke tao di	178
+尽可能少地	jin ke neng shao di	178
+屈辱地	qu ru di	178
+循序渐进地	xun xu jian jin di	178
+忙不迭地	mang bu die di	178
+忠心地	zhong xin di	178
+憨憨地	han han di	178
+无端地	wu duan di	178
+更进一步地	geng jin yi bu di	178
+玩命地	wan ming di	178
+自如地	zi ru di	178
+草草地	cao cao di	178
+阴差阳错地	yin cha yang cuo di	178
+麻利地	ma li di	178
+齐刷刷地	qi shua shua di	178
+惭愧地	can kui di	174
+一年一年地	yi nian yi nian di	171
+不分青红皂白地	bu fen qing hong zao bai di	171
+不吝啬地	bu lin se di	171
+主动或被动地	zhu dong huo bei dong di	171
+主观地	zhu guan di	171
+乐呵呵地	le he he di	171
+亦步亦趋地	yi bu yi qu di	171
+可持续地	ke chi xu di	171
+喜滋滋地	xi zi zi di	171
+声情并茂地	sheng qing bing mao di	171
+如何优雅地	ru he you ya di	171
+娴熟地	xian shu di	171
+娴熟地	xian shou di	171
+徐徐地	xu xu di	171
+急急地	ji ji di	171
+执拗地	zhi niu di	171
+擅自地	shan zi di	171
+敏感地	min gan di	171
+无差别地	wu cha bie di	171
+更加坚定地	geng jia jian ding di	171
+更积极地	geng ji ji di	171
+更自由地	geng zi you di	171
+极不情愿地	ji bu qing yuan di	171
+湿淋淋地	shi lin lin di	171
+礼貌性地	li mao xing di	171
+积极主动地	ji ji zhu dong di	171
+聚精会神地	ju jing hui shen di	171
+苦口婆心地	ku kou po xin di	171
+非常有效地	fei chang you xiao di	171
+羞愧地	xiu kui di	168
+挣扎地	zheng zha di	165
+不加区别地	bu jia qu bie di	160
+不加选择地	bu jia xuan ze di	160
+不得已地	bu de yi di	160
+乐滋滋地	le zi zi di	160
+亲昵地	qin ni di	160
+令人震惊地	ling ren zhen jing di	160
+假装不经意地	jia zhuang bu jing yi di	160
+充满爱心地	chong man ai xin di	160
+全然地	quan ran di	160
+全面系统地	quan mian xi tong di	160
+关切地	guan qie di	160
+创纪录地	chuang ji lu di	160
+卓有成效地	zhuo you cheng xiao di	160
+哀伤地	ai shang di	160
+大限度地	da xian du di	160
+审慎地	shen shen di	160
+小口小口地	xiao kou xiao kou di	160
+很及时地	hen ji shi di	160
+怔怔地	zheng zheng di	160
+悻悻地	xing xing di	160
+打趣地	da qu di	160
+明晃晃地	ming huang huang di	160
+更加快速地	geng jia kuai su di	160
+更频繁地	geng pin fan di	160
+更高效地	geng gao xiao di	160
+毋庸置疑地	wu yong zhi yi di	160
+毫无意外地	hao wu yi wai di	160
+没好气地	mei hao qi di	160
+滔滔地	tao tao di	160
+直接或间接地	zhi jie huo jian jie di	160
+策略性地	ce lve xing di	160
+需要不断地	xu yao bu duan di	160
+非常明确地	fei chang ming que di	160
+非常清晰地	fei chang qing xi di	160
+非常迅速地	fei chang xun su di	160
+不小心地	bu xiao xin di	157
+识趣地	shi qu di	156
+克制地	ke zhi di	151
+从容地	cong rong di	148
+如实地	ru shi di	147
+戏谑地	xi xue di	142
+高效地	gao xiao di	141
+逐渐地	zhu jian di	138
+平和地	ping he di	135
+敬畏地	jing wei di	135
+坚决地	jian jue di	132
+被迫地	bei po di	132
+尽快地	jin kuai di	131
+本能地	ben neng di	130
+无比地	wu bi di	129
+幽幽地	you you di	127
+同情地	tong qing di	125
+庄重地	zhuang zhong di	125
+紧密地	jin mi di	125
+由衷地	you zhong di	124
+头疼地	tou teng di	122
+镇定地	zhen ding di	122
+尽早地	jin zao di	119
+哇哇地	wa wa di	116
+自发地	zi fa di	114
+尴尬地	gan ga di	111
+专一地	zhuan yi di	109
+隆重地	long zhong di	108
+怯怯地	qie qie di	107
+欣喜地	xin xi di	107
+战略性地	zhan lve xing di	105
+蛮横地	man heng di	105
+痴痴地	chi chi di	102
+突地	tu di	101
+巴巴儿地	ba ba er di	100
+创新性地	chuang xin xing di	99
+生动地	sheng dong di	99
+不服气地	bu fu qi di	98
+务工地	wu gong di	98
+坏坏地	huai huai di	98
+非常积极地	fei chang ji ji di	98
+而渐渐地	er jian jian di	97
+喃喃地	nan nan di	96
+稳稳地	wen wen di	96
+有些尴尬地	you xie gan ga di	95
+反常地	fan chang di	94
+殷勤地	yin qin di	93
+识相地	shi xiang di	93
+不重复地	bu chong fu di	92
+历史性地	li shi xing di	91
+可重复地	ke chong fu di	91
+手把手地	shou ba shou di	91
+一刀切地	yi dao qie di	90
+呆滞地	dai zhi di	89
+先发制人地	xian fa zhi ren di	88
+准确地	zhun que di	88
+呐呐地	na na di	88
+出神地	chu shen di	86
+妥当地	tuo dang di	86
+也就渐渐地	ye jiu jian jian di	85
+泛泛地	fan fan di	85
+并合理地	bing he li di	84
+成批地	cheng pi di	84
+体面地	ti mian di	83
+别有用心地	bie you yong xin di	83
+张狂地	zhang kuang di	83
+虚伪地	xu wei di	83
+有规律地	you gui lv di	82
+简要地	jian yao di	82
+蓦地	mo di	82
+别出心裁地	bie chu xin cai di	81
+平稳地	ping wen di	81
+更灵活地	geng ling huo di	80
+习惯地	xi guan di	79
+哀求地	ai qiu di	79
+悠悠地	you you di	79
+成建制地	cheng jian zhi di	79
+见缝插针地	jian feng cha zhen di	79
+玩儿命地	wan er ming di	78
+不成比例地	bu cheng bi li di	77
+水灵灵地	shui ling ling di	77
+耐心地	nai xin di	77
+更快更好地	geng kuai geng hao di	76
+苦苦地	ku ku di	76
+开创性地	kai chuang xing di	75
+极其地	ji qi di	75
+谆谆地	zhun zhun di	74
+履行地	lv xing di	73
+强硬地	qiang ying di	73
+来回来去地	lai hui lai qu di	72
+勤勉地	qin mian di	71
+有条有理地	you tiao you li di	71
+野蛮地	ye man di	71
+不时地	bu shi di	69
+安心地	an xin di	69
+得意扬扬地	de yi yang yang di	69
+毫不含糊地	hao bu han hu di	69
+淡定地	dan ding di	69
+轻率地	qing shuai di	68
+怯生生地	qie sheng sheng di	67
+幼稚地	you zhi di	64
+死命地	si ming di	64
+毫不意外地	hao bu yi wai di	64
+直言不讳地	zhi yan bu hui di	64
+快速有效地	kuai su you xiao di	63
+有秩序地	you zhi xu di	63
+隐隐地	yin yin di	63
+十分贴心地	shi fen tie xin di	62
+富有爱心地	fu you ai xin di	62
+尽可能早地	jin ke neng zao di	62
+嗷嗷地	ao ao di	60
+无目的地	wu mu di di	60
+颤抖地	chan dou di	60
+概括地	gai kuo di	59
+盈盈地	ying ying di	59
+成片成片地	cheng pian cheng pian di	58
+警觉地	jing jue di	58
+雨滴答地	yu di da di	58
+成倍地	cheng bei di	57
+得意地	de yi di	56
+懒懒地	lan lan di	56
+不可重复地	bu ke chong fu di	55
+出色地	chu se di	54
+严厉地	yan li di	53
+优雅地	you ya di	53
+难堪地	nan kan di	53
+刻苦地	ke ku di	52
+及时地	ji shi di	50
+慵懒地	yong lan di	50
+哗哗地	hua hua di	49
+热情地	re qing di	49
+相似地	xiang si di	49
+平白地	ping bai di	48
+血不住地	xue bu zhu di	48
+血不住地	xie bu zhu di	48
+好心地	hao xin di	47
+恳切地	ken qie di	47
+心疼地	xin teng di	45
+如此地	ru ci di	44
+惊讶地	jing ya di	44
+劳动合同履行地	lao dong he tong lv xing di	43
+无意地	wu yi di	43
+无耻地	wu chi di	43
+剧烈地	ju lie di	42
+强势地	qiang shi di	42
+乖巧地	guai qiao di	41
+严肃地	yan su di	40
+切实地	qie shi di	40
+机警地	ji jing di	39
+强制地	qiang zhi di	38
+礼貌地	li mao di	37
+诡秘地	gui mi di	37
+单单地	dan dan di	36
+惊奇地	jing qi di	36
+直接地	zhi jie di	36
+谦虚地	qian xu di	36
+激烈地	ji lie di	35
+嘲讽地	chao feng di	34
+有效地	you xiao di	34
+热忱地	re chen di	34
+亲切地	qin qie di	33
+全面地	quan mian di	33
+吱吱地	zi zi di	33
+吱吱地	zhi zhi di	33
+强烈地	qiang lie di	33
+如瀑地	ru pu di	32
+狂暴地	kuang bao di	32
+残忍地	can ren di	31
+委屈地	wei qu di	30
+诙谐地	hui xie di	30
+默契地	mo qi di	30
+呼呼地	hu hu di	29
+惋惜地	wan xi di	29
+愤怒地	fen nu di	29
+满足地	man zu di	29
+谦恭地	qian gong di	29
+贪心地	tan xin di	29
+敏捷地	min jie di	28
+断然地	duan ran di	28
+无心地	wu xin di	28
+狠心地	hen xin di	28
+能够较好地	neng gou jiao hao di	28
+友善地	you shan di	27
+发狂地	fa kuang di	27
+幽默地	you mo di	27
+滑稽地	hua ji di	27
+潇洒地	xiao sa di	27
+低调地	di diao di	26
+着重地	zhuo zhong di	26
+被动地	bei dong di	26
+长久地	chang jiu di	26
+严峻地	yan jun di	25
+叛逆地	pan ni di	25
+庄严地	zhuang yan di	25
+冷漠地	leng mo di	24
+嚣张地	xiao zhang di	24
+违心地	wei xin di	24
+亲密地	qin mi di	23
+别扭地	bie niu di	23
+满怀爱心地	man huai ai xin di	23
+理性地	li xing di	23
+详细地	xiang xi di	23
+鲁莽地	lu mang di	23
+冷冷地	leng leng di	22
+密切地	mi qie di	22
+猛猛地	meng meng di	22
+理智地	li zhi di	22
+轻快地	qing kuai di	22
+威严地	wei yan di	21
+斜斜地	xie xie di	21
+欢乐地	huan le di	21
+毫不拖延地	hao bu tuo yan di	21
+灵活地	ling huo di	21
+英勇地	ying yong di	21
+谦逊地	qian xun di	21
+都能轻易地	dou neng qing yi di	21
+嫌弃地	xian qi di	20
+抱怨地	bao yuan di	19
+有意地	you yi di	19
+欣慰地	xin wei di	19
+雄赳赳地	xiong jiu jiu di	19
+安闲地	an xian di	18
+有序地	you xu di	18
+流利地	liu li di	18
+都更加地	dou geng jia di	18
+徒劳地	tu lao di	17
+坚持地	jian chi di	16
+快速地	kuai su di	16
+悄咪咪地	qiao mi mi di	16
+无脑地	wu nao di	16
+和缓地	he huan di	15
+快活地	kuai huo di	15
+报复性地	bao fu xing di	15
+暗戳戳地	an chuo chuo di	15
+相当地	xiang dang di	15
+踏踏实实地	ta ta shi shi di	15
+专用地	zhuan yong di	14
+公开地	gong kai di	14
+动态地	dong tai di	14
+欻欻地	chua chua di	14
+粗心地	cu xin di	14
+重复地	chong fu di	14
+适时地	shi shi di	13
+反向地	fan xiang di	12
+嗵嗵地	tong tong di	12
+紧急地	jin ji di	12
+闷闷地	men men di	12
+一圈一圈地	yi quan yi quan di	11
+很随便地	hen sui bian di	11
+故意地	gu yi di	11
+自动地	zi dong di	11
+苦逼地	ku bi di	11
+霍地	huo di	11
+不解地	bu jie di	10
+失礼地	shi li di	10
+很高兴地	hen gao xing di	10
+懒散地	lan san di	10
+有准备地	you zhun bei di	10
+讪讪地	shan shan di	10
+黄金地	huang jin di	10
+不稳定地	bu wen ding di	9
+健康地	jian kang di	9
+偶然地	ou ran di	9
+无礼地	wu li di	9
+真心地	zhen xin di	9
+公平地	gong ping di	8
+听话地	ting hua di	8
+流畅地	liu chang di	8
+辛苦地	xin ku di	8
+魔术般地	mo shu ban di	8
+仁慈地	ren ci di	7
+白白地	bai bai di	7
+精细地	jing xi di	7
+隐含地	yin han di	7
+一致地	yi zhi di	6
+必然地	bi ran di	6
+懂事地	dong shi di	6
+适度地	shi du di	6
+关心地	guan xin di	5
+古怪地	gu guai di	5
+天真地	tian zhen di	5
+荒谬地	huang miu di	5
+齐齐地	qi qi di	5
+泪不住地	lei bu zhu di	4
+自夸地	zi kua di	4
+衷心地	zhong xin di	4
+诚心地	cheng xin di	4
+准准地	zhun zhun di	3
+凶猛地	xiong meng di	3
+合法地	he fa di	3
+干练地	gan lian di	3
+模糊地	mo hu di	3
+欻地	chua di	3
+顽皮地	wan pi di	3
+刻意地	ke yi di	2
+卑劣地	bei lie di	2
+大概地	da gai di	2
+妖娆地	yao rao di	2
+完全地	wan quan di	2
+尖锐地	jian rui di	2
+憔悴地	qiao cui di	2
+揪心地	jiu xin di	2
+温柔地	wen rou di	2
+随缺地	sui que di	2
+不可解地	bu ke jie di	1
+不精确地	bu jing que di	1
+假装地	jia zhuang di	1
+单纯地	dan chun di	1
+外来地	wai lai di	1
+奇怪地	qi guai di	1
+奇迹地	qi ji di	1
+很好地	hen hao di	1
+很快地	hen kuai di	1
+忙碌地	mang lu di	1
+恶意地	e yi di	1
+憋不住地	bie bu zhu di	1
+无聊地	wu liao di	1
+更多地	geng duo di	1
+最终地	zui zhong di	1
+极好地	ji hao di	1
+消极地	xiao ji di	1
+特别地	te bie di	1
+真正地	zhen zheng di	1
+调皮地	tiao pi di	1
+负责地	fu ze di	1
+跳动地	tiao dong di	1
+随机地	sui ji di	1

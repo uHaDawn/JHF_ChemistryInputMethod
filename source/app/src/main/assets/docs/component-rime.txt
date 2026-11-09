@@ -1,0 +1,12 @@
+Rime 内核与 JNI 桥
+
+接化发内置 librime 作为普通模式的中文输入引擎，通过一层 JNI 桥（RimeEngine）把按键、
+候选、上屏、翻页等操作映射到 librime 的会话接口。
+
+· 引擎：librime（Rime Developers，BSD 3-Clause）
+· 桥接：CyIME 的 librime JNI 封装（CyIME，GPL v3）
+· 方案：全拼 jhf_pinyin、小鹤双拼 jhf_flypy
+· 词库：jhf_pinyin 加权词库（由内置 pinyin_dict.txt 生成，条目带词频）
+
+部署时机：首次进入普通模式时在后台编译词库与方案（生成 build/*.prism.bin 与 *.table.bin），
+期间继续使用内置的离线拼音匹配兜底，部署完成后自动切换。之后的启动直接复用编译产物。

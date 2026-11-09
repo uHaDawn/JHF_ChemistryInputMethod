@@ -19,7 +19,14 @@ from PIL import Image
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
-ADB = r"D:\development\Android\Sdk\platform-tools\adb.exe"
+def _find_adb():
+    """ADB 环境变量优先，其次 ANDROID_SDK_ROOT / ANDROID_HOME，最后用 PATH 上的 adb。"""
+    exe = "adb.exe" if os.name == "nt" else "adb"
+    sdk = os.environ.get("ANDROID_SDK_ROOT") or os.environ.get("ANDROID_HOME")
+    return os.environ.get("ADB") or (os.path.join(sdk, "platform-tools", exe) if sdk else "adb")
+
+
+ADB = _find_adb()
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PKG = "com.jhf.jiehuafa"
 IME_ID = "com.jhf.jiehuafa/.ime.JhfImeService"

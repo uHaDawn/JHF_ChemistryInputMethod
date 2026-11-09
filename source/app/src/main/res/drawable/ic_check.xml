@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 保存对勾：iconmcp check（generic）。键盘调节「保存」按钮用，运行时染色 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:pathData="M2.75 8.5 L6.25 12 L13.25 4.5"
+        android:strokeColor="#000000"
+        android:strokeWidth="1.333"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

@@ -1,0 +1,147 @@
+# 接化发 · 普通输入法「九键」方案（Rime 内核，词库 jhf_pinyin）
+# encoding: utf-8
+#
+# 复刻 CyIME t9_pinyin 的核心：数字 2-9 由 speller/algebra 展开成数字码，
+# t9_processor 负责数字串 → 拼音串的转换、分词与选词消费，t9_filter 负责
+# 预编辑与候选注释的数字回填。词库复用 26 键的 jhf_pinyin，
+# prism 必须单独叫 jhf_t9，否则会与全拼/双拼共用同一份拼写表。
+schema:
+  schema_id: jhf_t9
+  name: 九键
+  version: "1.0"
+  description: |
+    26 键词组模型 + 数字 2-9 的九宫格方案，复用 jhf_pinyin 带词频词库。
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    reset: 0
+    states: [ 中文标点, 西文标点 ]
+  - name: traditionalization
+    states: [ 简, 繁 ]
+  # 打「加号」「问号」「括号」等词时在词后追加符号（CyIME 同名特性）。
+  - name: cyime_symbol_names
+    reset: 1
+    states: [ 关, 开 ]
+
+# 词组模型（与 26 键同一套参数，见 jhf_pinyin.schema.yaml 的 t9 块）。
+# 本地没有 t9_ngram.lm 时 T9NgramModel::Open 失败 → 保留 Rime 原生整句，不报错。
+t9:
+  joint_decoder: true
+  source_budget: 128
+  pool_budget: 64
+  dictionary_beam: 16
+  sentence_beam: 24
+  result_budget: 12
+  display_sentences: 1
+  more_sentences_min_keys: 9
+  spelling_penalty: 5.0
+  word_penalty: 8.0
+  sentence_weight: 0.25
+  ngram_model: t9_ngram
+  ngram_sentence_start: true
+  ngram_eos_weight: 0
+  ngram_user_weight: 0.05
+  ngram_dictionary_prior: 0.02
+  ngram_merge_segmentations: false
+  # false：按候选注释把数字预编辑转成拼音显示（与 CyIME 一致）。
+  isDisplayOriginalPreedit: false
+
+engine:
+  processors:
+    - t9_processor
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+  filters:
+    # 数字码 → 拼音的预编辑转换 + 候选抑制（CyIME t9_filter）。
+    - t9_filter
+    - cyime_datetime
+    - simplifier@cyime_symbols
+    - simplifier@traditionalize
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba9876543210
+  initials: zyxwvutsrqponmlkjihgfedcba9876543210
+  delimiter: " '"
+  algebra:
+    # 简拼
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    # ü 兼容拼写
+    - derive/^([nl])ve$/$1ue/
+    - derive/^([jqxy])u/$1v/
+    # 模糊音（与 CyIME t9_pinyin 原文一致）
+    - fuzz/un$/uen/
+    - fuzz/ui$/uei/
+    - fuzz/iu$/iou/
+    - fuzz/([aeiou])ng$/$1gn/
+    - fuzz/ong$/on/
+    - fuzz/ao$/oa/
+    - fuzz/([iu])a(o|ng?)$/a$1$2/
+    # 九宫格数字映射：derive 逐轮累积，最终生成完整数字码（zhong → 94664）。
+    - derive/[abc]/2/
+    - derive/[def]/3/
+    - derive/[hgi]/4/
+    - derive/[jkl]/5/
+    - derive/[omn]/6/
+    - derive/[pqrs]/7/
+    - derive/[tuv]/8/
+    - derive/[wxyz]/9/
+
+translator:
+  # 与 26 键共用带词频词库；注释（拼音）用于 t9_filter 与选词消费。
+  dictionary: jhf_pinyin
+  max_homophones: 32
+  max_sentences: 3
+  # 单独的拼写索引：不能与 jhf_pinyin / jhf_flypy 共用，否则数字码会覆盖 26 键拼写表。
+  prism: jhf_t9
+  spelling_hints: 100
+  always_show_comments: true
+  comment_format: []
+  preedit_format:
+    - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
+
+cyime_symbols:
+  option_name: cyime_symbol_names
+  opencc_config: cyime_symbols.json
+  tips: none
+
+traditionalize:
+  option_name: traditionalization
+  opencc_config: s2t.json
+  tips: none
+
+punctuator:
+  import_preset: default
+
+recognizer:
+  patterns:
+    punct: "^/([0-9]|10|[A-Za-z]*?)$"
+
+key_binder:
+  bindings:
+    - { when: has_menu, accept: 1, send: apostrophe }
+
+editor:
+  bindings:
+    space: confirm

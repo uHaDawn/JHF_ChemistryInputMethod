@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 「切换输入法」图标：客户 2026-11-09 提供的 132×24 图标条第 4 个（左右双向箭头），
+     运行时 tint 着色；原图 x 从 83 起，用 group 平移回 24 画布内居中。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group android:translateX="-81">
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#FF000000"
+            android:strokeWidth="1.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:pathData="M83 9H103L98 4" />
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#FF000000"
+            android:strokeWidth="1.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:pathData="M103 15L83 15L88 20" />
+    </group>
+</vector>

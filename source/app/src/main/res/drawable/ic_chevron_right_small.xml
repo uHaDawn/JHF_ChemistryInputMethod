@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 候选栏右侧「全部候选」箭头（Figma 216-397 rectangle545/vector17 的 12×6、旋转 -90°）：
+     设计稿是把 12×6 的下箭头旋转 -90° 得到的「→」；矢量图不能旋转，
+     这里直接按 6×12 画一条向右的折线，视觉与设计稿一致。
+     线宽 1.3：本图 6×12 视口与固有尺寸 1:1，而 ⌄ 用的 ic_chevron_down_small 是
+     20×13 视口缩到 13×7（2px 描边实际只有 2×13/20≈1.3dp），两者按同一实际粗细对齐。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="6dp"
+    android:height="12dp"
+    android:viewportWidth="6"
+    android:viewportHeight="12">
+    <path
+        android:pathData="M1,1 L5,6 L1,11"
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

@@ -1,0 +1,128 @@
+# 接化发 · 普通输入法「全拼」方案（Rime 内核，词库 jhf_pinyin）
+# encoding: utf-8
+schema:
+  schema_id: jhf_pinyin
+  name: 全拼
+  version: "1.0"
+  description: |
+    26 键全拼，内置 jhf_pinyin 带词频词库。
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    reset: 0
+    states: [ 中文标点, 西文标点 ]
+  - name: traditionalization
+    states: [ 简, 繁 ]
+  # 打「加号」「问号」「括号」等词时在词后追加符号（CyIME 同名特性）。
+  # 普通键盘没有开关入口，默认开启（reset: 1）。
+  - name: cyime_symbol_names
+    reset: 1
+    states: [ 关, 开 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+  filters:
+    # 打出「时间/日期/星期」时追加当前时间日期（CyIME cyime_datetime）。
+    - cyime_datetime
+    # 打一个完整音节（an/ai/en/ou/ang…）时把常用单字留在靠前（CyIME cyime_single_syllable）。
+    - lua_filter@*cyime_single_syllable
+    # 打「加号/问号/括号」等词后追加对应符号（表在 opencc/cyime_symbols.*）。
+    - simplifier@cyime_symbols
+    - simplifier@traditionalize
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - erase/^xx$/
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    # 只保留 ü 的两条拼写兼容（lv/nv/jv 打 ue/u）。朙月拼音原有的
+    # ong→on、ao→oa、iu→iou 等模糊音纠错全部去掉：它们会给 zhong 造出
+    # "zhon" 这条纠错拼写，让 中国 变成「纠错匹配」，进而丢掉整词候选，
+    # 首候选退化成 中+过 之类的单字拼接。
+    - derive/^([nl])ve$/$1ue/correction
+    - derive/^([jqxy])u/$1v/correction
+
+translator:
+  # 词库改用接化发自己的带词频词库（jhf_pinyin，见 tools/gen_rime_dict.py）：
+  # Rime 内置 luna_pinyin 没有词频且缺常用词，候选全是生僻字。
+  dictionary: jhf_pinyin
+  # 与双拼共用词库，但拼写索引必须分开（双拼那边用 prism: jhf_flypy）
+  prism: jhf_pinyin
+  spelling_hints: 6
+  enable_completion: true
+  enable_sentence: true
+  enable_user_dict: true
+  # 词组模型要有多条整句可排序（CyIME 26 键同参数）；默认 1 条时 sentence_rescore 无句可排。
+  max_sentences: 4
+  sentence_cutoff_threshold: 100
+  preedit_format:
+    - xform/([nljqxy])v/$1ü/
+
+# 26 键词组模型（与九键同一套解码器与模型文件，参数按 CyIME rime_ice 的 26 键设定）：
+# 没有 t9_ngram.lm 时 joint_requires_ngram 会关掉解码器，保留 Rime 原生整句；
+# 模型放到 assets/rime/ 后随部署一起解包，即自动生效。
+t9:
+  sentence_rescore: true
+  joint_decoder: false
+  joint_requires_ngram: true
+  source_budget: 16
+  pool_budget: 16
+  dictionary_beam: 64
+  sentence_beam: 8
+  result_budget: 12
+  display_sentences: 1
+  spelling_penalty: 0
+  word_penalty: 8.0
+  correction_penalty: -9.2
+  whole_input_phrases: 16
+  prefer_user_entries: true
+  ngram_model: t9_ngram
+  ngram_sentence_start: false
+  ngram_eos_weight: 0
+  ngram_user_weight: 0.3
+  ngram_dictionary_prior: 0.02
+  ngram_merge_segmentations: false
+
+traditionalize:
+  option_name: traditionalization
+  opencc_config: s2t.json
+  tips: none
+
+cyime_symbols:
+  option_name: cyime_symbol_names
+  opencc_config: cyime_symbols.json
+  tips: none
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default

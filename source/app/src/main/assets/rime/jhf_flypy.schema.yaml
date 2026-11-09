@@ -1,0 +1,144 @@
+# 接化发 · 普通输入法「小鹤双拼」方案（26 键，词库 jhf_pinyin）
+# encoding: utf-8
+schema:
+  schema_id: jhf_flypy
+  name: 小鹤双拼
+  version: "1.0"
+  description: |
+    26 键小鹤（flypy）双拼。声母韵母映射见 speller/algebra。
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    reset: 0
+    states: [ 中文标点, 西文标点 ]
+  - name: traditionalization
+    states: [ 简, 繁 ]
+  # 打「加号」「问号」「括号」等词时在词后追加符号（CyIME 同名特性）。
+  - name: cyime_symbol_names
+    reset: 1
+    states: [ 关, 开 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+    # 全拼兼容（2026-11-07）：双拼方案里也接受完整全拼拼写。
+    # 只做全拼的双拼方案，按全拼拼写输入复合韵母（xian / tian / niang / gou）时，
+    # 输入会被拆成 ni+an 这类双拼码，候选只剩「你安个」，音节本身的字打不出来。
+    # 这里挂第二颗 script_translator，直接引用全拼方案建好的 jhf_pinyin 拼写表：
+    # 同一个词库、同一套词频与整句规则，双拼码（xm / nl / gz）照旧命中本方案的 jhf_flypy。
+    - script_translator@full_pinyin
+  filters:
+    # 打出「时间/日期/星期」时追加当前时间日期（CyIME cyime_datetime）。
+    - cyime_datetime
+    # 打「加号/问号/括号」等词后追加对应符号（表在 opencc/cyime_symbols.*）。
+    - simplifier@cyime_symbols
+    - simplifier@traditionalize
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - erase/^xx$/
+    - derive/^([jqxy])u$/$1v/
+    # 零声母：啊 a / 恩 en / 昂 ang 等双写
+    - derive/^([aoe])([ioun])$/$1$1$2/
+    - xform/^([aoe])(ng)?$/$1$1$2/
+    # 韵母 → 单键（小鹤键位：iu→q, ei→w, uan→r, ue/ve→t, un→y, uo→o, ie→p,
+    # ong/iong→s, ing/uai→k, ai→d, en→f, eng→g, iang/uang→l, ang→h, ian→m,
+    # an→j, ou→z, ia/ua→x, iao→n, ao→c, ui→v, in→b）
+    - xform/iu$/Ⓠ/
+    - xform/(.)ei$/$1Ⓦ/
+    - xform/uan$/Ⓡ/
+    - xform/[uv]e$/Ⓣ/
+    - xform/un$/Ⓨ/
+    - xform/^sh/Ⓤ/
+    - xform/^ch/Ⓘ/
+    - xform/^zh/Ⓥ/
+    - xform/uo$/Ⓞ/
+    - xform/ie$/Ⓟ/
+    - xform/(.)i?ong$/$1Ⓢ/
+    - xform/ing$|uai$/Ⓚ/
+    - xform/(.)ai$/$1Ⓓ/
+    - xform/(.)en$/$1Ⓕ/
+    - xform/(.)eng$/$1Ⓖ/
+    - xform/[iu]ang$/Ⓛ/
+    - xform/(.)ang$/$1Ⓗ/
+    - xform/ian$/Ⓜ/
+    - xform/(.)an$/$1Ⓙ/
+    - xform/(.)ou$/$1Ⓩ/
+    - xform/[iu]a$/Ⓧ/
+    - xform/iao$/Ⓝ/
+    - xform/(.)ao$/$1Ⓒ/
+    - xform/ui$/Ⓥ/
+    - xform/in$/Ⓑ/
+    - xlit/ⓆⓌⓇⓉⓎⓊⒾⓄⓅⓈⒹⒻⒼⒽⒿⓀⓁⓏⓍⒸⓋⒷⓃⓂ/qwrtyuiopsdfghjklzxcvbnm/
+    - derive/^aa$/a'/
+    - derive/^oo$/o'/
+    - derive/^ee$/e'/
+
+translator:
+  dictionary: jhf_pinyin
+  # 关键：双拼必须用自己的 prism 文件名。Rime 的 prism 默认跟着词库名走，
+  # 两个方案共用 jhf_pinyin.dict.yaml 时会写同一个 jhf_pinyin.prism.bin，
+  # 后部署的方案（双拼）会把全拼的拼写表覆盖掉，全拼随后按双拼解码
+  # （zhong → zang、nihao → n ih ao）。分开命名后各自独立。
+  prism: jhf_flypy
+  spelling_hints: 6
+  enable_sentence: true
+  enable_user_dict: true
+  preedit_format:
+    - xform/([nljqxy])v/$1ü/
+
+# 全拼兼容译码器（见 engine/translators 的 script_translator@full_pinyin）：
+# 与全拼方案同一份词库、同一个 prism（jhf_pinyin.prism.bin 由全拼方案部署生成），
+# 双拼方案自身只编写 jhf_flypy.prism.bin，两边互不覆盖。
+full_pinyin:
+  dictionary: jhf_pinyin
+  prism: jhf_pinyin
+  spelling_hints: 6
+  enable_completion: true
+  enable_sentence: true
+  enable_user_dict: true
+  preedit_format:
+    - xform/([nljqxy])v/$1ü/
+
+traditionalize:
+  option_name: traditionalization
+  opencc_config: s2t.json
+  tips: none
+
+cyime_symbols:
+  option_name: cyime_symbol_names
+  opencc_config: cyime_symbols.json
+  tips: none
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default

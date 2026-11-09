@@ -1,0 +1,9 @@
+简繁转换 OpenCC
+
+三套拼音方案都带「简 → 繁」开关，转换由 librime 的 simplifier 过滤器调用 OpenCC 完成。
+
+· 配置：assets/rime/opencc/s2t.json
+· 字典：STCharacters.ocd2、STPhrases.ocd2
+· 上游：OpenCC（BYVoid，Apache License 2.0）
+
+词组优先于单字，避免「头发」被逐字转换成「頭發」。该开关默认关闭，可在方案内切换。

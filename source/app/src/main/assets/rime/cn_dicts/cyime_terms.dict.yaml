@@ -1,0 +1,85 @@
+# 接化发 · 中文词库（由 source/tools/prepare_chinese_dict.py 生成，请勿手改）
+# 数据来源：rime-ice（iDvel/rime-ice @9e66b072）+ CyIME 语料权重表
+---
+name: cyime_terms
+version: "2026-10-01"
+sort: by_weight
+...
+他也会来的	ta ye hui lai de	20000
+帮我拿个快递	bang wo na ge kuai di	20000
+连上了吗	lian shang le ma	20000
+浮窗	fu chuang	10000
+一键粘贴	yi jian zhan tie	5000
+上档键	shang dang jian	5000
+上角标	shang jiao biao	5000
+下角标	xia jiao biao	5000
+中英互切	zhong ying hu qie	5000
+中英键	zhong ying jian	5000
+九宫格输入	jiu gong ge shu ru	5000
+九键全拼	jiu jian quan pin	5000
+互切	hu qie	5000
+候选框	hou xuan kuang	5000
+候选窗	hou xuan chuang	5000
+全拼键盘	quan pin jian pan	5000
+全选键	quan xuan jian	5000
+出字	chu zi	5000
+出字速度	chu zi su du	5000
+分类词库	fen lei ci ku	5000
+剪贴板键	jian tie ban jian	5000
+加权分	jia quan fen	5000
+加权得分	jia quan de fen	5000
+十四键	shi si jian	5000
+单手键盘	dan shou jian pan	5000
+单按	dan an	5000
+句号键	ju hao jian	5000
+右滑	you hua	5000
+响度归一化	xiang du gui yi hua	5000
+地球键	di qiu jian	5000
+声纹模型	sheng wen mo xing	5000
+大写提示	da xie ti shi	5000
+大小写键	da xiao xie jian	5000
+字幕模式	zi mu mo shi	5000
+小悬浮条	xiao xuan fu tiao	5000
+小浮窗	xiao fu chuang	5000
+左滑	zuo hua	5000
+布局切换	bu ju qie huan	5000
+平板实测	ping ban shi ce	5000
+悬浮工具栏	xuan fu gong ju lan	5000
+悬浮条	xuan fu tiao	5000
+悬浮键盘	xuan fu jian pan	5000
+手写键	shou xie jian	5000
+打首字母	da shou zi mu	5000
+拼音键	pin yin jian	5000
+按键音效	an jian yin xiao	5000
+换候选	huan hou xuan	5000
+换行键	huan hang jian	5000
+搜索键	sou suo jian	5000
+撤销键	che xiao jian	5000
+收起键	shou qi jian	5000
+数字小键盘	shu zi xiao jian pan	5000
+每个键	mei ge jian	5000
+流式识别	liu shi shi bie	5000
+真机演示	zhen ji yan shi	5000
+笔侧键	bi ce jian	5000
+笔画九键	bi hua jiu jian	5000
+紫薇轴	zi wei zhou	5000
+编辑罗盘	bian ji luo pan	5000
+脚本模拟	jiao ben mo ni	5000
+自动互联	zi dong hu lian	5000
+自定义符号	zi ding yi fu hao	5000
+表情键	biao qing jian	5000
+词组模型	ci zu mo xing	5000
+语言键	yu yan jian	5000
+语音上屏	yu yin shang ping	5000
+语音转写	yu yin zhuan xie	5000
+跨手指	kua shou zhi	5000
+选候选	xuan hou xuan	5000
+逐键	zhu jian	5000
+逐键选词	zhu jian xuan ci	5000
+逗号键	dou hao jian	5000
+那个键	na ge jian	5000
+邻键纠错	lin jian jiu cuo	5000
+键全拼	jian quan pin	5000
+键盘高度	jian pan gao du	5000
+飞桨	fei jiang	5000
+测完了吗	ce wan le ma	3000

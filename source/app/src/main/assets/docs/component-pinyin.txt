@@ -1,0 +1,10 @@
+离线拼音匹配
+
+在 Rime 部署完成之前，以及 Rime 不可用时，普通模式使用内置的离线拼音匹配器
+（NormalPinyinMatcher）保证输入不中断。
+
+· 词库：assets/pinyin_dict.txt（AOSP PinyinIME 词库，Apache License 2.0）
+· 匹配：全拼 / 双拼输入的精确匹配与简拼补全
+· 排序：按词频与词长，纯本地计算，不联网、不上传
+
+一旦 Rime 就绪，候选改由 librime 提供，本模块只作为兜底路径保留。

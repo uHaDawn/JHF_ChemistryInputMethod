@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 卡片指向箭头（Figma 129-1780 / 130-4004 / 177-1169 / 177-1311 的 12×6 矢量）：
+     宽高比 2:1、笔画 2、圆头；旋转 -90° 后视觉为 6×12，与设计稿一致。
+     原来的 ic_chevron_down 是 18×12（比例 1.5），塞进 12×6 会被 fitCenter 缩成 9×6，
+     视觉只有 6×9，偏小。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="12dp"
+    android:height="6dp"
+    android:viewportWidth="12"
+    android:viewportHeight="6">
+    <path
+        android:pathData="M1,1 L6,5 L11,1"
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

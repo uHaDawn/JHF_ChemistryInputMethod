@@ -105,7 +105,7 @@ public class ErrorActivity extends Activity {
         close.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
         close.setTextColor(0xFFC62828);
         close.setGravity(Gravity.CENTER);
-        android.graphics.drawable.GradientDrawable g = new android.graphics.drawable.GradientDrawable();
+        SmoothDrawable g = new SmoothDrawable();
         g.setColor(Color.WHITE);
         g.setCornerRadius(20 * d);
         close.setBackground(g);

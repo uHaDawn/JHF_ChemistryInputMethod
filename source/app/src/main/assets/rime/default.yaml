@@ -1,0 +1,112 @@
+# Rime 默认配置（接化发 · 普通输入法内置方案）
+# encoding: utf-8
+config_version: "0.16"
+
+schema_list:
+  - schema: jhf_pinyin      # 全拼（26 键）
+  - schema: jhf_flypy       # 小鹤双拼（26 键）
+  - schema: jhf_t9          # 九键（数字 2-9，复用 jhf_pinyin 词库）
+
+menu:
+  page_size: 6
+
+switcher:
+  caption: 〔方案選單〕
+  hotkeys:
+    - F4
+  save_options:
+    - ascii_mode
+    - full_shape
+    - ascii_punct
+    - traditionalization
+
+ascii_composer:
+  good_old_caps_lock: true
+  switch_key:
+    Shift_L: commit_code
+    Shift_R: noop
+    Control_L: noop
+    Control_R: noop
+
+punctuator:
+  full_shape:
+    ' ' : { commit: '　' }
+    ',' : { commit: ， }
+    '.' : { commit: 。 }
+    '<' : [ 《, 〈, «, ‹ ]
+    '>' : [ 》, 〉, », › ]
+    '/' : [ ／, ÷ ]
+    '?' : { commit: ？ }
+    ';' : { commit: ； }
+    ':' : { commit: ： }
+    '''' : { pair: [ '‘', '’' ] }
+    '"' : { pair: [ '“', '”' ] }
+    '\' : [ 、, ＼ ]
+    '|' : [ ・, ｜, '§', '¦' ]
+    '`' : ｀
+    '~' : [ 〜, ～, 〰 ]
+    '!' : { commit: ！ }
+    '@' : [ ＠, ☯ ]
+    '#' : [ ＃, ⌘ ]
+    '%' : [ ％, '°', '℃' ]
+    '$' : [ ￥, '$', '€', '£', '¥', '¢', '¤' ]
+    '^' : { commit: …… }
+    '&' : ＆
+    '*' : [ ＊, ・, ·, ×, ※, ❂ ]
+    '(' : （
+    ')' : ）
+    '-' : －
+    '_' : ——
+    '+' : ＋
+    '=' : ＝
+    '[' : [ 「, 【, 〔, ［ ]
+    ']' : [ 」, 】, 〕, ］ ]
+    '{' : [ 『, 〖, ｛ ]
+    '}' : [ 』, 〗, ｝ ]
+  half_shape:
+    ',' : { commit: ， }
+    '.' : { commit: 。 }
+    '<' : [ 《, 〈, «, ‹ ]
+    '>' : [ 》, 〉, », › ]
+    '/' : [ 、, '/', ／, ÷ ]
+    '?' : { commit: ？ }
+    ';' : { commit: ； }
+    ':' : { commit: ： }
+    '''' : { pair: [ '‘', '’' ] }
+    '"' : { pair: [ '“', '”' ] }
+    '\' : [ 、, '\', ＼ ]
+    '|' : [ ・, '|', ｜, '§', '¦' ]
+    '`' : '`'
+    '~' : [ '~', 〜, ～, 〰 ]
+    '!' : { commit: ！ }
+    '@' : '@'
+    '#' : '#'
+    '%' : [ '%', ％, '°', '℃' ]
+    '$' : [ ￥, '$', '€', '£', '¥', '¢', '¤' ]
+    '^' : { commit: …… }
+    '&' : '&'
+    '*' : [ '*', ＊, ・, ·, ×, ※, ❂ ]
+    '(' : （
+    ')' : ）
+    '-' : '-'
+    '_' : ——
+    '+' : '+'
+    '=' : '='
+    '[' : [ 「, 【, 〔, ［ ]
+    ']' : [ 」, 】, 〕, ］ ]
+    '{' : [ 『, 〖, ｛ ]
+    '}' : [ 』, 〗, ｝ ]
+
+key_binder:
+  bindings:
+    - { when: paging, accept: minus, send: Page_Up }
+    - { when: has_menu, accept: equal, send: Page_Down }
+    - { when: paging, accept: comma, send: Page_Up }
+    - { when: has_menu, accept: period, send: Page_Down }
+    - { when: always, accept: Control+Shift+2, toggle: ascii_mode }
+    - { when: always, accept: Control+period, toggle: ascii_punct }
+
+recognizer:
+  patterns:
+    email: "^[a-z][-_.0-9a-z]*@.*$"
+    url: "^(www[.]|https?:|ftp:|mailto:).*$|^[a-z]+[.].+$"

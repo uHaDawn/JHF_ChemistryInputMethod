@@ -14,6 +14,8 @@
 package com.jhf.jiehuafa;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Process;
 
 /**
@@ -27,6 +29,19 @@ public class JhfApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 进程启动时按已保存的深浅色同步桌面图标（2026-11-07）：
+        // 覆盖重装/升级后别名状态回到清单默认值的场景；状态已正确时不会重复刷新桌面。
+        try {
+            SharedPreferences p = getSharedPreferences("jhf_settings", MODE_PRIVATE);
+            boolean follow = p.getBoolean("follow", false);
+            boolean dark = follow
+                    ? (getResources().getConfiguration().uiMode
+                        & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+                    : p.getBoolean("dark", false);
+            AppIcon.syncLauncher(this, dark);
+        } catch (Throwable ignored) {
+            // 图标同步失败不影响应用启动
+        }
         final Thread.UncaughtExceptionHandler def = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
             if (crashing) { // ErrorActivity 自身再崩则交还系统，防止死循环

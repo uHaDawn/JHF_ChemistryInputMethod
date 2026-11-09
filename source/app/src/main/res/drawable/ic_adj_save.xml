@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 键盘调节「保存」按钮图标（客户 2026-11-04 素材，36×23，描边 #2E73F3、线宽 2） -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="23dp"
+    android:viewportWidth="36"
+    android:viewportHeight="23">
+    <path
+        android:pathData="M1 9.8421L13.8197 22L35 1"
+        android:strokeColor="#2E73F3"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

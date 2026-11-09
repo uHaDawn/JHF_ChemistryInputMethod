@@ -24,8 +24,12 @@ param(
 $ErrorActionPreference = "Continue"
 $tools   = Split-Path -Parent $MyInvocation.MyCommand.Path
 $proj    = Split-Path -Parent $tools
-$adb     = "D:\development\Android\Sdk\platform-tools\adb.exe"
-$bt      = "D:\development\Android\Sdk\build-tools\35.0.0"
+$adb     = if ($env:ADB) { $env:ADB }
+           elseif ($env:ANDROID_SDK_ROOT) { Join-Path $env:ANDROID_SDK_ROOT "platform-tools\adb.exe" }
+           elseif ($env:ANDROID_HOME) { Join-Path $env:ANDROID_HOME "platform-tools\adb.exe" }
+           else { "adb" }
+$sdk     = if ($env:ANDROID_SDK_ROOT) { $env:ANDROID_SDK_ROOT } elseif ($env:ANDROID_HOME) { $env:ANDROID_HOME } else { "" }
+$bt      = Join-Path $sdk "build-tools\35.0.0"
 $py      = "python"
 $pkg     = "com.jhf.jiehuafa"
 $imeId   = "com.jhf.jiehuafa/.ime.JhfImeService"
