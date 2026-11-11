@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>接化发 1.0.0 更新介绍海报</title>
+<style>
+  :root{
+    --bg:#07090B; --line:rgba(255,255,255,.10);
+    --ink:#F3F6F4; --dim:#8A949D; --dim2:#5C666E;
+    --green:#7CFF9B; --amber:#FFD75E;
+    --mono:"Consolas","JetBrains Mono",monospace;
+    --sans:"Microsoft YaHei UI","Microsoft YaHei","PingFang SC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#16191C;font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  body{width:1080px;margin:0 auto}
+  .poster{position:relative;width:1080px;height:1440px;overflow:hidden;background:var(--bg);
+    color:var(--ink);padding:60px 64px 44px;display:flex;flex-direction:column;margin:0 auto}
+  .poster::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(760px 520px at 84% -6%, rgba(124,255,155,.16), transparent 62%),
+      radial-gradient(620px 460px at -8% 96%, rgba(99,199,245,.12), transparent 66%),
+      radial-gradient(420px 320px at 50% 40%, rgba(179,156,255,.06), transparent 70%)}
+  .poster::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:72px 72px;
+    -webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000 20%,transparent 82%);
+    mask-image:radial-gradient(120% 90% at 50% 0%,#000 20%,transparent 82%)}
+  .frame{position:absolute;inset:20px;border:1px solid rgba(255,255,255,.07);border-radius:6px;pointer-events:none}
+  .content{position:relative;z-index:2;display:flex;flex-direction:column;height:100%}
+
+  .head{display:flex;justify-content:space-between;align-items:flex-start;
+    font-family:var(--mono);font-size:14.5px;letter-spacing:.18em;color:var(--dim2)}
+  .head .l{display:flex;align-items:center;gap:12px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+  .head .r{text-align:right;line-height:1.5}
+  .head .r b{color:var(--green);font-weight:600}
+
+  .eyebrow{font-family:var(--mono);font-size:15px;letter-spacing:.34em;color:var(--green);margin-bottom:16px}
+  h2{font-size:56px;line-height:1.12;font-weight:900;letter-spacing:-.01em}
+  .lead{font-size:21px;line-height:1.7;color:var(--dim);margin-top:16px}
+  .top{margin-top:40px}
+
+  /* 封面 */
+  .ver{font-family:var(--mono);font-weight:700;font-size:230px;line-height:.84;letter-spacing:-.05em;
+    background:linear-gradient(168deg,#FFFFFF 8%,#D7FFE0 40%,#7CFF9B 96%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px}
+  .cn{font-size:62px;font-weight:900;letter-spacing:.02em}
+  .en{font-family:var(--mono);font-size:16px;letter-spacing:.42em;color:var(--dim2);margin-top:14px}
+  .rule{height:1px;background:linear-gradient(90deg,rgba(124,255,155,.7),rgba(255,255,255,.06));margin:30px 0 24px}
+  .tags{display:flex;gap:12px;flex-wrap:wrap}
+  .tag{border:1px solid rgba(124,255,155,.32);background:rgba(124,255,155,.07);color:#CFFFDA;
+    padding:11px 17px;border-radius:999px;font-size:18px}
+  .cover-mid{margin-top:auto;margin-bottom:auto}
+  .cover-bottom{display:flex;justify-content:space-between;align-items:flex-end;
+    font-family:var(--mono);font-size:15px;color:var(--dim2);letter-spacing:.1em;padding-bottom:18px}
+  .cover-bottom b{display:block;color:var(--ink);font-family:var(--sans);font-size:19px;
+    letter-spacing:.04em;margin-top:7px;font-weight:700}
+
+  /* 步骤 */
+  .steps{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+  .step{border:1px solid var(--line);border-radius:12px;padding:18px 20px;
+    background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.012))}
+  .step .n{font-family:var(--mono);font-size:13px;color:var(--green);letter-spacing:.24em;margin-bottom:9px}
+  .step h4{font-size:23px;font-weight:800;margin-bottom:6px}
+  .step p{font-size:15.5px;line-height:1.55;color:var(--dim)}
+
+  /* 数据 */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  .stat{border-top:2px solid rgba(124,255,155,.55);padding-top:14px}
+  .stat .v{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--green);letter-spacing:-.02em}
+  .stat .k{font-size:15px;color:var(--dim);margin-top:5px;letter-spacing:.04em}
+
+  /* 列表 */
+  .list{margin-top:8px;display:flex;flex-direction:column}
+  .item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .item:last-child{border-bottom:none}
+  .item .idx{font-family:var(--mono);font-size:14px;color:var(--dim2);padding-top:4px;width:30px;flex:none}
+  .item h4{font-size:23px;font-weight:800;margin-bottom:5px}
+  .item p{font-size:16px;line-height:1.6;color:var(--dim)}
+
+  /* 截图 */
+  .shot{border:1px solid rgba(255,255,255,.2);border-radius:18px;overflow:hidden;
+    box-shadow:0 22px 60px rgba(0,0,0,.6);background:#000}
+  .shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+  .shots{display:grid;gap:14px;margin-top:20px;flex:1;min-height:0}
+  .shots .shot{height:100%;min-height:0}
+  .shots .shot img{height:100%}
+  .fill{flex:1;min-height:0;margin-top:22px}
+
+  /* 警示 */
+  .warn{border:1px solid rgba(255,215,94,.36);
+    background:linear-gradient(160deg,rgba(255,215,94,.10),rgba(255,215,94,.03));
+    border-radius:12px;padding:20px 22px;margin-bottom:12px}
+  .warn .t{font-family:var(--mono);font-size:13px;letter-spacing:.22em;color:var(--amber);margin-bottom:8px}
+  .warn h4{font-size:21px;font-weight:800;margin-bottom:6px}
+  .warn p{font-size:15.5px;line-height:1.58;color:#C9C2A6}
+
+  .foot{margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.09);
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:13.5px;color:var(--dim2);letter-spacing:.14em}
+  .foot b{color:var(--dim);font-weight:600}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:22px}
+  .col h3{font-family:var(--mono);font-size:14px;letter-spacing:.2em;color:var(--dim2);margin-bottom:10px}
+  .fix{display:flex;gap:12px;padding:15px 0;border-bottom:1px dashed rgba(255,255,255,.09);
+    font-size:17.5px;line-height:1.5;color:#D6DCD8}
+  .fix i{font-style:normal;color:var(--green);font-family:var(--mono);font-size:13px;padding-top:3px;flex:none}
+  .glyph{position:absolute;right:-60px;bottom:120px;font-family:var(--mono);font-weight:700;
+    font-size:400px;color:rgba(124,255,155,.05);line-height:1;pointer-events:none;z-index:1}
+</style>
+</head>
+<body>
+
+<!-- 01 封面 -->
+<section class="poster" id="p1">
+  <div class="frame"></div>
+  <div class="glyph">Σ</div>
+  <div class="content">
+    <div class="head">
+      <div class="l"><span class="dot"></span><span>JIEHUAFA / CHEMISTRY IME</span></div>
+      <div class="r">ANDROID 7.0+<br><b>GPL-3.0</b></div>
+    </div>
+
+    <div class="cover-mid">
+      <div class="ver">1.0.0</div>
+      <div class="cn">接化发 · 化学输入法</div>
+      <div class="en">CHEMISTRY KEYBOARD · RELEASE NOTES</div>
+      <div class="rule"></div>
+      <div class="tags">
+        <span class="tag">化学键盘重写</span>
+        <span class="tag">方程式自动配平</span>
+        <span class="tag">普通中文键盘</span>
+      </div>
+    </div>
+
+    <div class="cover-bottom">
+      <div>RELEASE<b>2026.11.09</b></div>
+      <div style="text-align:center">VERSION CODE<b>20</b></div>
+      <div style="text-align:right">BASELINE<b>0.0.10</b></div>
+    </div>
+
+    <div class="foot" style="border-top:none;padding-top:0">
+      <span><b>HAGO 工作室</b> 出品 ｜ 设计制作 哈潚</span>
+      <span>全部离线 · 不申请网络权限</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 自动配平 -->
+<section class="poster" id="p2">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="head">
+      <div class="l"><span class="dot"></span><span>NEW / 01</span></div>
+      <div class="r">02 / 06</div>
+    </div>
+
+    <div class="top">
+      <div class="eyebrow">EQUATION BALANCING</div>
+      <h2>方程式，<br>直接配平</h2>
+      <p class="lead">打开「自动模式」，依次放入反应物，点「发生反应」——键盘直接给出配平结果，确认即可上屏。</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="n">STEP 01</div><h4>输入物质名</h4><p>点输入区「+」，输入中文名或拼音，候选栏同时给出物质与化学式。</p></div>
+      <div class="step"><div class="n">STEP 02</div><h4>确认反应物</h4><p>选中候选生成反应物芯片，左侧 × 可移除，可继续添加多个反应物。</p></div>
+      <div class="step"><div class="n">STEP 03</div><h4>发生反应</h4><p>先精确匹配；含离子时剔除旁观离子，再用剩余离子求净离子式。</p></div>
+      <div class="step"><div class="n">STEP 04</div><h4>确认上屏</h4><p>顶部显示「已配平」，撤销回到编辑态，确认后方程式直接上屏。</p></div>
+    </div>
+
+    <div class="shots" style="grid-template-columns:1.08fr .92fr">
+      <div class="shot"><img src="../docs/user-guide/assets/img15.jpg" alt="配平完成"></div>
+      <div class="shot"><img src="../docs/user-guide/assets/img13.jpg" alt="输入反应物"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">989</div><div class="k">配平反应库条目</div></div>
+      <div class="stat"><div class="v">594</div><div class="k">离子反应库条目</div></div>
+      <div class="stat"><div class="v">↑ ↓</div><div class="k">气体沉淀自动标注</div></div>
+    </div>
+
+    <div class="foot"><span><b>接化发 1.0.0</b> 更新介绍</span><span>02 / 06</span></div>
+  </div>
+</section>
+
+<!-- 03 中文键盘 -->
+<section class="poster" id="p3">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="head">
+      <div class="l"><span class="dot"></span><span>NEW / 02</span></div>
+      <div class="r">03 / 06</div>
+    </div>
+
+    <div class="top">
+      <div class="eyebrow">PINYIN ENGINE</div>
+      <h2>三种中文方案，<br>一个键盘</h2>
+      <p class="lead">工具条第 2 键即可在化学输入与普通输入间切换。全拼、双拼、九键，聊天与写作业都不必再换输入法。</p>
+    </div>
+
+    <div class="list">
+      <div class="item"><div class="idx">A</div><div><h4>普通 · 全拼</h4><p>标准 26 键布局，键面右上角标注常用标点，熟悉电脑键盘可直接上手。</p></div></div>
+      <div class="item"><div class="idx">B</div><div><h4>普通 · 九键</h4><p>26 个字母归入 8 个数字键，左侧标点列、右侧退格与上档，单手握持更快。</p></div></div>
+      <div class="item"><div class="idx">C</div><div><h4>普通 · 双拼</h4><p>声母与韵母各占一键，适合已经习惯双拼编码的用户。</p></div></div>
+    </div>
+
+    <div class="shots" style="grid-template-columns:1fr 1fr">
+      <div class="shot"><img src="../docs/user-guide/assets/img16.jpg" alt="全拼键盘"></div>
+      <div class="shot"><img src="../docs/user-guide/assets/img17.jpg" alt="九键键盘"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">1.17.0</div><div class="k">librime 内核</div></div>
+      <div class="stat"><div class="v">40 MB</div><div class="k">rime-ice 词库</div></div>
+      <div class="stat"><div class="v">0</div><div class="k">联网下载需求</div></div>
+    </div>
+
+    <div class="foot"><span><b>接化发 1.0.0</b> 更新介绍</span><span>03 / 06</span></div>
+  </div>
+</section>
+
+<!-- 04 键盘能力 -->
+<section class="poster" id="p4">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="head">
+      <div class="l"><span class="dot"></span><span>NEW / 03</span></div>
+      <div class="r">04 / 06</div>
+    </div>
+
+    <div class="top">
+      <div class="eyebrow">TOOLBAR &amp; CONTROL</div>
+      <h2>八键工具条，<br>全在指尖</h2>
+    </div>
+
+    <div class="shot fill"><img src="../docs/user-guide/assets/img12.jpg" alt="键盘与工具条"></div>
+
+    <div class="list">
+      <div class="item"><div class="idx">01</div><div><h4>品牌圆键 / 键盘模式 / 深浅切换</h4><p>回键盘首页或符号页；切换四种键盘类型；月亮与太阳一键换肤。</p></div></div>
+      <div class="item"><div class="idx">02</div><div><h4>悬浮键盘 / 键盘调节</h4><p>内嵌与可拖动悬浮窗切换；四边独立拖拽，重置、取消、保存均会生效。</p></div></div>
+      <div class="item"><div class="idx">03</div><div><h4>剪切板 / 切换输入法 / 收起</h4><p>本地历史最多 50 条，含 LaTeX 源码；切换输入法时键盘不收起。</p></div></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">8</div><div class="k">工具条按键</div></div>
+      <div class="stat"><div class="v">4 边</div><div class="k">独立尺寸调节</div></div>
+      <div class="stat"><div class="v">50 条</div><div class="k">本地剪贴板上限</div></div>
+    </div>
+
+    <div class="foot"><span><b>接化发 1.0.0</b> 更新介绍</span><span>04 / 06</span></div>
+  </div>
+</section>
+
+<!-- 05 优化改进 -->
+<section class="poster" id="p5">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="head">
+      <div class="l"><span class="dot"></span><span>IMPROVED</span></div>
+      <div class="r">05 / 06</div>
+    </div>
+
+    <div class="top">
+      <div class="eyebrow">REFINEMENT</div>
+      <h2>更好用的，<br>每一处</h2>
+    </div>
+
+    <div class="shots" style="grid-template-columns:1.15fr .85fr;margin-top:24px">
+      <div class="list" style="margin-top:0;justify-content:space-between;height:100%">
+        <div class="item"><div class="idx">A</div><div><h4>首页三段式</h4><p>应用信息、通用、键盘试用输入框三块卡片，深浅色同步换肤。</p></div></div>
+        <div class="item"><div class="idx">B</div><div><h4>键面三层信息</h4><p>主字符、角标、化学符号同键呈现；长按 5 形态气泡，滑动高亮松手输出。</p></div></div>
+        <div class="item"><div class="idx">C</div><div><h4>主题三态</h4><p>浅色、深色、跟随系统循环；深色纯黑底，OLED 更省电、夜间不刺眼。</p></div></div>
+        <div class="item"><div class="idx">D</div><div><h4>智能联想</h4><p>沉淀补 ↓、气体补 ↑，单元素追加常见离子，qq 等缩写直接给物质。</p></div></div>
+        <div class="item"><div class="idx">E</div><div><h4>工程与文档</h4><p>原生库归位 prebuilt，使用文档纳入仓库，README 与手册口径对齐。</p></div></div>
+      </div>
+      <div class="shot" style="height:auto;align-self:center"><img src="../docs/user-guide/assets/img09.jpg" alt="化学键盘深色" style="height:auto"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">3948</div><div class="k">化学词库条目</div></div>
+      <div class="stat"><div class="v">479</div><div class="k">多读音条目</div></div>
+      <div class="stat"><div class="v">117/117</div><div class="k">匹配自检通过</div></div>
+    </div>
+
+    <div class="foot"><span><b>接化发 1.0.0</b> 更新介绍</span><span>05 / 06</span></div>
+  </div>
+</section>
+
+<!-- 06 修复与升级 -->
+<section class="poster" id="p6">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="head">
+      <div class="l"><span class="dot"></span><span>FIXED &amp; CHANGED</span></div>
+      <div class="r">06 / 06</div>
+    </div>
+
+    <div class="top">
+      <div class="eyebrow">FIXES / BREAKING</div>
+      <h2>修好了，<br>也有几处变了</h2>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <h3>问题修复 / 10 项</h3>
+        <div class="fix"><i>01</i><span>调节态不再整块跳到屏幕上方</span></div>
+        <div class="fix"><i>02</i><span>调节拖动不再锁在顶部，按帧合并更跟手</span></div>
+        <div class="fix"><i>03</i><span>单边调节不再联动收窄，四边独立生效</span></div>
+        <div class="fix"><i>04</i><span>普通键盘按键文字不再整体消失</span></div>
+        <div class="fix"><i>05</i><span>候选栏副标题不再被裁切</span></div>
+        <div class="fix"><i>06</i><span>切换字母页、符号页不再上下抖动</span></div>
+        <div class="fix"><i>07</i><span>输入被打断后不再残留字符拼接</span></div>
+        <div class="fix"><i>08</i><span>九键选词后不再残留数字串</span></div>
+        <div class="fix"><i>09</i><span>Android 12 以下模糊动画可正确取消</span></div>
+        <div class="fix"><i>10</i><span>含电荷离子时的配平结果修正</span></div>
+      </div>
+
+      <div class="col">
+        <h3>升级前请注意</h3>
+        <div class="warn">
+          <div class="t">BREAKING 01</div>
+          <h4>主题配色入口移除</h4>
+          <p>AgBr、KMnO₄、CuCl₂、Fe₂O₃ 四套配色与壁纸取色不再提供，外观统一为浅色 / 深色 / 跟随系统三态。</p>
+        </div>
+        <div class="warn">
+          <div class="t">BREAKING 02</div>
+          <h4>键盘布局入口移除</h4>
+          <p>平铺、悬浮、分离的选择项取消，改由工具条第 4 键切换内嵌与悬浮，「分离」布局不再提供。</p>
+        </div>
+        <div class="warn">
+          <div class="t">BREAKING 03</div>
+          <h4>版本号跨越</h4>
+          <p>0.0.10（versionCode 10）升至 1.0.0（versionCode 20）。覆盖安装需同一签名，跨签名请先卸载。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats" style="margin-top:auto">
+      <div class="stat"><div class="v">20</div><div class="k">versionCode</div></div>
+      <div class="stat"><div class="v">989 + 594</div><div class="k">配平与离子反应库</div></div>
+      <div class="stat"><div class="v">0 项</div><div class="k">需联网的权限</div></div>
+    </div>
+
+    <div class="foot"><span><b>接化发 1.0.0</b> · 2026.11.09</span><span>06 / 06</span></div>
+  </div>
+</section>
+
+<script>
+  const p = new URLSearchParams(location.search).get('p');
+  if (p) {
+    document.querySelectorAll('.poster').forEach((el, i) => {
+      el.style.display = (String(i + 1) === p) ? 'flex' : 'none';
+    });
+    document.body.style.background = '#07090B';
+  } else {
+    document.querySelectorAll('.poster').forEach(el => { el.style.marginBottom = '28px'; });
+  }
+</script>
+</body>
+</html>
