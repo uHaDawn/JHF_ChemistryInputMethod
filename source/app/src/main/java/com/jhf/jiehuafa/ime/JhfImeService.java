@@ -1356,8 +1356,8 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
                 // 键盘底与卡片底的间距 = 键盘布局底部外边距（底部拖手拖出来的空白）
                 if (keyboard == null) return 0f;
                 ViewGroup.LayoutParams lp = keyboard.getLayoutParams();
-                return lp instanceof LinearLayout.LayoutParams
-                        ? ((LinearLayout.LayoutParams) lp).bottomMargin : 0f;
+                return lp instanceof ViewGroup.MarginLayoutParams
+                        ? ((ViewGroup.MarginLayoutParams) lp).bottomMargin : 0f;
             }
         });
         adjustOverlay.setVisibility(View.GONE);
@@ -2829,8 +2829,11 @@ public class JhfImeService extends InputMethodService implements ChemKeyboardVie
     private void applyUserBox(float left, float width, float height, float gapPx) {
         if (keyboard == null) return;
         keyboard.setUserBox(left, width, height);
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) keyboard.getLayoutParams();
-        if (lp == null) return;
+        // keyboard 自 2026-11-09 起包在 kbSlot（FrameLayout）里，LayoutParams 不再是 LinearLayout 的；
+        // 只改底部外边距，用两者共同的父类 MarginLayoutParams，避免启动即 ClassCastException。
+        ViewGroup.LayoutParams rawLp = keyboard.getLayoutParams();
+        if (!(rawLp instanceof ViewGroup.MarginLayoutParams)) return;
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) rawLp;
         int gap = Math.max(0, Math.round(gapPx));
         if (lp.bottomMargin != gap) {
             lp.bottomMargin = gap;

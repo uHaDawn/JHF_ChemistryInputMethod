@@ -20,7 +20,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -350,23 +349,6 @@ public class NormalCandPanel extends LinearLayout {
         return g;
     }
 
-    /**
-     * 词频/单字分段底板（2026-11-09 新配色）：按操作键处理——
-     * 键帽 #C9C9C9（深 #414141）+ 1dp 下描边（浅 黑 40% / 深 纯黑）。
-     * LayerDrawable 两层：下层整体下移 1dp 充当下描边，上层底边收 1dp 当键帽。
-     */
-    private Drawable segTrack() {
-        float r = 25 * dp();
-        int edgeColor = dark ? 0xFF000000 : 0x66000000;
-        LayerDrawable ld = new LayerDrawable(new Drawable[]{
-                new SmoothDrawable(edgeColor, r),
-                new SmoothDrawable(dark ? 0xFF414141 : 0xFFC9C9C9, r)});
-        int dy = Math.max(1, Math.round(dp()));
-        ld.setLayerInset(0, 0, dy, 0, 0);
-        ld.setLayerInset(1, 0, 0, 0, dy);
-        return ld;
-    }
-
     private void style() {
         // 2026-11-09 新配色：与键盘底板一致（浅 #E0E0E0 / 深 #252525）
         setBackgroundColor(dark ? 0xFF252525 : 0xFFE0E0E0);
@@ -380,7 +362,8 @@ public class NormalCandPanel extends LinearLayout {
         hideBg.setCornerRadius(23 * dp());
         hideChip.setColorFilter(dark ? 0xFFFFFFFF : 0xFF000000);
         hideChip.setBackground(hideBg);
-        segGroup.setBackground(segTrack());
+        // 分段底板：纯色胶囊，不再叠 1dp 深色下层（2026-11-11 去掉滑块背景胶囊的阴影）
+        segGroup.setBackground(round(dark ? 0xFF414141 : 0xFFC9C9C9, 25));
         styleTabs();
         // 主体卡片
         navBox.setBackground(round(dark ? 0xFF313131 : Color.WHITE, 10));
