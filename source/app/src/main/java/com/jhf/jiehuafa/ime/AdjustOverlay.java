@@ -158,6 +158,15 @@ public class AdjustOverlay extends View {
     }
 
     /**
+     * 圆钮等控件的绘制基准：按 402 设计宽等比缩放，但封顶为 1（2026-11-11）。
+     * 平板 / 横屏下浮层宽度可达设计宽的三倍，直接按 u() 绘制会把三颗圆钮放大到
+     * 直径两百多 dp，占满整个键盘；封顶后始终是设计稿的 76 圆。
+     */
+    private float unit() {
+        return Math.min(1f, u());
+    }
+
+    /**
      * 按 tempLeft / tempWidth / tempHeight 推出当前框。
      * 左缘 = 键盘视图左缘 + 左边界占比；上缘固定为键盘视图顶（键盘在卡片内按列排布，
      * 高度变化时顶不动、底伸缩），底 = 顶 + 标准高 × 高度比例。
@@ -194,22 +203,24 @@ public class AdjustOverlay extends View {
         drawHandle(c, box.right - hh / 2, box.centerY() - hw / 2, hh, hw, u);
 
         // 三颗 76 圆钮：设计稿 x 65 / 164 / 263（中心 103 / 202 / 301）、y 115
+        // 尺寸按设计基准封顶，按钮组按 402 设计宽在浮层内整体居中（2026-11-11）
+        float bu = unit();
         float cy = btnCy();
-        float r = 38 * u();
-        float[] cx = {103 * u(), 202 * u(), 301 * u()};
+        float r = 38 * bu;
+        float[] cx = {btnCx(0), btnCx(1), btnCx(2)};
         String[] labels = {"重置", "取消", "保存"};
         for (int i = 0; i < 3; i++) {
             fill.setColor(pressedBtn == i ? 0xFFD9D9D9 : Color.WHITE);
             c.drawCircle(cx[i], cy, r, fill);
         }
-        drawIcon(c, iconReset, cx[0], cy, 28 * u, 34 * u);
-        drawIcon(c, iconCancel, cx[1], cy, 26 * u, 26 * u);
-        drawIcon(c, iconSave, cx[2], cy, 34 * u, 21 * u);
+        drawIcon(c, iconReset, cx[0], cy, 28 * bu, 34 * bu);
+        drawIcon(c, iconCancel, cx[1], cy, 26 * bu, 26 * bu);
+        drawIcon(c, iconSave, cx[2], cy, 34 * bu, 21 * bu);
 
         // 标签 20px、圆钮下 7px（设计稿文字盒 80×30）
-        text.setTextSize(20 * u);
+        text.setTextSize(20 * bu);
         Paint.FontMetrics fm = text.getFontMetrics();
-        float labelCy = cy + r + 7 * u + 15 * u;
+        float labelCy = cy + r + 7 * bu + 15 * bu;
         for (int i = 0; i < 3; i++) {
             c.drawText(labels[i], cx[i], labelCy - (fm.ascent + fm.descent) / 2f, text);
         }
@@ -234,19 +245,21 @@ public class AdjustOverlay extends View {
     }
 
     private float btnCx(int i) {
-        return new float[]{103, 202, 301}[i] * u();
+        // 尺寸封顶后按钮组不再随浮层拉宽，按 402 设计宽整体居中
+        float bu = unit();
+        return (getWidth() - 402f * bu) / 2f + new float[]{103, 202, 301}[i] * bu;
     }
 
     private float btnCy() {
         // 设计稿圆钮中心 y = 153（相对 402×331 的卡顶）；键盘缩得很矮时压到卡片中部避免溢出
-        float y = 153 * u();
+        float y = 153 * unit();
         float h = getHeight();
         if (h > 0 && y > h * 0.5f) y = h * 0.5f;
         return y;
     }
 
     private int btnAt(float x, float y) {
-        float r = 44 * u();   // 38 圆 + 6 触控余量
+        float r = 44 * unit();   // 38 圆 + 6 触控余量
         for (int i = 0; i < 3; i++) {
             float dx = x - btnCx(i), dy = y - btnCy();
             if (dx * dx + dy * dy <= r * r) return i;

@@ -38,7 +38,7 @@ mkdir "%INT%\gen" "%INT%\classes" "%INT%\dex" 2>nul
 echo [1/7] aapt2 compile + link ...
 python "%ROOT%tools\patch_manifest.py" "%APP%\AndroidManifest.xml" "%INT%\AndroidManifest.xml" || goto :err
 "%BT%\aapt2.exe" compile --dir "%APP%\res" -o "%OUT%\res.zip" || goto :err
-"%BT%\aapt2.exe" link -o "%OUT%\unsigned.apk" -I "%AJAR%" --manifest "%INT%\AndroidManifest.xml" -A "%APP%\assets" --java "%INT%\gen" --min-sdk-version 24 --target-sdk-version 34 --version-code 20 --version-name 1.0.0 "%OUT%\res.zip" || goto :err
+"%BT%\aapt2.exe" link -o "%OUT%\unsigned.apk" -I "%AJAR%" --manifest "%INT%\AndroidManifest.xml" -A "%APP%\assets" --java "%INT%\gen" --min-sdk-version 24 --target-sdk-version 34 --version-code 21 --version-name 1.0.2 "%OUT%\res.zip" || goto :err
 
 echo [2/7] javac ...
 set SRCS=

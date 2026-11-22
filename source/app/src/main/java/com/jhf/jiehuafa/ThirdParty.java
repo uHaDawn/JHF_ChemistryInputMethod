@@ -44,7 +44,7 @@ public final class ThirdParty {
     /** 第三方许可清单（209-105）：每项可看许可证全文 + 项目地址。 */
     public static List<Item> licenses() {
         List<Item> list = new ArrayList<>();
-        list.add(new Item("接化发 · 化学输入法 v1.0.0", "哈潚",
+        list.add(new Item("接化发 · 化学输入法 v1.0.2", "哈潚",
                 "GNU GPL v3", "licenses/gpl-3.0.txt",
                 "https://github.com/uHaDawn/JHF_ChemistryInputMethod", "查看许可证全文"));
         list.add(new Item("CyIME（Xime 派生）v1.0", "Cyletix",

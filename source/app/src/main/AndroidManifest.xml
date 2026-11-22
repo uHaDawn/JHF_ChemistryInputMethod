@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionCode="20"
-    android:versionName="1.0.0">
+    android:versionCode="21"
+    android:versionName="1.0.2">
 
     <!-- 按键触感反馈（2026-10-26）：按键震动需要 VIBRATE 权限 -->
     <uses-permission android:name="android.permission.VIBRATE" />

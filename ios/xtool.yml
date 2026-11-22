@@ -1,0 +1,9 @@
+# xtool 工程描述（阶段 0 验证版）
+# 文档：https://xtool.sh/documentation/xtool/appex
+version: 1
+bundleID: com.jhf.jiehuafa
+product: JieHuaFaApp
+infoPath: JieHuaFaApp-Info.plist
+extensions:
+  - product: JieHuaFaKeyboard
+    infoPath: JieHuaFaKeyboard-Info.plist

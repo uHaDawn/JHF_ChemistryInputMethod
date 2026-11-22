@@ -217,6 +217,13 @@ import java.util.List;
  *              6 个图标统一按 20×20 同比绘制不变形，textGap 重新配平保持文字纵坐标不动。
  *   2026-11-09 自动模式开关的胶囊轨道关闭态与主页开关统一：浅色 #DDDDDD / 深色 #6E6E6E
  *              （原固定 #898989），开启态仍为 #2E73F3。
+ *   2026-11-22 平板专门适配（Figma 320_146 Frame 22 / 320_187 Frame 23，画板 1210×434）：
+ *              宽 ≥600dp 时自动启用：字母页固定左右分离（左簇 QWERT/ASDFG/⇧ZXCV、
+ *              右簇 YUIOP/HJKL/BNM⌫，中间留白约 31%），键高 69、字母 24sp、角标 10sp、
+ *              行距 16/18、左右 13 / 上 10 / 下 28，全部按 fsTab = 全宽/1210 等比；
+ *              普通模式「123」改为平板合并页（PAGE_TAB_NUM）：左分类卡 + 3×3 符号 + 空格
+ *              + 运算符卡 + 三列数字 + 删除/回车，四分类复用普通符号页数据；
+ *              平板专用页用全宽内容区（上限 1600dp），其余页仍限宽 640dp 居中。
  */
 public class ChemKeyboardView extends View {
 
@@ -352,8 +359,11 @@ public class ChemKeyboardView extends View {
 
     /* 页（2026-10-31 新增数字键盘页与工具栏页；数字页仅普通输入法有） */
     private static final int PAGE_LETTER = 0, PAGE_SYMBOL = 1, PAGE_NUMBER = 2, PAGE_TOOLBAR = 3;
+    /** 平板合并页（2026-11-22）：数字 + 符号同屏，宽 ≥600dp 时取代数字页。 */
+    public static final int PAGE_TAB_NUM = 4;
     /** pressedRow 标记：分类 tab / 数字页运算符卡 / 工具栏卡片（都不是普通按键行）。 */
-    private static final int ROW_TAB = -2, ROW_OPS = -3, ROW_CARD = -4, ROW_RAIL = -5;
+    private static final int ROW_TAB = -2, ROW_OPS = -3, ROW_CARD = -4, ROW_RAIL = -5,
+            ROW_TABNUM = -6;
 
     /** STYLE_CHIP = 底部三芯片行（2026-10-31）：圆角胶囊 + 12sp 灰字，单独绘制。 */
     private static final int STYLE_NORMAL = 0, STYLE_SPECIAL = 1, STYLE_ACCENT = 2, STYLE_PLAIN = 3,
@@ -376,6 +386,8 @@ public class ChemKeyboardView extends View {
         boolean spacer = false;
         /** 「自动模式」开关键（设计稿 267_316）：左侧两行小字 + 右侧蓝色胶囊开关，由绘制层特判。 */
         boolean switchToggle = false;
+        /** 平板设计稿逐键宽度与左间距（px@1210 画板，2026-11-22）；0 = 该行仍按权重均分。 */
+        float tabW, tabGap;
     }
 
     private static Key mk(String label, String swipe, String chem) {
@@ -590,6 +602,30 @@ public class ChemKeyboardView extends View {
      * 左簇 11→354 / 996、右簇 637→985 / 996，两簇各约 34.5%，中间留白约 31%）。
      */
     private static final float SPLIT_RATIO = 0.345f;
+    /**
+     * 键区内容最大宽度（dp，2026-11-11）：平板 / 横屏全屏平铺时可用宽度很大，
+     * 键宽若按权重一直铺满会被拉得极宽、键帽又宽又扁；超过该宽度后不再拉宽，
+     * 而是两侧留白居中，单键宽度与高度比例保持在可读范围内。
+     */
+    private static final float MAX_CONTENT_DP = 640f;
+    // ---- 平板专门适配（2026-11-22，Figma Frame 22 / 23，画板 1210×434）----
+    /** 是否平板宽度（可用宽度 ≥ 600dp）：平板放开内容宽上限并按 1210 基准等比铺满。 */
+    private boolean tablet = false;
+    /** 平板设计基准比例：contentW / 1210，键高 69、字母 24sp、角标 10sp、行距 16/18 都乘它。 */
+    private float fsTab = 1f;
+    /** 平板专用页的内容宽与左偏移（全宽，上限 1600dp）；其余页仍限宽 640dp 居中。 */
+    private float tabContentW = 0f, tabContentLeft = 0f;
+    /** 平板分离式字母页：左簇 / 右簇（普通输入与化学输入各一套，左右共用同一 Key 对象）。 */
+    /** 平板分离式字母页：左簇 / 右簇（普通输入）。 */
+    private final List<List<Key>> tabLeftRows = new ArrayList<>();
+    private final List<List<Key>> tabRightRows = new ArrayList<>();
+    private final List<List<Key>> tabSplitRows = new ArrayList<>();
+    /** 平板分离式字母页：左簇 / 右簇（化学输入）。 */
+    private final List<List<Key>> tabLeftRowsChem = new ArrayList<>();
+    private final List<List<Key>> tabRightRowsChem = new ArrayList<>();
+    private final List<List<Key>> tabSplitRowsChem = new ArrayList<>();
+    /** 平板合并页（数字 + 符号）：左分类下标、运算符列与数字键列都由绘制代码按设计稿排。 */
+    private int tabCat = 0;
     private boolean swipeFired = false, longPressDone = false;
     private String bubbleChar = null;
     private final Handler handler = new Handler(Looper.getMainLooper());
@@ -935,6 +971,7 @@ public class ChemKeyboardView extends View {
         buildNormalLetterRows();
         buildT9Rows();
         buildSplitRows();
+        buildTabletSplitRows();
         buildSymbolCats();
         buildNormalSymbolCats();
         buildNumberRows();
@@ -983,6 +1020,100 @@ public class ChemKeyboardView extends View {
     private static Key keyOf(List<Key> keys, String label) {
         for (Key k : keys) if (label.equals(k.label)) return k;
         return null;
+    }
+
+    /**
+     * 平板分离式字母页（Figma 320_146 / Frame 22，1210×434 画板）：
+     * 第一排 Q W E R T ｜ Y U I O P、第二排 A S D F G ｜ H J K L、
+     * 第三排 ⇧ Z X C V ｜ B N M ⌫；功能行左「拼｜英 · ，。 · 空格」、右「空格 · 123 · 回车」
+     * （化学输入按同一规则拆现有 letterRows：左「拼｜素 · 开关 · 空格」、右「空格 · 发送」）。
+     * 两簇共用同一批 Key 对象，空格键在左右各出现一次。
+     */
+    private void buildTabletSplitRows() {
+        buildTabletSplit(tabLeftRows, tabRightRows, tabSplitRows, normalLetterRows);
+        buildTabletSplit(tabLeftRowsChem, tabRightRowsChem, tabSplitRowsChem, letterRows);
+        applyTabletMetrics();
+    }
+
+    /**
+     * 平板普通字母页功能行键宽（px@1210 画板，2026-11-22，Figma 320_146）。
+     * 三排字母键统一 67 宽 / 17 间距，由 keyRectRaw 计算，不在此逐键赋值。
+     */
+    private void applyTabletMetrics() {
+        // 功能行：拼｜英 165 · ， 73 · 空格 167 ｜ 空格 165 · 123 100 · 回车 139，间距统一 20
+        if (tabSplitRows.size() > 3) {
+            float[] fw = {165, 73, 167, 165, 100, 139};
+            List<Key> row = tabSplitRows.get(3);
+            for (int j = 0; j < row.size() && j < fw.length; j++) {
+                row.get(j).tabW = fw[j];
+            }
+        }
+    }
+
+    /** 平板字母行单键宽：字母统一 67，第三排 ⇧ 96 / ⌫ 98（设计稿 320_146）。 */
+    private float tabLetterKeyW(int row, boolean inLeft, int idx, int count) {
+        if (row == 2) {
+            if (inLeft && idx == 0) return 96 * fsTab;
+            if (!inLeft && idx == count - 1) return 98 * fsTab;
+        }
+        return 67 * fsTab;
+    }
+
+    private void buildTabletSplit(List<List<Key>> leftAll, List<List<Key>> rightAll,
+                                  List<List<Key>> merged, List<List<Key>> src) {
+        leftAll.clear();
+        rightAll.clear();
+        merged.clear();
+        if (src == null || src.size() < 4) return;
+
+        for (int r = 0; r < 3; r++) {
+            List<Key> letters = new ArrayList<>();
+            for (Key k : src.get(r)) if (k != null && !k.spacer) letters.add(k);
+            int n = letters.size();
+            // 按设计稿（320_146）：每簇固定 5 键、字母键等宽；
+            // 第一排 QWERT｜YUIOP（10 键不重叠），第二排 ASDFG｜GHJKL、第三排 ⇧ZXCV｜VBNM⌫
+            // （9 键时中间的 G / V 左右两簇都有，右簇从下标 4 开始）
+            int cut, rightStart;
+            if (n >= 10) {
+                cut = 5;
+                rightStart = 5;
+            } else if (n == 9) {
+                cut = 5;
+                rightStart = 4;
+            } else {
+                cut = (n + 1) / 2;
+                rightStart = cut;
+            }
+            leftAll.add(new ArrayList<>(letters.subList(0, Math.min(cut, n))));
+            rightAll.add(new ArrayList<>(letters.subList(Math.min(rightStart, n), n)));
+        }
+
+        // 功能行：左 = 前两颗功能键 + 空格；右 = 空格 + 其余键
+        List<Key> f = new ArrayList<>();
+        for (Key k : src.get(3)) if (k != null && !k.spacer) f.add(k);
+        Key space = null;
+        for (Key k : f) if (k.action == ACT_SPACE) { space = k; break; }
+        List<Key> lf = new ArrayList<>();
+        List<Key> rf = new ArrayList<>();
+        if (space != null) {
+            lf.add(f.get(0));
+            if (f.size() > 1) lf.add(f.get(1));
+            lf.add(space);
+            rf.add(space);
+            for (int i = 2; i < f.size(); i++) if (f.get(i) != space) rf.add(f.get(i));
+        } else {
+            int mid = f.size() / 2;
+            lf.addAll(f.subList(0, mid));
+            rf.addAll(f.subList(mid, f.size()));
+        }
+        leftAll.add(lf);
+        rightAll.add(rf);
+
+        for (int i = 0; i < leftAll.size(); i++) {
+            List<Key> both = new ArrayList<>(leftAll.get(i));
+            both.addAll(rightAll.get(i));
+            merged.add(both);
+        }
     }
 
     private static Key keyOfAction(List<Key> keys, int action) {
@@ -1385,8 +1516,8 @@ public class ChemKeyboardView extends View {
 
     /** 切页（2026-10-31）：数字页仅普通输入法可进入，切页后立即重排并通知服务侧。 */
     public void setPage(int p) {
-        if (p == PAGE_NUMBER && mode != MODE_NORMAL) p = PAGE_LETTER;
-        if (p < PAGE_LETTER || p > PAGE_TOOLBAR) p = PAGE_LETTER;
+        if ((p == PAGE_NUMBER || p == PAGE_TAB_NUM) && mode != MODE_NORMAL) p = PAGE_LETTER;
+        if (p < PAGE_LETTER || p > PAGE_TAB_NUM) p = PAGE_LETTER;
         if (page == p) return;
         page = p;
         if (page == PAGE_SYMBOL) {
@@ -1408,7 +1539,7 @@ public class ChemKeyboardView extends View {
 
     /** 当前是否数字页（2026-11-07 供输入法判断数字键直接上屏，不走九键 T9）。 */
     public boolean isNumberPage() {
-        return page == PAGE_NUMBER;
+        return page == PAGE_NUMBER || page == PAGE_TAB_NUM;
     }
 
     /** 当前页是否不是字母页（候选栏左芯片在这些页显示「返回」）。 */
@@ -1565,7 +1696,9 @@ public class ChemKeyboardView extends View {
             case PAGE_TOOLBAR:
                 return toolbarRows.get(row);
             default:
-                if (splitActive() && row < splitRows.size()) return splitRows.get(row);
+                if (splitActive() && row < activeSplitRows().size()) {
+                    return activeSplitRows().get(row);
+                }
                 return currentLetterRows().get(row);
         }
     }
@@ -1580,6 +1713,7 @@ public class ChemKeyboardView extends View {
         if (isChipRow(row)) return imeH;
         if (page == PAGE_NUMBER) return keyH * keyScale;
         if (page == PAGE_TOOLBAR) return 102f * fsV;  // 216-726：两行 102 高卡片
+        if (tabletLetter()) return 69f * fsTab;       // 平板 1210 画板：键高 69
         return rowKeys(row).get(0).style == STYLE_PLAIN ? imeH : keyH * keyScale;
     }
 
@@ -1596,11 +1730,13 @@ public class ChemKeyboardView extends View {
         if (page == PAGE_TOOLBAR) return 15f * fsV;   // 216-726：上边距 15
         if (page == PAGE_SYMBOL) return 11f * fsV;
         if (page == PAGE_LETTER && isT9()) return 11f * fsV;   // 225_2 surface padding-top 11
+        if (tabletLetter()) return 10f * fsTab;       // 平板 1210 画板：上边距 10
         return 8f * fsV + reactionBarH();
     }
 
     private float padBottomPx() {
         // 悬浮岛删除后底部留白按 216-207 的设计值 13（原来 11 是给芯片行贴底用的）
+        if (tabletLetter()) return 28f * fsTab;       // 平板 1210 画板：下边距 28
         return 13f * fsV;
     }
 
@@ -1618,6 +1754,7 @@ public class ChemKeyboardView extends View {
                 // 225_2：行 y 61 / 118 / 176 / 233 / 291 → 行距 11 / 12 / 11 / 12
                 return ((row == 1 || row == 3) ? 11f : 12f) * fsV;
             }
+            if (tabletLetter()) return (row == 1 ? 16f : 18f) * fsTab;  // 平板 1210 画板
             return (row == 1 ? 11f : 12f) * fsV;   // 175-618 / 177-751：A 行 +11，其余 +12
         }
         return vGap;
@@ -1721,15 +1858,33 @@ public class ChemKeyboardView extends View {
         return contentW;
     }
 
-    /** 分体布局是否生效：仅化学模式的字母页、且键区足够宽。 */
+    /** 分体布局是否生效：化学模式（分离设置）或平板（≥600dp，自动分离）。 */
     private boolean splitActive() {
+        if (page != PAGE_LETTER || isT9() || chemAutoMode) return false;
+        if (tablet) return true;
         return layoutMode == LAYOUT_SPLIT && mode == MODE_CHEM
-                && page == PAGE_LETTER && contentW >= 560 * d;
+                && contentW >= 560 * d;
+    }
+
+    /** 当前生效的分离行 / 左簇 / 右簇（平板按输入模式取各自的一套）。 */
+    private List<List<Key>> activeSplitRows() {
+        if (tablet) return mode == MODE_NORMAL ? tabSplitRows : tabSplitRowsChem;
+        return splitRows;
+    }
+
+    private List<List<Key>> activeSplitLeft() {
+        if (tablet) return mode == MODE_NORMAL ? tabLeftRows : tabLeftRowsChem;
+        return splitLeftRows;
+    }
+
+    private List<List<Key>> activeSplitRight() {
+        if (tablet) return mode == MODE_NORMAL ? tabRightRows : tabRightRowsChem;
+        return splitRightRows;
     }
 
     /** 该行是否要在中间断开（功能行跟随断开，底部芯片行不断）。 */
     private boolean isSplitRow(int row) {
-        return splitActive() && row < splitRows.size();
+        return splitActive() && row < activeSplitRows().size();
     }
 
     /**
@@ -1737,12 +1892,32 @@ public class ChemKeyboardView extends View {
      * 三种模式都按自身可用宽度铺满：铺满/断开用整屏，浮窗用服务侧卡片的宽度。
      */
     private void computeContent(int w) {
-        contentW = w * userWidth;
-        contentLeft = w * userLeft;
+        // 平板 / 横屏平铺：可用宽度很大时限制内容区最大宽度并居中（2026-11-11），
+        // 避免每个键被横向拉得极宽；键盘调节收窄过的用户框内同样按居中处理。
+        // 2026-11-22 平板（≥600dp）：另算一套全宽内容区给「分离字母页 / 合并页」，
+        // 其余页仍限宽 640dp 居中，避免符号页、工具栏等按 402 设计基准被横向拉扁。
+        tablet = w >= 600 * d;
+        float want = w * userWidth;
+        float actual = Math.min(want, MAX_CONTENT_DP * d);
+        contentW = actual;
+        contentLeft = w * userLeft + (want - actual) / 2f;
+        tabContentW = Math.min(want, 1600f * d);
+        tabContentLeft = w * userLeft + (want - tabContentW) / 2f;
+        fsTab = Math.max(0.01f, tabContentW / 1210f);
         // 配平态反应栏按 402 设计宽等比缩放，且不超过常规设计单位，窄屏上也不会溢出
-        uDesign = Math.min(fs, w / 402f);
-        // 大屏按键略微放大，避免键面「矮胖」
-        keyScale = (layoutMode != LAYOUT_FULL && w > 560 * d) ? 1.12f : 1f;
+        uDesign = Math.min(fs, contentW / 402f);
+        // 大屏按键略微加高，避免键面「矮胖」；平铺 / 浮窗 / 分体一致适用
+        keyScale = w > 560 * d ? 1.12f : 1f;
+    }
+
+    /** 平板分离式字母页是否生效（平板 · 字母页 · 非九键）。 */
+    private boolean tabletLetter() {
+        return tablet && page == PAGE_LETTER && !isT9();
+    }
+
+    /** 平板字母页的左右内边距（设计稿 13）；其余页沿用常规 padH。 */
+    private float tabPadH() {
+        return tabletLetter() ? 13f * fsTab : padH;
     }
 
     /** 所有横向排布矩形统一右移 contentLeft（键盘调节收窄后内容居中）。 */
@@ -1754,6 +1929,8 @@ public class ChemKeyboardView extends View {
 
     /** 当前页内容总高（上内边距 + 各行高 + 行距 + 下内边距）。 */
     private float contentHeight() {
+        // 平板合并页自绘（12 上 + 328 键区 + 26 下 = 366，与平板字母页等高）
+        if (page == PAGE_TAB_NUM) return 366f * fsTab;
         float h = padTopPx() + padBottomPx();
         for (int r = 0; r < rowCount(); r++) h += rowH(r) + rowGap(r);
         return h;
@@ -1768,7 +1945,7 @@ public class ChemKeyboardView extends View {
     private float uniformKeyboardH() {
         int saved = page;
         float h = 0f;
-        int[] pages = {PAGE_LETTER, PAGE_SYMBOL, PAGE_NUMBER, PAGE_TOOLBAR};
+        int[] pages = {PAGE_LETTER, PAGE_SYMBOL, PAGE_NUMBER, PAGE_TOOLBAR, PAGE_TAB_NUM};
         for (int p : pages) {
             page = p;
             h = Math.max(h, contentHeight());
@@ -1835,14 +2012,71 @@ public class ChemKeyboardView extends View {
 
         // 左右断开：本行按参考图分左右两套按键，两簇各占 34.5%，中间留握持白
         if (isSplitRow(row)) {
-            List<Key> left = splitLeftRows.get(row), right = splitRightRows.get(row);
-            float clusterW = (contentW - 2 * padH) * SPLIT_RATIO;
-            if (col < left.size()) {
-                return keyRectIn(left, col, padH,
-                        clusterW - (left.size() - 1) * gap, y, rh, gap);
+            List<Key> left = activeSplitLeft().get(row), right = activeSplitRight().get(row);
+            // 平板分离页用全宽内容区，其余（化学分离设置）沿用常规内容区
+            boolean tab = tabletLetter();
+            float cw = tab ? tabContentW : contentW;
+            float shift = tab ? (tabContentLeft - contentLeft) : 0f;
+            // 平板普通字母页：字母键等宽等间距（67 / 17），三排按设计稿各自左右缩进，
+            // Q 与 ⇧ 左对齐，A 行整体内缩 27（右缘内缩 31），所以三排并不逐列对齐
+            if (tab && mode == MODE_NORMAL && !left.isEmpty()) {
+                boolean inLeft = col < left.size();
+                List<Key> keys = inLeft ? left : right;
+                int i = inLeft ? col : col - left.size();
+                float x, kw;
+                if (row < 3) {
+                    // 字母键统一 67 宽、间距 17；第三排 ⇧ 96 / ⌫ 98（操作键略宽）
+                    float kg = 17 * fsTab;
+                    float lIn = (row == 1 ? 27 : row == 0 ? 0 : 1) * fsTab;
+                    float rIn = (row == 1 ? 31 : row == 0 ? 0 : 1) * fsTab;
+                    float clusterW = 0f;
+                    for (int j = 0; j < keys.size(); j++) {
+                        clusterW += tabLetterKeyW(row, inLeft, j, keys.size());
+                    }
+                    clusterW += (keys.size() - 1) * kg;
+                    x = inLeft ? tabPadH() + lIn : cw - tabPadH() - rIn - clusterW;
+                    kw = 67 * fsTab;
+                    for (int j = 0; j < keys.size(); j++) {
+                        float wj = tabLetterKeyW(row, inLeft, j, keys.size());
+                        if (j == i) {
+                            kw = wj;
+                            break;
+                        }
+                        x += wj + kg;
+                    }
+                } else {
+                    // 功能行与第三排同网格：左簇与 ⇧ 行同起止、右簇与 ⌫ 行同起止，
+                    // 空格键边缘与上方字母键对齐；键间距与字母行一致（17），
+                    // 各键按设计稿宽度比例（拼｜英165 / ，73 / 空格167 / 123100 / 回车139）分配簇宽
+                    float kg = 17 * fsTab;
+                    float leftW = tabLetterKeyW(2, true, 0, 5) + 4 * 67 * fsTab + 4 * kg;
+                    float rightW = 4 * 67 * fsTab + tabLetterKeyW(2, false, 4, 5) + 4 * kg;
+                    float total = inLeft ? leftW : rightW;
+                    x = inLeft ? tabPadH() + 1 * fsTab : cw - tabPadH() - 1 * fsTab - total;
+                    float avail = total - (keys.size() - 1) * kg;
+                    float sumW = 0f;
+                    for (Key k : keys) sumW += k.tabW;
+                    kw = 0f;
+                    for (int j = 0; j < keys.size(); j++) {
+                        float wj = sumW > 0 ? avail * (keys.get(j).tabW / sumW) : avail / keys.size();
+                        if (j == i) {
+                            kw = wj;
+                            break;
+                        }
+                        x += wj + kg;
+                    }
+                }
+                // shiftX 外层会再加 contentLeft，这里只补平板全宽区与常规区的左偏移差
+                return new float[]{shift + x, y, shift + x + kw, y + rh};
             }
-            return keyRectIn(right, col - left.size(), contentW - padH - clusterW,
-                    clusterW - (right.size() - 1) * gap, y, rh, gap);
+            float clusterW = (cw - 2 * tabPadH()) * SPLIT_RATIO;
+            float cGap = tab ? 17f * fsTab : gap;
+            if (col < left.size()) {
+                return keyRectIn(left, col, tabPadH() + shift,
+                        clusterW - (left.size() - 1) * cGap, y, rh, cGap);
+            }
+            return keyRectIn(right, col - left.size(), cw - tabPadH() - clusterW + shift,
+                    clusterW - (right.size() - 1) * cGap, y, rh, cGap);
         }
 
         float left, right, hGap;
@@ -2422,6 +2656,10 @@ public class ChemKeyboardView extends View {
     protected void onDraw(Canvas c) {
         super.onDraw(c);
         int w = getWidth();
+        if (page == PAGE_TAB_NUM) {
+            drawTabNum(c, w);
+            return;
+        }
         if (page == PAGE_LETTER && mode == MODE_CHEM && chemAutoMode) drawReactionBar(c, w);
         if (page == PAGE_SYMBOL) drawCategoryTabs(c);
         if (page == PAGE_NUMBER) drawOpsCard(c);
@@ -2477,8 +2715,10 @@ public class ChemKeyboardView extends View {
                         && key.label != null && key.label.length() == 1
                         && isAsciiLetter(key.label.charAt(0));
                 // 字号整体上调（客户意见 7：设计稿里键字与功能字明显更大）
-                // 按新版 Figma：字母 20sp、功能 18sp
-                if (key.textSize > 0) {
+                // 按新版 Figma：字母 20sp、功能 18sp；平板 1210 画板：字母与功能字 24、逗号 20
+                if (tabletLetter()) {
+                    textPaint.setTextSize((key.stackChem ? 20 : 24) * fsTab);
+                } else if (key.textSize > 0) {
                     textPaint.setTextSize(key.textSize * fsText);
                 } else {
                     // 187-1873/188-2117：符号页空格字 17sp，其余功能字 18sp、字母 20sp
@@ -2505,8 +2745,13 @@ public class ChemKeyboardView extends View {
                 } else if (key.action == ACT_BACK) {
                     // 删除键：客户 2026-10-25 提供的 SVG，按主题文字色着色（九键 16×14，其余 20×13）
                     boolean t9 = page == PAGE_LETTER && isT9();
-                    drawBitmapIcon(c, backspaceIcon, cx, cy,
-                            (t9 ? 16 : 20) * d, (t9 ? 14 : 13) * d, tc);
+                    if (tabletLetter()) {
+                        // 平板 1210 画板：删除图标约 26×16（保持 ic_backspace 21×13 同比）
+                        drawBitmapIcon(c, backspaceIcon, cx, cy, 26 * fsTab, 16 * fsTab, tc);
+                    } else {
+                        drawBitmapIcon(c, backspaceIcon, cx, cy,
+                                (t9 ? 16 : 20) * d, (t9 ? 14 : 13) * d, tc);
+                    }
                 } else if (key.action == ACT_ENTER || key.action == ACT_SEND_EQ) {
                     if (key.label != null && key.label.startsWith("发送")) {
                         // 发送键（手动模式 ACT_ENTER / 自动模式 ACT_SEND_EQ）：
@@ -2514,10 +2759,15 @@ public class ChemKeyboardView extends View {
                         // label 仍保留「发送」作为语义标识。
                         drawBitmapIcon(c, enterSendIcon, cx, cy, 24 * d, 17 * d, Color.WHITE);
                     } else {
-                        // 回车键：强调色键上用白色（九键 26×17，其余 24×17）
+                        // 回车键：强调色键上用白色（九键 26×17，其余 24×17；平板 32×26）
                         boolean t9 = page == PAGE_LETTER && isT9();
-                        drawBitmapIcon(c, enterIcon, cx, cy,
-                                (t9 ? 26 : 24) * d, 17 * d, Color.WHITE);
+                        if (tabletLetter()) {
+                            // 平板 1210 画板：回车图标约 30×21（保持 ic_enter 24×17 同比）
+                            drawBitmapIcon(c, enterIcon, cx, cy, 30 * fsTab, 21 * fsTab, Color.WHITE);
+                        } else {
+                            drawBitmapIcon(c, enterIcon, cx, cy,
+                                    (t9 ? 26 : 24) * d, 17 * d, Color.WHITE);
+                        }
                     }
                 } else if (key.action == ACT_HIDE) {
                     // 九键右上角「收起键盘」图标（225_2：19×13）
@@ -2532,7 +2782,8 @@ public class ChemKeyboardView extends View {
                     String bar = String.valueOf(key.label.charAt(1));
                     String b = String.valueOf(key.label.charAt(2));
                     textPaint.setTextAlign(Paint.Align.LEFT);
-                    textPaint.setTextSize((key.textSize > 0 ? key.textSize : 18) * fsText);
+                    textPaint.setTextSize((tabletLetter() ? 24
+                            : (key.textSize > 0 ? key.textSize : 18)) * (tabletLetter() ? fsTab : fsText));
                     fm = textPaint.getFontMetrics();
                     float base = cy - (fm.ascent + fm.descent) / 2;
                     float w0 = textPaint.measureText(a);
@@ -2555,27 +2806,31 @@ public class ChemKeyboardView extends View {
                 if (key.stackChem) {
                     // 「，/。」键：句号与逗号同一纵轴、居其下方（设计稿 52218da0 底部功能行）
                     if (key.chem != null && !key.chem.isEmpty()) {
-                        chemPaint.setTextSize(10 * fsText);
+                        chemPaint.setTextSize((tabletLetter() ? 20 * fsTab : 10 * fsText));
                         chemPaint.setTextAlign(Paint.Align.LEFT);
                         Paint.FontMetrics cfm = chemPaint.getFontMetrics();
                         c.drawText(key.chem, cx - punctInkCx(chemPaint, key.chem),
-                                cy + 9 * fsV - (cfm.ascent + cfm.descent) / 2, chemPaint);
+                                cy + (tabletLetter() ? 11 * fsTab : 9 * fsV)
+                                        - (cfm.ascent + cfm.descent) / 2, chemPaint);
                         chemPaint.setTextAlign(Paint.Align.RIGHT);
                     }
                 } else if (normalLetterKey) {
                     // 普通键盘（177-751）：右上角只有一个小字（数字/符号），无右下角标
-                    hintPaint.setTextSize(10 * fsText);
+                    // 平板 1210 画板：角标 10、距右 8、距顶 19
+                    hintPaint.setTextSize((tabletLetter() ? 10 * fsTab : 10 * fsText));
                     if (key.alt != null && !key.alt.isEmpty()) {
-                        c.drawText(key.alt, f[2] - 3 * fs, f[1] + 14 * fsV, hintPaint);
+                        c.drawText(key.alt, f[2] - (tabletLetter() ? 8 * fsTab : 3 * fs),
+                                f[1] + (tabletLetter() ? 19 * fsTab : 14 * fsV), hintPaint);
                     }
                 } else if (letterKey) {
                     // 化学键盘：右上=长按可得的形态（alt 优先）；右下=上滑输出的化学符号（主题色）
-                    hintPaint.setTextSize(10 * fsText);
+                    hintPaint.setTextSize((tabletLetter() ? 10 * fsTab : 10 * fsText));
                     String hint = (key.alt != null && !key.alt.isEmpty()) ? key.alt : key.swipe;
                     if (hint != null && !hint.isEmpty()) {
-                        c.drawText(hint, f[2] - 3 * fs, f[1] + 14 * fsV, hintPaint);
+                        c.drawText(hint, f[2] - (tabletLetter() ? 8 * fsTab : 3 * fs),
+                                f[1] + (tabletLetter() ? 19 * fsTab : 14 * fsV), hintPaint);
                     }
-                    chemPaint.setTextSize(10 * fsText);
+                    chemPaint.setTextSize((tabletLetter() ? 10 * fsTab : 10 * fsText));
                     if (key.chem != null && !key.chem.isEmpty()) {
                         c.drawText(key.chem, f[2] - 4 * fs, f[3] - 5 * fsV, chemPaint);
                     }
@@ -2708,6 +2963,236 @@ public class ChemKeyboardView extends View {
         float x = x0 + (i % 3) * (cardW + gapX);
         float y = rowTop(0) + (i / 3) * (102f + 8f) * fsV;
         return new float[]{x, y, x + cardW, y + 102f * fsV};
+    }
+
+    /**
+     * 平板合并页（2026-11-22，Figma 320_187 / Frame 23，1210×434 画板）：
+     * 从左到右＝分类卡（常用/中文/英文/其他）· 3×3 符号网格 + 空格 · 运算符卡（+ - × ÷ = %）
+     * · 三列数字（1 4 7 / 2 5 8 0 / 3 6 9 .）· 删除 + 回车。
+     * 所有尺寸以 69 键高为基准、乘 fsTab 等比缩放；总高与其他页一致（366）。
+     */
+    private static final class TabCell {
+        float l, t, r, b;
+        String label;
+        int action;      // 0 = 直接上屏 label
+        int style;       // STYLE_NORMAL / STYLE_SPECIAL / STYLE_ACCENT
+        int catIdx = -1; // ≥0 表示分类项（点它只切分类，不上屏）
+        int glyph;       // 1 = 删除图标、2 = 回车图标
+    }
+
+    private List<TabCell> tabNumCells() {
+        List<TabCell> out = new ArrayList<>();
+        float kh = 69 * fsTab;
+        float h = getHeight() > 0 ? getHeight() : 366 * fsTab;
+        float top = 12 * fsTab + topExtraPx();
+        float bottom = h - 26 * fsTab;
+        float left = tabContentLeft + 13 * fsTab;
+        float right = tabContentLeft + tabContentW - 13 * fsTab;
+        float contentH = bottom - top;
+
+        // 分类卡
+        float catW = 171 * fsTab;
+        float catBottom = top + contentH;
+        TabCell catCard = new TabCell();
+        catCard.l = left; catCard.t = top; catCard.r = left + catW; catCard.b = catBottom;
+        catCard.catIdx = -2;   // -2 = 卡片底（不可点）
+        out.add(catCard);
+
+        // 符号网格
+        float opsW = 112 * fsTab, numW = 89 * fsTab, numGap = 13 * fsTab, delW = 89 * fsTab;
+        float fixed = (15 + 40 + 112 + 15 + 3 * 89 + 2 * 13 + 14 + 89) * fsTab;
+        float symX = left + catW + 15 * fsTab;
+        // 符号区吃满剩余宽度，右侧各列固定 89/112/89，末尾回到 right（右边距 13）
+        float symW = Math.max(180 * fsTab, right - symX - fixed + 15 * fsTab - 13 * fsTab);
+        float sGap = 18 * fsTab;
+        float[] symRowY = {
+                top,
+                top + kh + 16 * fsTab,
+                top + (kh + 16 * fsTab) + kh + 18 * fsTab,
+                top + 3 * kh + 34 * fsTab + 18 * fsTab
+        };
+        float cellW = (symW - 2 * sGap) / 3f;
+        List<List<Key>> cat = normalSymCats.get(Math.max(0, Math.min(tabCat, normalSymCats.size() - 1)));
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                TabCell cell = new TabCell();
+                cell.l = symX + c * (cellW + sGap);
+                cell.t = symRowY[r];
+                cell.r = cell.l + cellW;
+                cell.b = cell.t + kh;
+                cell.style = STYLE_NORMAL;
+                try {
+                    cell.label = cat.get(r).get(c).label;
+                } catch (Exception e) {
+                    cell.label = "";
+                }
+                out.add(cell);
+            }
+        }
+        // 空格（跨三列）
+        TabCell space = new TabCell();
+        space.l = symX; space.t = symRowY[3]; space.r = symX + symW; space.b = symRowY[3] + kh;
+        space.label = "空格";
+        space.action = ACT_SPACE;
+        space.style = STYLE_NORMAL;
+        out.add(space);
+
+        // 运算符卡
+        float opsX = symX + symW + 40 * fsTab;
+        TabCell opsCard = new TabCell();
+        opsCard.l = opsX; opsCard.t = top; opsCard.r = opsX + opsW; opsCard.b = catBottom;
+        opsCard.catIdx = -2;
+        out.add(opsCard);
+        String[] ops = {"+", "-", "×", "÷", "=", "%"};
+        float itemH = 36 * fsTab;
+        for (int i = 0; i < ops.length; i++) {
+            TabCell cell = new TabCell();
+            float cy = top + (10 + 18) * fsTab + i * (itemH + 16 * fsTab);
+            cell.l = opsX; cell.t = cy - itemH / 2; cell.r = opsX + opsW; cell.b = cy + itemH / 2;
+            cell.label = ops[i];
+            cell.style = STYLE_NORMAL;
+            out.add(cell);
+        }
+
+        // 三列数字（列主序：1 4 7 / 2 5 8 0 / 3 6 9 .）
+        float numX = opsX + opsW + 15 * fsTab;
+        String[][] nums = {{"1", "4", "7"}, {"2", "5", "8", "0"}, {"3", "6", "9", "."}};
+        for (int c = 0; c < 3; c++) {
+            for (int r = 0; r < 4; r++) {
+                TabCell cell = new TabCell();
+                float x = numX + c * (numW + numGap);
+                // 行距：1→4 +16、4→7 +18、7→0 +18（列内四行与设计稿 16/18/18 对齐）
+                float gaps = r == 1 ? 16 * fsTab : r == 2 ? 34 * fsTab : r == 3 ? 52 * fsTab : 0f;
+                float y = top + r * kh + gaps;
+                cell.l = x; cell.t = y; cell.r = x + numW; cell.b = y + kh;
+                cell.label = r < nums[c].length ? nums[c][r] : "";
+                cell.style = STYLE_NORMAL;
+                out.add(cell);
+            }
+        }
+
+        // 删除列：删除（高 239）+ 回车（69）
+        float delX = numX + 3 * (numW + numGap) - numGap + 14 * fsTab;
+        TabCell del = new TabCell();
+        del.l = delX; del.t = top; del.r = delX + delW; del.b = top + (contentH - kh - 20 * fsTab);
+        del.action = ACT_BACK;
+        del.style = STYLE_SPECIAL;
+        del.glyph = 1;
+        out.add(del);
+        TabCell enter = new TabCell();
+        enter.l = delX; enter.t = bottom - kh; enter.r = delX + delW; enter.b = bottom;
+        enter.action = ACT_ENTER;
+        enter.style = STYLE_ACCENT;
+        enter.glyph = 2;
+        out.add(enter);
+        return out;
+    }
+
+    private void drawTabNum(Canvas c, int w) {
+        List<TabCell> cells = tabNumCells();
+        float catW = 171 * fsTab;
+        float cardRadius = 10 * fsTab;
+        float keyRadius = 6 * fsTab;
+        letterShadow.setColor(darkMode ? 0xFF000000 : 0x33000000);
+        int fg = labelColor;
+
+        // 两张白卡（分类 / 运算符）先画底与影
+        for (TabCell cell : cells) {
+            if (cell.catIdx != -2) continue;
+            rect.set(cell.l, cell.t, cell.r, cell.b);
+            rect2.set(rect.left, rect.top + 1f * d, rect.right, rect.bottom + 1f * d);
+            fillRound(c, rect2, cardRadius, letterShadow);
+            fillRound(c, rect, cardRadius, bgNormal);
+        }
+
+        // 分类选中块
+        TabCell catCard = cells.get(0);
+        float[] centers = {47, 123, 199, 275};
+        for (int i = 0; i < 4; i++) {
+            float cy = catCard.t + centers[i] * fsTab;
+            if (i == tabCat) {
+                rect.set(catCard.l + 15 * fsTab, cy - 32 * fsTab,
+                        catCard.l + catW - 14 * fsTab, cy + 32 * fsTab);
+                fillRound(c, rect, 5 * fsTab, bgTabSel);
+            }
+            textPaint.setTextSize(24 * fsTab);
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            textPaint.setColor(i == tabCat && darkMode ? Color.WHITE : fg);
+            Paint.FontMetrics cfm = textPaint.getFontMetrics();
+            String name = NORMAL_SYM_CAT_NAMES[Math.min(i, NORMAL_SYM_CAT_NAMES.length - 1)];
+            c.drawText(name, (catCard.l + catCard.r) / 2f,
+                    cy - (cfm.ascent + cfm.descent) / 2f, textPaint);
+        }
+
+        // 其余单元（符号 / 空格 / 运算符 / 数字 / 删除 / 回车）
+        for (int idx = 0; idx < cells.size(); idx++) {
+            TabCell cell = cells.get(idx);
+            if (cell.catIdx == -2) continue;
+            boolean pressed = pressedRow == ROW_TABNUM && pressedCol == idx;
+            if (cell.style != 0) {
+                rect.set(cell.l, cell.t, cell.r, cell.b);
+                boolean op = cell.style == STYLE_SPECIAL;
+                Paint bg = cell.style == STYLE_ACCENT ? bgAccent : op ? bgSpecial : bgNormal;
+                if (!pressed) {
+                    rect2.set(rect.left, rect.top + 1f * d, rect.right, rect.bottom + 1f * d);
+                    fillRound(c, rect2, keyRadius, cell.style == STYLE_ACCENT ? shadowAccent : letterShadow);
+                }
+                fillRound(c, rect, keyRadius, pressed ? bgPressed : bg);
+            }
+            float cx = (cell.l + cell.r) / 2f, cy = (cell.t + cell.b) / 2f;
+            if (cell.glyph == 1) {
+                drawBitmapIcon(c, backspaceIcon, cx, cy, 26 * fsTab, 16 * fsTab, fg);
+                continue;
+            }
+            if (cell.glyph == 2) {
+                drawBitmapIcon(c, enterIcon, cx, cy, 30 * fsTab, 21 * fsTab, Color.WHITE);
+                continue;
+            }
+            textPaint.setTextSize(24 * fsTab);
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            textPaint.setColor(cell.style == STYLE_ACCENT ? Color.WHITE : fg);
+            Paint.FontMetrics fm = textPaint.getFontMetrics();
+            c.drawText(cell.label, cx, cy - (fm.ascent + fm.descent) / 2f, textPaint);
+        }
+        textPaint.setTextAlign(Paint.Align.LEFT);
+    }
+
+    /** 合并页命中：返回 {ROW_TABNUM, 单元下标}。 */
+    private int[] tabNumHit(float x, float y) {
+        List<TabCell> cells = tabNumCells();
+        for (int i = cells.size() - 1; i >= 0; i--) {
+            TabCell cell = cells.get(i);
+            if (cell.catIdx == -2) continue;
+            if (x >= cell.l && x <= cell.r && y >= cell.t && y <= cell.b) {
+                return new int[]{ROW_TABNUM, i};
+            }
+        }
+        // 分类卡命中区域：分成 4 行判断
+        TabCell catCard = cells.get(0);
+        if (x >= catCard.l && x <= catCard.r && y >= catCard.t && y <= catCard.b) {
+            float[] centers = {47, 123, 199, 275};
+            for (int i = 0; i < 4; i++) {
+                float cy = catCard.t + centers[i] * fsTab;
+                if (Math.abs(y - cy) <= 38 * fsTab) {
+                    return new int[]{ROW_TABNUM, -(i + 1)};   // 负下标 = 分类项
+                }
+            }
+        }
+        return null;
+    }
+
+    /** 合并页单元点击：分类只切换，其余按动作 / 字符送出。 */
+    private void fireTabCell(int idx) {
+        if (idx < 0) {
+            tabCat = Math.max(0, Math.min(3, -idx - 1));
+            invalidate();
+            return;
+        }
+        List<TabCell> cells = tabNumCells();
+        if (idx >= cells.size()) return;
+        TabCell cell = cells.get(idx);
+        if (cell.action != 0) fireAction(cell.action);
+        else if (cell.label != null && !cell.label.isEmpty()) listener.onChar(cell.label);
     }
 
     /** 模式浮层：底部芯片①上方 170 宽，逐行列出当前可选项，当前项蓝字 + ✓。 */
@@ -2934,6 +3419,7 @@ public class ChemKeyboardView extends View {
      */
     private int[] hitKey(float x, float y) {
         int w = getWidth();
+        if (page == PAGE_TAB_NUM) return tabNumHit(x, y);
         if (page == PAGE_SYMBOL) {
             String[] names = currentCatNames();
             float cardTop = rowTop(0);
@@ -3359,6 +3845,15 @@ public class ChemKeyboardView extends View {
             }
             return;
         }
+        if (pressedRow == ROW_TABNUM) {
+            // 平板合并页：松手位置仍在同一单元才算点中（分类项用负下标区分）
+            int[] hit = hitKey(x, y);
+            int idx = (hit != null && hit[0] == ROW_TABNUM) ? hit[1] : Integer.MIN_VALUE;
+            pressedRow = -1;
+            invalidate();
+            if (idx != Integer.MIN_VALUE) fireTabCell(idx);
+            return;
+        }
         if (pressedRow == ROW_RAIL) {
             // 九键左栏卡：松手位置仍在同一项才算点中
             int[] hit = hitKey(x, y);
@@ -3450,7 +3945,8 @@ public class ChemKeyboardView extends View {
                 openModePopup();
                 return;
             case ACT_NUM:
-                setPage(PAGE_NUMBER);
+                // 平板（≥600dp）普通输入改用「数字 + 符号」合并页
+                setPage(tablet && mode == MODE_NORMAL ? PAGE_TAB_NUM : PAGE_NUMBER);
                 return;
             case ACT_SYMBOL:
                 setPage(PAGE_SYMBOL);

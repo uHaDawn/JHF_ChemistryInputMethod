@@ -5,6 +5,7 @@ source/keystore/
 *.keystore
 
 # ===== 仅保留在本地，不入公开仓库 =====
+/bug-tracker.xlsx
 /tests/
 /delivery/
 /.tmp/
@@ -41,6 +42,11 @@ __pycache__/
 *.apk
 *.apk.idsig
 boost-*.tar.xz
+
+# ===== iOS（xtool 构建产物）=====
+/ios/.build/
+/ios/xtool/
+/ios/*.ipa
 
 # 根目录调试截图 / UI dump
 /.tmp_*.png
